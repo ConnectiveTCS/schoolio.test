@@ -238,24 +238,46 @@ class SupportController extends Controller
 
         $tenantId = tenant('id');
 
+        // Helper closure to resolve actual physical path (handles tenancy storage_path override)
+        $resolvePath = function (string $relative) use ($tenantId) {
+            $paths = [];
+            $storageRoot = str_replace('\\', '/', storage_path());
+            $tenantSegment = "tenant{$tenantId}";
+
+            // If storage_path already points inside tenant segment (stancl/tenancy overrides this), don't duplicate it
+            if (preg_match('#/' . preg_quote($tenantSegment, '#') . '$#', $storageRoot)) {
+                $paths[] = $storageRoot . '/app/public/' . $relative; // storage/tenantX/app/public/...
+            } else {
+                $paths[] = $storageRoot . '/' . $tenantSegment . '/app/public/' . $relative; // storage/tenantX/app/public/...
+            }
+
+            // Fallback: central storage public (in case it was stored centrally)
+            $paths[] = storage_path('app/public/' . $relative);
+
+            // Additional fallback: if relative accidentally already contains tenant_ prefix path exactly as stored
+            $paths[] = $storageRoot . '/app/public/' . $relative; // storage/app/public/tenant_1/...
+
+            foreach ($paths as $candidate) {
+                if (file_exists($candidate)) {
+                    return [$candidate, $paths];
+                }
+            }
+            return [null, $paths];
+        };
+
         // Check in ticket attachments first
         if ($ticket->attachments) {
             foreach ($ticket->attachments as $attachment) {
-                if ($attachment['filename'] === $filename) {
-                    // Use direct tenant path that we know works
-                    $path = storage_path("tenant{$tenantId}/app/public/" . $attachment['path']);
-
-                    Log::info('Found attachment in ticket - DIRECT PATH', [
+                if (($attachment['filename'] ?? null) === $filename) {
+                    [$resolved, $checked] = $resolvePath($attachment['path']);
+                    Log::info('Attachment lookup (tenant ticket)', [
                         'tenant_id' => $tenantId,
-                        'attachment_path' => $attachment['path'],
-                        'full_path' => $path,
-                        'exists' => file_exists($path)
+                        'relative' => $attachment['path'],
+                        'checked_paths' => $checked,
+                        'found' => (bool) $resolved
                     ]);
-
-                    if (file_exists($path)) {
-                        return response()->download($path, $attachment['original_name']);
-                    } else {
-                        Log::warning('Ticket attachment file missing', ['path' => $path]);
+                    if ($resolved) {
+                        return response()->download($resolved, $attachment['original_name']);
                     }
                 }
             }
@@ -266,22 +288,17 @@ class SupportController extends Controller
         foreach ($replies as $reply) {
             if ($reply->attachments) {
                 foreach ($reply->attachments as $attachment) {
-                    if ($attachment['filename'] === $filename) {
-                        // Use direct tenant path that we know works
-                        $path = storage_path("tenant{$tenantId}/app/public/" . $attachment['path']);
-
-                        Log::info('Found attachment in reply - DIRECT PATH', [
+                    if (($attachment['filename'] ?? null) === $filename) {
+                        [$resolved, $checked] = $resolvePath($attachment['path']);
+                        Log::info('Attachment lookup (tenant reply)', [
                             'reply_id' => $reply->id,
                             'tenant_id' => $tenantId,
-                            'attachment_path' => $attachment['path'],
-                            'full_path' => $path,
-                            'exists' => file_exists($path)
+                            'relative' => $attachment['path'],
+                            'checked_paths' => $checked,
+                            'found' => (bool) $resolved
                         ]);
-
-                        if (file_exists($path)) {
-                            return response()->download($path, $attachment['original_name']);
-                        } else {
-                            Log::warning('Reply attachment file missing', ['path' => $path]);
+                        if ($resolved) {
+                            return response()->download($resolved, $attachment['original_name']);
                         }
                     }
                 }

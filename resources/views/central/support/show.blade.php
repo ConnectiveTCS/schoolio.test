@@ -53,6 +53,20 @@
                                         <span
                                             class="text-xs text-gray-500">({{ number_format($attachment['size'] / 1024, 1) }}
                                             KB)</span>
+                                        @php
+                                            $orig = strtolower($attachment['original_name']);
+                                            $isImage = preg_match('/\.(jpg|jpeg|png|gif)$/i', $orig);
+                                            $isPdf = preg_match('/\.(pdf)$/i', $orig);
+                                        @endphp
+                                        @if ($isImage || $isPdf)
+                                            <button type="button"
+                                                class="preview-attachment text-xs text-indigo-600 hover:text-indigo-800"
+                                                data-type="{{ $isImage ? 'image' : 'pdf' }}"
+                                                data-src="{{ route('central.support.download', [$ticket, $attachment['filename']]) }}"
+                                                data-name="{{ $attachment['original_name'] }}">
+                                                Preview
+                                            </button>
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>
@@ -122,6 +136,23 @@
                                                             <span
                                                                 class="text-gray-500">({{ number_format($attachment['size'] / 1024, 1) }}
                                                                 KB)</span>
+                                                            @php
+                                                                $orig = strtolower($attachment['original_name']);
+                                                                $isImage = preg_match(
+                                                                    '/\.(jpg|jpeg|png|gif)$/i',
+                                                                    $orig,
+                                                                );
+                                                                $isPdf = preg_match('/\.(pdf)$/i', $orig);
+                                                            @endphp
+                                                            @if ($isImage || $isPdf)
+                                                                <button type="button"
+                                                                    class="preview-attachment text-indigo-600 hover:text-indigo-800"
+                                                                    data-type="{{ $isImage ? 'image' : 'pdf' }}"
+                                                                    data-src="{{ route('central.support.download', [$ticket, $attachment['filename']]) }}"
+                                                                    data-name="{{ $attachment['original_name'] }}">
+                                                                    Preview
+                                                                </button>
+                                                            @endif
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -279,4 +310,81 @@
             </div>
         </div>
     </div>
+    <!-- Attachment Preview Modal -->
+    <div id="attachmentPreviewModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div class="absolute inset-0 bg-black/50" data-preview-close></div>
+        <div class="relative max-h-[90vh] w-11/12 max-w-3xl overflow-hidden rounded-lg bg-white shadow-xl">
+            <div class="flex items-center justify-between border-b px-4 py-2">
+                <h3 id="previewTitle" class="text-sm font-semibold text-gray-800">Attachment Preview</h3>
+                <button class="text-gray-500 hover:text-gray-700" data-preview-close>&times;</button>
+            </div>
+            <div class="preview-body relative max-h-[80vh] overflow-auto bg-gray-50">
+                <div id="previewImageWrapper" class="hidden">
+                    <img id="previewImage" src="" alt="Preview" class="mx-auto block max-h-[78vh] w-auto">
+                </div>
+                <div id="previewPdfWrapper" class="hidden h-[78vh]">
+                    <iframe id="previewPdf" src="" class="h-full w-full" frameborder="0"></iframe>
+                </div>
+                <div id="previewUnsupported" class="hidden p-6 text-center text-sm text-gray-600">
+                    Preview not available. Please download the file to view it.
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 border-t px-4 py-2">
+                <a id="downloadOriginal" href="#"
+                    class="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700" target="_blank"
+                    rel="noopener">Download</a>
+                <button class="rounded bg-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-300"
+                    data-preview-close>Close</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('attachmentPreviewModal');
+            if (!modal) return;
+            const imgWrapper = document.getElementById('previewImageWrapper');
+            const pdfWrapper = document.getElementById('previewPdfWrapper');
+            const unsupported = document.getElementById('previewUnsupported');
+            const imgEl = document.getElementById('previewImage');
+            const pdfEl = document.getElementById('previewPdf');
+            const titleEl = document.getElementById('previewTitle');
+            const downloadBtn = document.getElementById('downloadOriginal');
+
+            function openModal(type, src, name) {
+                imgWrapper.classList.add('hidden');
+                pdfWrapper.classList.add('hidden');
+                unsupported.classList.add('hidden');
+                if (type === 'image') {
+                    imgEl.src = src;
+                    imgWrapper.classList.remove('hidden');
+                } else if (type === 'pdf') {
+                    pdfEl.src = src + '#toolbar=0';
+                    pdfWrapper.classList.remove('hidden');
+                } else {
+                    unsupported.classList.remove('hidden');
+                }
+                titleEl.textContent = name;
+                downloadBtn.href = src;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            function closeModal() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                imgEl.src = '';
+                pdfEl.src = '';
+            }
+            modal.querySelectorAll('[data-preview-close]').forEach(btn => btn.addEventListener('click',
+            closeModal));
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeModal();
+            });
+            document.querySelectorAll('.preview-attachment').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    openModal(btn.dataset.type, btn.dataset.src, btn.dataset.name);
+                });
+            });
+        });
+    </script>
 @endsection
