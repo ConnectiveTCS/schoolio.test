@@ -1,0 +1,9 @@
+<!-- Debug URL Generation -->
+<div style="background: yellow; padding: 10px; margin: 10px; font-family: monospace;">
+    <strong>Debug Info:</strong><br>
+    Current Domain: {{ request()->getHost() }}<br>
+    Current URL: {{ request()->url() }}<br>
+    Route URL: {{ route('central.login.store') }}<br>
+    URL helper: {{ url('/central/login') }}<br>
+    APP_URL: {{ config('app.url') }}<br>
+</div>

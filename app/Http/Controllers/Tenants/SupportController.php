@@ -1,0 +1,319 @@
+<?php
+
+namespace App\Http\Controllers\Tenants;
+
+use App\Http\Controllers\Controller;
+use App\Models\TenantSupportTicket;
+use App\Models\SupportTicket;
+use App\Models\SupportTicketReply;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
+class SupportController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = TenantSupportTicket::with('createdBy');
+
+        // Filter by status
+        if ($request->filled('status')) {
+            $query->byStatus($request->status);
+        }
+
+        // Filter by priority
+        if ($request->filled('priority')) {
+            $query->byPriority($request->priority);
+        }
+
+        // Filter by category
+        if ($request->filled('category')) {
+            $query->byCategory($request->category);
+        }
+
+        // Only show tickets created by the current user if they're not an admin
+        $user = Auth::user();
+        if (!$user->hasRole(['admin', 'super-admin'])) {
+            $query->where('created_by_user_id', $user->id);
+        }
+
+        $tickets = $query->orderBy('created_at', 'desc')->paginate(15);
+
+        return view('tenants.support.index', compact('tickets'));
+    }
+
+    public function create()
+    {
+        return view('tenants.support.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'priority' => 'required|in:low,medium,high,critical',
+            'category' => 'required|in:technical,billing,feature_request,general',
+            'attachments' => 'nullable|array|max:5',
+            'attachments.*' => 'nullable|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,jpg,jpeg,png,gif,zip,rar',
+        ]);
+
+        $user = Auth::user();
+        $tenant = tenant();
+
+        // Generate unique ticket number
+        $ticketNumber = 'TKT-' . strtoupper(uniqid());
+
+        // Handle file uploads
+        $attachments = [];
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                try {
+                    $originalName = $file->getClientOriginalName();
+                    $filename = time() . '_' . uniqid() . '_' . $originalName;
+                    $tenantId = tenant('id');
+
+                    // Ensure the directory exists
+                    $directory = "tenant_{$tenantId}/support_tickets";
+                    if (!Storage::disk('public')->exists($directory)) {
+                        Storage::disk('public')->makeDirectory($directory);
+                    }
+
+                    $path = $file->storeAs($directory, $filename, 'public');
+
+                    if ($path) {
+                        $attachments[] = [
+                            'original_name' => $originalName,
+                            'filename' => $filename,
+                            'path' => $path,
+                            'size' => $file->getSize(),
+                            'mime_type' => $file->getMimeType(),
+                        ];
+                    } else {
+                        Log::error('Failed to store attachment', ['filename' => $filename]);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Error uploading attachment', ['error' => $e->getMessage(), 'filename' => $originalName]);
+                    return back()->with('error', 'Failed to upload attachment: ' . $originalName);
+                }
+            }
+        }
+
+        // First create the central ticket
+        $centralTicket = $this->createCentralTicket([
+            'ticket_number' => $ticketNumber,
+            'tenant_id' => $tenant->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'priority' => $request->priority,
+            'category' => $request->category,
+            'attachments' => $attachments,
+            'tenant_user_details' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->getRoleNames()->first(),
+            ],
+        ]);
+
+        if ($centralTicket) {
+            // Create tenant-side reference
+            $tenantTicket = TenantSupportTicket::create([
+                'ticket_number' => $ticketNumber,
+                'central_ticket_id' => $centralTicket['id'],
+                'title' => $request->title,
+                'description' => $request->description,
+                'priority' => $request->priority,
+                'category' => $request->category,
+                'status' => 'open',
+                'attachments' => $attachments,
+                'created_by_user_id' => $user->id,
+            ]);
+
+            return redirect()->route('tenant.support.show', $tenantTicket)
+                ->with('success', 'Support ticket created successfully.');
+        }
+
+        return back()->with('error', 'Failed to create support ticket. Please try again.');
+    }
+
+    public function show(TenantSupportTicket $ticket)
+    {
+        // Get replies from central system
+        $replies = $this->getCentralTicketReplies($ticket->central_ticket_id);
+
+        return view('tenants.support.show', compact('ticket', 'replies'));
+    }
+
+    public function reply(Request $request, TenantSupportTicket $ticket)
+    {
+        $request->validate([
+            'message' => 'required|string',
+            'attachments' => 'nullable|array|max:5',
+            'attachments.*' => 'nullable|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,jpg,jpeg,png,gif,zip,rar',
+        ]);
+
+        $user = Auth::user();
+
+        // Handle file uploads
+        $attachments = [];
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                try {
+                    $originalName = $file->getClientOriginalName();
+                    $filename = time() . '_' . uniqid() . '_' . $originalName;
+                    $tenantId = tenant('id');
+
+                    // Ensure the directory exists
+                    $directory = "tenant_{$tenantId}/support_tickets";
+                    if (!Storage::disk('public')->exists($directory)) {
+                        Storage::disk('public')->makeDirectory($directory);
+                    }
+
+                    $path = $file->storeAs($directory, $filename, 'public');
+
+                    if ($path) {
+                        $attachments[] = [
+                            'original_name' => $originalName,
+                            'filename' => $filename,
+                            'path' => $path,
+                            'size' => $file->getSize(),
+                            'mime_type' => $file->getMimeType(),
+                        ];
+                    } else {
+                        Log::error('Failed to store reply attachment', ['filename' => $filename]);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Error uploading reply attachment', ['error' => $e->getMessage(), 'filename' => $originalName]);
+                    return back()->with('error', 'Failed to upload attachment: ' . $originalName);
+                }
+            }
+        }
+
+        // Add reply to central system
+        $replyAdded = $this->addCentralTicketReply($ticket->central_ticket_id, [
+            'message' => $request->message,
+            'attachments' => $attachments,
+            'sender_type' => 'tenant_user',
+            'sender_details' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->getRoleNames()->first(),
+                'tenant_id' => tenant()->id,
+                'tenant_name' => tenant()->name,
+            ],
+        ]);
+
+        if ($replyAdded) {
+            return redirect()->back()->with('success', 'Reply added successfully.');
+        }
+
+        return back()->with('error', 'Failed to add reply. Please try again.');
+    }
+
+    public function downloadAttachment(TenantSupportTicket $ticket, $filename)
+    {
+        // URL decode the filename in case it contains special characters
+        $filename = urldecode($filename);
+
+        // Check if user has access to this ticket
+        $user = Auth::user();
+        if (!$user->hasRole(['admin', 'super-admin']) && $ticket->created_by_user_id !== $user->id) {
+            abort(403, 'Unauthorized access to ticket attachment.');
+        }
+
+        // Check in ticket attachments first
+        if ($ticket->attachments) {
+            foreach ($ticket->attachments as $attachment) {
+                if ($attachment['filename'] === $filename) {
+                    $path = storage_path('app/public/' . $attachment['path']);
+                    if (file_exists($path)) {
+                        return response()->download($path, $attachment['original_name']);
+                    }
+                }
+            }
+        }
+
+        // Check in replies from central system
+        $replies = $this->getCentralTicketReplies($ticket->central_ticket_id);
+        foreach ($replies as $reply) {
+            if ($reply->attachments) {
+                foreach ($reply->attachments as $attachment) {
+                    if ($attachment['filename'] === $filename) {
+                        $path = storage_path('app/public/' . $attachment['path']);
+                        if (file_exists($path)) {
+                            return response()->download($path, $attachment['original_name']);
+                        }
+                    }
+                }
+            }
+        }
+
+        abort(404, 'Attachment not found.');
+    }
+
+    protected function createCentralTicket($data)
+    {
+        try {
+            // Switch to central database context
+            $originalConfig = config('database.default');
+            config(['database.default' => 'sqlite']);
+
+            $ticket = SupportTicket::create($data);
+
+            // Restore tenant database context
+            config(['database.default' => $originalConfig]);
+
+            return $ticket->toArray();
+        } catch (\Exception $e) {
+            Log::error('Failed to create central ticket: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    protected function getCentralTicketReplies($centralTicketId)
+    {
+        try {
+            // Switch to central database context
+            $originalConfig = config('database.default');
+            config(['database.default' => 'sqlite']);
+
+            $replies = SupportTicketReply::where('support_ticket_id', $centralTicketId)
+                ->where('is_internal', false)
+                ->orderBy('created_at', 'asc')
+                ->get();
+
+            // Restore tenant database context
+            config(['database.default' => $originalConfig]);
+
+            return $replies;
+        } catch (\Exception $e) {
+            Log::error('Failed to get central ticket replies: ' . $e->getMessage());
+            return collect();
+        }
+    }
+
+    protected function addCentralTicketReply($centralTicketId, $data)
+    {
+        try {
+            // Switch to central database context
+            $originalConfig = config('database.default');
+            config(['database.default' => 'sqlite']);
+
+            $data['support_ticket_id'] = $centralTicketId;
+            $reply = SupportTicketReply::create($data);
+
+            // Restore tenant database context
+            config(['database.default' => $originalConfig]);
+
+            return true;
+        } catch (\Exception $e) {
+            Log::error('Failed to add central ticket reply: ' . $e->getMessage());
+            return false;
+        }
+    }
+}

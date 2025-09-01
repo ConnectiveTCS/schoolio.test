@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom sidebar styles */
+@layer components {
+    .sidebar-nav-item {
+        @apply flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-150;
+    }
+
+    .sidebar-nav-item-active {
+        @apply bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-100;
+    }
+
+    .sidebar-nav-item-inactive {
+        @apply text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700;
+    }
+
+    .sidebar-submenu-item {
+        @apply block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150;
+    }
+}
+
+/* Smooth animations for sidebar */
+.sidebar-transition {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.5);
+    border-radius: 2px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.7);
+}
