@@ -145,7 +145,10 @@ class SupportController extends Controller
         // Get replies from central system
         $replies = $this->getCentralTicketReplies($ticket->central_ticket_id);
 
-        return view('tenants.support.show', compact('ticket', 'replies'));
+        // Get central ticket information including assigned admin
+        $centralTicket = $this->getCentralTicket($ticket->central_ticket_id);
+
+        return view('tenants.support.show', compact('ticket', 'replies', 'centralTicket'));
     }
 
     public function reply(Request $request, TenantSupportTicket $ticket)
@@ -220,19 +223,39 @@ class SupportController extends Controller
         // URL decode the filename in case it contains special characters
         $filename = urldecode($filename);
 
+        Log::info('Download request', [
+            'ticket_id' => $ticket->id,
+            'filename' => $filename,
+            'ticket_attachments_count' => count($ticket->attachments ?? []),
+            'replies_count' => $this->getCentralTicketReplies($ticket->central_ticket_id)->count()
+        ]);
+
         // Check if user has access to this ticket
         $user = Auth::user();
         if (!$user->hasRole(['admin', 'super-admin']) && $ticket->created_by_user_id !== $user->id) {
             abort(403, 'Unauthorized access to ticket attachment.');
         }
 
+        $tenantId = tenant('id');
+
         // Check in ticket attachments first
         if ($ticket->attachments) {
             foreach ($ticket->attachments as $attachment) {
                 if ($attachment['filename'] === $filename) {
-                    $path = storage_path('app/public/' . $attachment['path']);
+                    // Use direct tenant path that we know works
+                    $path = storage_path("tenant{$tenantId}/app/public/" . $attachment['path']);
+
+                    Log::info('Found attachment in ticket - DIRECT PATH', [
+                        'tenant_id' => $tenantId,
+                        'attachment_path' => $attachment['path'],
+                        'full_path' => $path,
+                        'exists' => file_exists($path)
+                    ]);
+
                     if (file_exists($path)) {
                         return response()->download($path, $attachment['original_name']);
+                    } else {
+                        Log::warning('Ticket attachment file missing', ['path' => $path]);
                     }
                 }
             }
@@ -244,14 +267,31 @@ class SupportController extends Controller
             if ($reply->attachments) {
                 foreach ($reply->attachments as $attachment) {
                     if ($attachment['filename'] === $filename) {
-                        $path = storage_path('app/public/' . $attachment['path']);
+                        // Use direct tenant path that we know works
+                        $path = storage_path("tenant{$tenantId}/app/public/" . $attachment['path']);
+
+                        Log::info('Found attachment in reply - DIRECT PATH', [
+                            'reply_id' => $reply->id,
+                            'tenant_id' => $tenantId,
+                            'attachment_path' => $attachment['path'],
+                            'full_path' => $path,
+                            'exists' => file_exists($path)
+                        ]);
+
                         if (file_exists($path)) {
                             return response()->download($path, $attachment['original_name']);
+                        } else {
+                            Log::warning('Reply attachment file missing', ['path' => $path]);
                         }
                     }
                 }
             }
         }
+
+        Log::warning('Attachment not found', [
+            'ticket_id' => $ticket->id,
+            'filename' => $filename
+        ]);
 
         abort(404, 'Attachment not found.');
     }
@@ -259,9 +299,9 @@ class SupportController extends Controller
     protected function createCentralTicket($data)
     {
         try {
-            // Switch to central database context
+            // Switch to central database context (MySQL)
             $originalConfig = config('database.default');
-            config(['database.default' => 'sqlite']);
+            config(['database.default' => 'mysql']);
 
             $ticket = SupportTicket::create($data);
 
@@ -275,12 +315,31 @@ class SupportController extends Controller
         }
     }
 
+    protected function getCentralTicket($centralTicketId)
+    {
+        try {
+            // Switch to central database context (MySQL)
+            $originalConfig = config('database.default');
+            config(['database.default' => 'mysql']);
+
+            $ticket = SupportTicket::with('assignedAdmin')->find($centralTicketId);
+
+            // Restore tenant database context
+            config(['database.default' => $originalConfig]);
+
+            return $ticket;
+        } catch (\Exception $e) {
+            Log::error('Failed to get central ticket: ' . $e->getMessage());
+            return null;
+        }
+    }
+
     protected function getCentralTicketReplies($centralTicketId)
     {
         try {
-            // Switch to central database context
+            // Switch to central database context (MySQL)
             $originalConfig = config('database.default');
-            config(['database.default' => 'sqlite']);
+            config(['database.default' => 'mysql']);
 
             $replies = SupportTicketReply::where('support_ticket_id', $centralTicketId)
                 ->where('is_internal', false)
@@ -300,9 +359,9 @@ class SupportController extends Controller
     protected function addCentralTicketReply($centralTicketId, $data)
     {
         try {
-            // Switch to central database context
+            // Switch to central database context (MySQL)
             $originalConfig = config('database.default');
-            config(['database.default' => 'sqlite']);
+            config(['database.default' => 'mysql']);
 
             $data['support_ticket_id'] = $centralTicketId;
             $reply = SupportTicketReply::create($data);

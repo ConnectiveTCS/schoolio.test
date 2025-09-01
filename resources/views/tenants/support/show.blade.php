@@ -255,6 +255,15 @@
                                         <dd class="text-sm text-gray-900 dark:text-white">
                                             {{ ucfirst($ticket->priority) }}</dd>
                                     </div>
+                                    @if ($centralTicket && $centralTicket->assignedAdmin)
+                                        <div>
+                                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Assigned
+                                                to</dt>
+                                            <dd class="text-sm text-gray-900 dark:text-white">
+                                                {{ $centralTicket->assignedAdmin->name }}
+                                            </dd>
+                                        </div>
+                                    @endif
                                     <div>
                                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created by
                                         </dt>
@@ -282,17 +291,43 @@
                                 class="rounded-lg border border-blue-200 bg-blue-50 p-6 dark:border-blue-600 dark:bg-blue-900/30">
                                 <h3 class="mb-2 text-lg font-semibold text-blue-900 dark:text-blue-200">What's Next?
                                 </h3>
+
+                                @if ($centralTicket && $centralTicket->assignedAdmin)
+                                    <div class="mb-3 rounded-md bg-white/50 p-3 dark:bg-gray-800/50">
+                                        <p class="text-sm font-medium text-blue-900 dark:text-blue-200">Assigned to:
+                                        </p>
+                                        <p class="text-sm text-blue-800 dark:text-blue-300">
+                                            {{ $centralTicket->assignedAdmin->name }}
+                                        </p>
+                                        @if ($centralTicket->assignedAdmin->email)
+                                            <p class="text-xs text-blue-700 dark:text-blue-400">
+                                                {{ $centralTicket->assignedAdmin->email }}
+                                            </p>
+                                        @endif
+                                    </div>
+                                @endif
+
                                 @switch($ticket->status)
                                     @case('open')
-                                        <p class="text-sm text-blue-800 dark:text-blue-300">Your ticket has been submitted and
-                                            is waiting to be
-                                            assigned to a support agent.</p>
+                                        <p class="text-sm text-blue-800 dark:text-blue-300">
+                                            @if ($centralTicket && $centralTicket->assignedAdmin)
+                                                Your ticket has been assigned to {{ $centralTicket->assignedAdmin->name }} and
+                                                they will respond soon.
+                                            @else
+                                                Your ticket has been submitted and is waiting to be assigned to a support agent.
+                                            @endif
+                                        </p>
                                     @break
 
                                     @case('in_progress')
-                                        <p class="text-sm text-blue-800 dark:text-blue-300">Our support team is actively
-                                            working on your request.
-                                            You'll receive updates as we progress.</p>
+                                        <p class="text-sm text-blue-800 dark:text-blue-300">
+                                            @if ($centralTicket && $centralTicket->assignedAdmin)
+                                                {{ $centralTicket->assignedAdmin->name }} is actively working on your request.
+                                            @else
+                                                Our support team is actively working on your request.
+                                            @endif
+                                            You'll receive updates as we progress.
+                                        </p>
                                     @break
 
                                     @case('resolved')
@@ -312,9 +347,7 @@
                                             progress of your support
                                             request.</p>
                                 @endswitch
-                            </div>
-
-                            <!-- Actions -->
+                            </div> <!-- Actions -->
                             <div
                                 class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-600 dark:bg-gray-800">
                                 <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Actions</h3>

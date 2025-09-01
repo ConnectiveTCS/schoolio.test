@@ -237,38 +237,62 @@ class SupportController extends Controller
         // URL decode the filename in case it contains special characters
         $filename = urldecode($filename);
 
-        Log::info('Download request', [
+        Log::info('Download request (central)', [
             'ticket_id' => $ticket->id,
             'filename' => $filename,
             'ticket_attachments_count' => count($ticket->attachments ?? []),
             'replies_count' => $ticket->replies->count()
         ]);
 
-        // Check in ticket attachments first
+        $tenantId = $ticket->tenant_id; // needed to derive tenant storage path
+
+        $resolvePath = function (string $relative, ?int $tenantId) {
+            // Possible locations (ordered)
+            $paths = [];
+            if ($tenantId) {
+                $paths[] = storage_path("tenant{$tenantId}/app/public/" . $relative); // tenant scoped (stancl/tenancy)
+            }
+            $paths[] = storage_path('app/public/' . $relative); // central fallback
+            foreach ($paths as $p) {
+                if (file_exists($p)) {
+                    return [$p, $paths];
+                }
+            }
+            return [null, $paths];
+        };
+
+        // Ticket level attachments
         if ($ticket->attachments) {
             foreach ($ticket->attachments as $attachment) {
-                if ($attachment['filename'] === $filename) {
-                    $path = storage_path('app/public/' . $attachment['path']);
-                    Log::info('Found attachment in ticket', ['path' => $path, 'exists' => file_exists($path)]);
-                    if (file_exists($path)) {
-                        return response()->download($path, $attachment['original_name']);
+                if (($attachment['filename'] ?? null) === $filename) {
+                    [$foundPath, $checked] = $resolvePath($attachment['path'], $tenantId);
+                    Log::info('Attachment lookup (ticket)', [
+                        'relative' => $attachment['path'],
+                        'checked_paths' => $checked,
+                        'found' => $foundPath !== null
+                    ]);
+                    if ($foundPath) {
+                        return response()->download($foundPath, $attachment['original_name']);
                     }
-                    Log::warning('Attachment file missing', ['path' => $path]);
                 }
             }
         }
 
-        // Check in replies
+        // Reply attachments
         foreach ($ticket->replies as $reply) {
             if ($reply->attachments) {
                 foreach ($reply->attachments as $attachment) {
-                    if ($attachment['filename'] === $filename) {
-                        $path = storage_path('app/public/' . $attachment['path']);
-                        Log::info('Found attachment in reply', ['reply_id' => $reply->id, 'path' => $path, 'exists' => file_exists($path)]);
-                        if (file_exists($path)) {
-                            return response()->download($path, $attachment['original_name']);
+                    if (($attachment['filename'] ?? null) === $filename) {
+                        [$foundPath, $checked] = $resolvePath($attachment['path'], $tenantId);
+                        Log::info('Attachment lookup (reply)', [
+                            'reply_id' => $reply->id,
+                            'relative' => $attachment['path'],
+                            'checked_paths' => $checked,
+                            'found' => $foundPath !== null
+                        ]);
+                        if ($foundPath) {
+                            return response()->download($foundPath, $attachment['original_name']);
                         }
-                        Log::warning('Reply attachment file missing', ['path' => $path]);
                     }
                 }
             }
