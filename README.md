@@ -1,61 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+<h1>Schoolio</h1>
+<p><strong>Multi-tenant school management SaaS platform for institutions, staff, students, and parents.</strong></p>
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
+Schoolio is a multi-tenant education management platform. A central operations layer provisions and governs isolated tenant environments (schools) while each tenant manages its own users, classes, announcements, and support tickets. The platform includes a bi-directional support channel between tenants and the central team, secure impersonation for diagnostics, and role-targeted communications.
 
-## About Laravel
+## Key Features
+- Multi-tenancy (isolated DB + storage per tenant using stancl/tenancy v3)
+- Central admin console (tenant lifecycle: create, suspend, activate, delete, impersonate)
+- Secure impersonation (time-limited token based)
+- Role-based access (Spatie roles: tenant_admin, teacher, student, parent, plus central custom permissions)
+- Academic structure (teachers, classes, enrollment, guardians)
+- Student & parent onboarding with automatic credential emails
+- Announcements with role targeting, activation toggles, expiry & attachments
+- Cross-context support tickets (tenant record ↔ central authoritative ticket) with internal notes
+- Attachment management (tenant and central sides with safe path resolution)
+- Dashboard metrics & recent activity feed (extensible)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Architecture
+| Layer | Purpose |
+|-------|---------|
+| Central Plane | Governance, provisioning, support triage, permissions, impersonation |
+| Tenant Plane | Daily operations: users, classes, announcements, tickets |
+| Storage & Cache | Scoped by tenant (filesystem + cache bootstrappers enabled) |
+| Support Sync | Tenant ticket mirrors central ticket; status propagated back |
+| RBAC | Spatie roles inside tenant DB; custom permission arrays for central admins |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Core Models
+- `Tenant` with domains, plan, trial, locale, theming, status
+- `User` plus role-specific related models (`TenantTeacher`, `TenantStudents`, `TenantParents`)
+- `TenantClasses` (teacher -> class -> many students)
+- `Announcement` (role-based visibility, attachments)
+- `SupportTicket` (central) ↔ `TenantSupportTicket` (tenant mirror)
+- `SupportTicketReply` (public & internal streams)
+- `ImpersonationToken` (central-only, 15 min lifetime)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Flows (Condensed)
+1. Central admin creates tenant (domain + trial) → isolated DB provisioned.
+2. Central admin impersonates tenant via ephemeral token.
+3. Tenant admin onboards teacher/student; system assigns roles & emails credentials.
+4. Tenant creates support ticket → central record + tenant mirror.
+5. Central updates status or replies → status sync + visible conversation for tenant.
+6. Announcements filtered by user roles (active + not expired).
 
-## Learning Laravel
+## Technology Stack
+- PHP 8.2, Laravel 12
+- stancl/tenancy v3 (DB, filesystem, cache isolation)
+- spatie/laravel-permission (tenant RBAC)
+- Blade UI icon sets
+- Pest for testing
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Getting Started
+### Prerequisites
+- PHP 8.2+
+- Composer
+- Node.js & npm (for asset pipeline)
+- MySQL (central + tenant DB server)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Installation (Development)
+```powershell
+git clone <repo-url> schoolio
+cd schoolio
+cp .env.example .env  # or copy manually on Windows
+composer install
+php artisan key:generate
+php artisan migrate --seed
+npm install
+npm run dev
+php artisan serve
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Tenancy Notes
+- Central domain defined in `config/tenancy.php` (`schoolio.test`).
+- Each tenant gets: separate DB (prefix tenant), storage path suffix, cache tag.
+- Add a tenant via central panel (once you have a central admin) or seed script.
 
-## Laravel Sponsors
+### Creating a Tenant (CLI Example)
+If you have a custom command (not shown here) you can alternatively create via UI: Central → Tenants → Create.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Impersonation
+Central admin clicks “Impersonate” → token generated (`ImpersonationToken`) → redirected to tenant domain `/impersonate` → validated → session established. Token expires after 15 minutes or single use.
 
-### Premium Partners
+## Project Structure (Highlights)
+```
+app/
+	Models/                # Core domain models
+	Http/Controllers/      # Central vs Tenants namespacing
+config/tenancy.php       # Tenancy bootstrappers & central domains
+routes/web.php           # Central + shared
+routes/tenant.php        # Tenant-only routes (InitializeTenancyByDomain)
+storage/tenant{ID}/...   # Per-tenant filesystem roots (auto-suffixed)
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Environment Variables (Essentials)
+| Key | Purpose |
+|-----|---------|
+| DB_CONNECTION | Central DB connection name |
+| TENANCY_DB_... | (If customizing database managers) |
+| MAIL_... | Outbound onboarding emails |
+
+## Roles & Permissions
+Tenant context: managed via Spatie roles. Central: `central_admins` table stores `role` + `permissions` array (super_admin bypass). Align future features by unifying permission strategy if needed.
+
+## Support Ticketing
+- Tenant ticket creation mirrors to central `support_tickets`.
+- Replies stored centrally; tenant fetches filtered (non-internal) replies.
+- Status updates sync back to tenant mirror.
+
+## Announcements
+- Target roles stored as JSON array.
+- Visibility: active + not expired + role intersection.
+- Attachment metadata captured (name, path, size, mime).
+
+## Testing
+Run test suite:
+```powershell
+php artisan test
+```
+Add Pest tests for: impersonation flow, tenant provisioning, ticket sync, announcement visibility.
+
+## Roadmap (Suggested)
+- Attendance implementation (model placeholder exists)
+- Billing & subscription enforcement
+- Event/audit log persistence (replace synthetic activity feed)
+- External storage (S3) for attachments
+- Unified permission abstraction (central + tenant)
+- Real-time notifications (WebSockets)
+
+## Security
+- Guard separation (`central_admin` vs default auth)
+- Explicit authorization checks (403 aborts) in controllers
+- Time-limited impersonation tokens
+- Sanitized, generated filenames for attachments
 
 ## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Open issues or submit PRs. Add tests for new multi-tenant behaviors. Follow PSR-12 and run `pint` before committing.
 
 ## License
+MIT. See `LICENSE` if present, otherwise the standard Laravel MIT applies.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Disclaimer
+This project builds on Laravel & ecosystem packages. Some operational/billing features are scaffolds only (status fields, plan, payment_method) and require implementation before production use.
+
