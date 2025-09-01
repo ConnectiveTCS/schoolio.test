@@ -233,7 +233,8 @@
                                 <span class="text-gray-500">{{ $ticket->tenant_user_details['email'] ?? '' }}</span>
                                 @if (!empty($ticket->tenant_user_details['role']))
                                     <br>
-                                    <span class="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">{{ ucfirst($ticket->tenant_user_details['role']) }}</span>
+                                    <span
+                                        class="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">{{ ucfirst($ticket->tenant_user_details['role']) }}</span>
                                 @endif
                                 @if (!empty($ticket->tenant_user_details['phone']))
                                     <br>
@@ -246,11 +247,12 @@
                                 @if ($email)
                                     <div class="mt-2 flex flex-wrap gap-2">
                                         <a href="mailto:{{ $email }}?subject=Re:%20Support%20Ticket%20{{ urlencode($ticket->ticket_number) }}"
-                                           class="inline-flex items-center rounded-md border border-blue-200 bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100">
+                                            class="inline-flex items-center rounded-md border border-blue-200 bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100">
                                             Email
                                         </a>
-                                        <a href="?impersonate_user={{ $ticket->tenant_user_details['id'] ?? '' }}" class="inline-flex items-center rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100"
-                                           title="Impersonate this user (if feature enabled)">
+                                        <a href="?impersonate_user={{ $ticket->tenant_user_details['id'] ?? '' }}"
+                                            class="inline-flex items-center rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100"
+                                            title="Impersonate this user (if feature enabled)">
                                             Impersonate
                                         </a>
                                     </div>
@@ -400,7 +402,7 @@
                 pdfEl.src = '';
             }
             modal.querySelectorAll('[data-preview-close]').forEach(btn => btn.addEventListener('click',
-            closeModal));
+                closeModal));
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') closeModal();
             });
