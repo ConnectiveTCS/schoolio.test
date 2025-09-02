@@ -300,7 +300,14 @@
                 <!-- Upcoming Events -->
                 <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Upcoming Events</h3>
+                        <div class="mb-4 flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Upcoming Events</h3>
+                            @can('view calendar events')
+                                <a href="{{ route('tenant.calendar-events.user') }}"
+                                    class="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">View
+                                    All →</a>
+                            @endcan
+                        </div>
                         <div class="space-y-4">
                             @foreach ($dashboardData['upcoming_events'] as $index => $event)
                                 <div

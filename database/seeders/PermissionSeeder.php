@@ -32,6 +32,12 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit announcements']);
         Permission::create(['name' => 'delete announcements']);
         Permission::create(['name' => 'view announcements']);
+        // Calendar Event permissions
+        Permission::create(['name' => 'manage calendar events']);
+        Permission::create(['name' => 'create calendar events']);
+        Permission::create(['name' => 'edit calendar events']);
+        Permission::create(['name' => 'delete calendar events']);
+        Permission::create(['name' => 'view calendar events']);
 
         // Give permissions to roles
         $tenantAdmin = $roles->where('name', 'tenant_admin')->first();
@@ -50,6 +56,11 @@ class PermissionSeeder extends Seeder
             'edit announcements',
             'delete announcements',
             'view announcements',
+            'manage calendar events',
+            'create calendar events',
+            'edit calendar events',
+            'delete calendar events',
+            'view calendar events',
         ]);
 
         // Give teacher announcement permissions
@@ -60,18 +71,21 @@ class PermissionSeeder extends Seeder
                 'create announcements',
                 'edit announcements',
                 'view announcements',
+                'create calendar events',
+                'edit calendar events',
+                'view calendar events',
             ]);
         }
 
         // Give basic view permissions to students and parents
         $student = $roles->where('name', 'student')->first();
         if ($student) {
-            $student->givePermissionTo(['view announcements']);
+            $student->givePermissionTo(['view announcements', 'view calendar events']);
         }
 
         $parent = $roles->where('name', 'parent')->first();
         if ($parent) {
-            $parent->givePermissionTo(['view announcements']);
+            $parent->givePermissionTo(['view announcements', 'view calendar events']);
         }
     }
 }

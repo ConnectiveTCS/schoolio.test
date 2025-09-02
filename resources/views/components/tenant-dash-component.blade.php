@@ -390,6 +390,41 @@
                                     </div>
                                 @endcan
 
+                                <!-- Calendar Events Section -->
+                                @can('view calendar events')
+                                    <div x-data="{ open: false }" class="space-y-1">
+                                        <button @click="open = !open"
+                                            class="sidebar-nav-item sidebar-nav-item-inactive w-full justify-between">
+                                            <div class="flex items-center">
+                                                <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                                Calendar
+                                            </div>
+                                            <svg class="h-4 w-4 transition-transform duration-200"
+                                                :class="{ 'rotate-90': open }" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </button>
+                                        <div x-show="open" x-transition class="ml-6 space-y-1">
+                                            <a href="{{ route('tenant.calendar-events.user') }}"
+                                                class="sidebar-submenu-item">My Calendar</a>
+                                            @can('manage calendar events')
+                                                <a href="{{ route('tenant.calendar-events.index') }}"
+                                                    class="sidebar-submenu-item">Manage Events</a>
+                                            @endcan
+                                            @can('create calendar events')
+                                                <a href="{{ route('tenant.calendar-events.create') }}"
+                                                    class="sidebar-submenu-item">Create Event</a>
+                                            @endcan
+                                        </div>
+                                    </div>
+                                @endcan
+
                                 <!-- Reports -->
                                 <a href="#" class="sidebar-nav-item sidebar-nav-item-inactive">
                                     <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"

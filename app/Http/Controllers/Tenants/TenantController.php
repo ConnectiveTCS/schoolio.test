@@ -340,24 +340,30 @@ class TenantController extends Controller
      */
     private function getUpcomingEvents()
     {
-        // This would typically come from an events model
-        return [
-            [
-                'title' => 'Parent-Teacher Conference',
-                'date' => now()->addDays(7)->format('M d, Y'),
-                'time' => '2:00 PM'
-            ],
-            [
-                'title' => 'Science Fair',
-                'date' => now()->addDays(14)->format('M d, Y'),
-                'time' => '10:00 AM'
-            ],
-            [
-                'title' => 'School Assembly',
-                'date' => now()->addDays(21)->format('M d, Y'),
-                'time' => '9:00 AM'
-            ]
-        ];
+        try {
+            $user = Auth::user();
+            if (!$user) {
+                return [];
+            }
+            $roles = $user->getRoleNames()->toArray();
+            $events = \App\Models\CalendarEvent::published()
+                ->forRoles($roles)
+                ->upcoming()
+                ->limit(3)
+                ->get();
+            if ($events->isEmpty()) {
+                return [];
+            }
+            return $events->map(function ($e) {
+                return [
+                    'title' => $e->title,
+                    'date' => $e->start_at->format('M d, Y'),
+                    'time' => $e->all_day ? null : $e->start_at->format('g:i A'),
+                ];
+            })->toArray();
+        } catch (\Throwable $e) {
+            return [];
+        }
     }
 
     /**

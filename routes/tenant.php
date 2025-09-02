@@ -14,6 +14,7 @@ use App\Http\Controllers\Tenants\TenantClassesController;
 use App\Http\Controllers\Tenants\TenantStudentController;
 use App\Http\Controllers\Tenants\TenantTeacherController;
 use App\Http\Controllers\Tenants\AnnouncementController;
+use App\Http\Controllers\Tenants\CalendarEventController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -94,6 +95,15 @@ Route::middleware([
         ]);
         Route::patch('/announcements/{announcement}/toggle-status', [AnnouncementController::class, 'toggleStatus'])->name('tenant.announcements.toggle-status');
         Route::get('/announcements/{announcement}/download/{filename}', [AnnouncementController::class, 'downloadAttachment'])->name('tenant.announcements.download');
+
+        // Calendar events routes
+        Route::get('/calendar', [CalendarEventController::class, 'userEvents'])->name('tenant.calendar-events.user');
+        Route::resource('calendar-events', CalendarEventController::class, [
+            'as' => 'tenant',
+            'parameters' => ['calendar-events' => 'calendar_event']
+        ]);
+        Route::patch('/calendar-events/{calendar_event}/toggle-status', [CalendarEventController::class, 'togglePublish'])->name('tenant.calendar-events.toggle');
+        Route::get('/calendar-events-feed', [CalendarEventController::class, 'feed'])->name('tenant.calendar-events.feed');
 
         // Support routes
         Route::prefix('support')->name('tenant.support.')->group(function () {

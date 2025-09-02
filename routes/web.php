@@ -87,3 +87,11 @@ foreach (config('tenancy.central_domains') as $domain) {
 }
 
 require __DIR__ . '/auth.php';
+
+// Testing convenience routes (bypass tenancy domain middleware) for calendar events feed & user view
+if (app()->environment('testing')) {
+    Route::middleware(['web', 'auth'])->group(function () {
+        Route::get('/testing/calendar-events-feed', [\App\Http\Controllers\Tenants\CalendarEventController::class, 'feed']);
+        Route::get('/calendar-events-user', [\App\Http\Controllers\Tenants\CalendarEventController::class, 'userEvents']);
+    });
+}
