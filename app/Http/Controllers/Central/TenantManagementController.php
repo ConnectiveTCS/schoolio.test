@@ -353,11 +353,18 @@ class TenantManagementController extends Controller
             // Total users count (reuse existing stats if available later; count directly here for isolation)
             $totalUsers = $connection->table('users')->count();
 
+            // Get all available permissions for assignment UI (Phase 4A)
+            $allPermissions = $connection->table('permissions')
+                ->orderBy('name')
+                ->pluck('name')
+                ->toArray();
+
             $snapshot = [
                 'roles' => $roles,
                 'users' => $users,
                 'total_users' => $totalUsers,
                 'roles_permissions' => $rolesPermissions,
+                'all_permissions' => $allPermissions,
             ];
         } catch (\Throwable $e) {
             $snapshot = [
@@ -408,6 +415,100 @@ class TenantManagementController extends Controller
             return back()->with('error', 'User not found in tenant.');
         } catch (\Throwable $e) {
             return back()->with('error', 'Unable to update role: ' . $e->getMessage());
+        } finally {
+            try {
+                tenancy()->end();
+            } catch (\Throwable $e) {
+            }
+        }
+    }
+
+    /**
+     * Phase 4A: Update role permissions (assign/remove permissions from a role)
+     */
+    public function updateTenantRolePermissions(Request $request, Tenant $tenant, $roleName)
+    {
+        $centralUser = Auth::guard('central_admin')->user();
+        if (!$centralUser->canManageTenants()) {
+            abort(403, 'You do not have permission to modify tenant role permissions.');
+        }
+
+        $request->validate([
+            'permissions' => 'required|array',
+            'permissions.*' => 'string|max:100',
+        ]);
+
+        $permissionNames = $request->input('permissions');
+
+        try {
+            tenancy()->initialize($tenant);
+
+            // Use Eloquent models for role and permission operations
+            $role = \Spatie\Permission\Models\Role::where('name', $roleName)->first();
+            if (!$role) {
+                return back()->with('error', 'Role not found in tenant.');
+            }
+
+            // Validate all permissions exist
+            $validPermissions = \Spatie\Permission\Models\Permission::whereIn('name', $permissionNames)->pluck('name')->toArray();
+            $invalidPermissions = array_diff($permissionNames, $validPermissions);
+            if (!empty($invalidPermissions)) {
+                return back()->with('error', 'Invalid permissions: ' . implode(', ', $invalidPermissions));
+            }
+
+            // Sync permissions to role
+            $role->syncPermissions($permissionNames);
+
+            return back()->with('success', "Permissions updated for role '{$roleName}'.");
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unable to update role permissions: ' . $e->getMessage());
+        } finally {
+            try {
+                tenancy()->end();
+            } catch (\Throwable $e) {
+            }
+        }
+    }
+
+    /**
+     * Phase 4B: Create a new tenant admin user
+     */
+    public function createTenantAdmin(Request $request, Tenant $tenant)
+    {
+        $centralUser = Auth::guard('central_admin')->user();
+        if (!$centralUser->canManageTenants()) {
+            abort(403, 'You do not have permission to create tenant admin users.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        try {
+            tenancy()->initialize($tenant);
+
+            // Check if email already exists in tenant
+            $existingUser = User::where('email', $request->email)->first();
+            if ($existingUser) {
+                return back()->with('error', 'Email already exists in this tenant.');
+            }
+
+            // Create new user
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'email_verified_at' => now(), // Auto-verify admin users
+            ]);
+
+            // Assign tenant_admin role
+            $user->assignRole('tenant_admin');
+
+            return back()->with('success', "Tenant admin user '{$user->name}' created successfully.");
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unable to create tenant admin: ' . $e->getMessage());
         } finally {
             try {
                 tenancy()->end();
