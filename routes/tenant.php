@@ -7,6 +7,7 @@ use App\Http\Controllers\Tenants\TenantController;
 use App\Http\Controllers\Tenants\TenantUserController;
 use App\Http\Controllers\Tenants\ImpersonationController;
 use App\Http\Controllers\Tenants\SupportController;
+use App\Http\Controllers\Tenants\MessageController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use App\Http\Controllers\Tenants\TenantClassesController;
@@ -102,6 +103,17 @@ Route::middleware([
             Route::get('/{ticket}', [SupportController::class, 'show'])->name('show');
             Route::post('/{ticket}/reply', [SupportController::class, 'reply'])->name('reply');
             Route::get('/{ticket}/download/{filename}', [SupportController::class, 'downloadAttachment'])->name('download')->where('filename', '.*');
+        });
+
+        // Message routes
+        Route::prefix('messages')->name('tenant.messages.')->group(function () {
+            Route::get('/', [MessageController::class, 'index'])->name('index');
+            Route::get('/create', [MessageController::class, 'create'])->name('create');
+            Route::post('/', [MessageController::class, 'store'])->name('store');
+            Route::get('/{message}', [MessageController::class, 'show'])->name('show');
+            Route::get('/{message}/reply', [MessageController::class, 'reply'])->name('reply');
+            Route::delete('/{message}', [MessageController::class, 'destroy'])->name('destroy');
+            Route::get('/{message}/attachments/{attachment}/download', [MessageController::class, 'downloadAttachment'])->name('attachment.download');
         });
 
         // Activity management routes
