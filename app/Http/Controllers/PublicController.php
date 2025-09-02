@@ -38,12 +38,32 @@ class PublicController extends Controller
 
         $trialEndsAt = now()->addDays(30);
 
-        Tenant::create([
+        $tenant = Tenant::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'school_type' => $validated['school_type'],
             'trial_ends_at' => $trialEndsAt,
         ]);
+
+        // Switch to tenant context and seed roles/permissions
+        $tenant->run(function () use ($validated) {
+            // Clear permission cache and create roles/permissions
+            app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+            // Seed roles and permissions within tenant context
+            (new \Database\Seeders\RolesSeeder())->run();
+            (new \Database\Seeders\PermissionSeeder())->run();
+
+            // Create tenant admin user
+            $tenantUser = \App\Models\User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => bcrypt('password'),
+            ]);
+            $tenantUser->assignRole('tenant_admin');
+
+            // create 1 sample activity
+        });
 
         return redirect('/')->with('status', 'Trial registration successful! You will receive an email with further instructions.');
     }

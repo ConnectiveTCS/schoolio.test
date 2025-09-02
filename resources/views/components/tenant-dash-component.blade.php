@@ -125,6 +125,11 @@
 
         <!-- Notification styles -->
         <style>
+            /* Hide Alpine-managed elements until it initializes */
+            [x-cloak] {
+                display: none !important;
+            }
+
             .notification-dropdown {
                 backdrop-filter: blur(8px);
                 -webkit-backdrop-filter: blur(8px);
@@ -582,7 +587,7 @@
                                     </button>
 
                                     <!-- Hover dropdown -->
-                                    <div x-show="notificationOpen && activities.length > 0" x-ref="dropdown"
+                                    <div x-show="notificationOpen && activities.length > 0" x-ref="dropdown" x-cloak
                                         @mouseenter="notificationOpen = true" @mouseleave="notificationOpen = false"
                                         x-transition:enter="transition ease-out duration-200"
                                         x-transition:enter-start="opacity-0 scale-95"
@@ -696,7 +701,7 @@
                                     </div>
 
                                     <!-- Empty state for dropdown -->
-                                    <div x-show="notificationOpen && activities.length === 0" x-ref="dropdown"
+                                    <div x-show="notificationOpen && activities.length === 0" x-ref="dropdown" x-cloak
                                         @mouseenter="notificationOpen = true" @mouseleave="notificationOpen = false"
                                         x-transition:enter="transition ease-out duration-200"
                                         x-transition:enter-start="opacity-0 scale-95"
@@ -720,7 +725,8 @@
                                     </div>
 
                                     <!-- Full activities modal -->
-                                    <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300"
+                                    <div x-show="modalOpen" x-cloak
+                                        x-transition:enter="transition ease-out duration-300"
                                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                                         x-transition:leave="transition ease-in duration-200"
                                         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
