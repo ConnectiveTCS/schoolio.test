@@ -174,40 +174,67 @@
                     </div>
 
                     <!-- Reply Form -->
-                    <div class="border-t border-gray-200 px-6 py-4">
+                    <div class="rounded-b-lg bg-gray-50 px-6 py-4">
                         <form action="{{ route('central.support.reply', $ticket) }}" method="POST"
-                            enctype="multipart/form-data">
+                            enctype="multipart/form-data" class="space-y-6">
                             @csrf
-                            <div class="mb-4">
-                                <label for="message" class="block text-sm font-medium text-gray-700">Add Reply</label>
-                                <textarea name="message" id="message" rows="3" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                                    placeholder="Type your reply..."></textarea>
+
+                            <div class="space-y-1">
+                                <label for="message" class="block text-sm font-semibold text-gray-800">
+                                    Add Reply
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <textarea name="message" id="message" rows="4" required
+                                        class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        placeholder="Type your reply message here..."></textarea>
+                                    <div class="pointer-events-none absolute right-0 top-3 flex items-start pr-3">
+                                        <i class="fas fa-comment text-gray-400"></i>
+                                    </div>
+                                </div>
+                                @error('message')
+                                    <p class="mt-1 flex items-center text-xs text-red-600">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
-                            <div class="mb-4">
-                                <label for="central_reply_attachments"
-                                    class="block text-sm font-medium text-gray-700">Attachments</label>
-                                <input type="file" name="attachments[]" id="central_reply_attachments" multiple
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                                    accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar">
-                                <p class="mt-1 text-xs text-gray-500">
+                            <div class="space-y-1">
+                                <label for="central_reply_attachments" class="block text-sm font-semibold text-gray-800">
+                                    Attachments
+                                </label>
+                                <div class="relative">
+                                    <input type="file" name="attachments[]" id="central_reply_attachments" multiple
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 file:mr-4 file:rounded-lg file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:border-gray-400 hover:file:bg-blue-100 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar">
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                        <i class="fas fa-paperclip text-gray-400"></i>
+                                    </div>
+                                </div>
+                                <p class="mt-1 flex items-center text-xs text-gray-500">
+                                    <i class="fas fa-info-circle mr-1"></i>
                                     Max 5 files, 10MB each. Supported: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, TXT, JPG, JPEG,
                                     PNG, GIF, ZIP, RAR.
                                 </p>
+                                @error('attachments')
+                                    <p class="mt-1 flex items-center text-xs text-red-600">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
+                                @enderror
                             </div>
 
-                            <div class="flex items-center justify-between">
+                            <div class="flex items-center justify-between pt-4">
                                 <div class="flex items-center">
                                     <input type="checkbox" name="is_internal" id="is_internal" value="1"
-                                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                    <label for="is_internal" class="ml-2 block text-sm text-gray-700">
+                                        class="h-4 w-4 rounded border-gray-300 text-blue-600 transition-all duration-200 focus:ring-blue-500">
+                                    <label for="is_internal" class="ml-2 block text-sm font-medium text-gray-700">
+                                        <i class="fas fa-eye-slash mr-1 text-gray-400"></i>
                                         Internal note (not visible to tenant)
                                     </label>
                                 </div>
                                 <button type="submit"
-                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    Send Reply
+                                    class="inline-flex transform items-center rounded-lg border border-transparent bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200">
+                                    <i class="fas fa-paper-plane mr-2"></i>Send Reply
                                 </button>
                             </div>
                         </form>
@@ -250,11 +277,15 @@
                                             class="inline-flex items-center rounded-md border border-blue-200 bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100">
                                             Email
                                         </a>
-                                        <a href="?impersonate_user={{ $ticket->tenant_user_details['id'] ?? '' }}"
-                                            class="inline-flex items-center rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100"
-                                            title="Impersonate this user (if feature enabled)">
-                                            Impersonate
-                                        </a>
+                                        <form method="POST"
+                                            action="{{ route('central.tenants.impersonate', $ticket->tenant_user_details['id'] ?? '') }}"
+                                            class="inline-flex items-center"
+                                            onsubmit="return confirm('This will take you to the tenant\'s domain. Continue?');">
+                                            @csrf
+                                            <button type="submit" class="rounded-md border border-purple-200 bg-purple-100 px-2.5 py-1 text-xs font-medium text-purple-700 hover:bg-purple-300">
+                                                Impersonate <i class="fas fa-user-secret"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 @endif
                             </dd>
@@ -277,61 +308,108 @@
                 </div>
 
                 <!-- Assignment -->
-                <div class="rounded-lg bg-white p-6 shadow-md">
-                    <h3 class="mb-4 text-lg font-semibold text-gray-900">Assignment</h3>
-                    <form action="{{ route('central.support.assign', $ticket) }}" method="POST">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="assigned_admin_id" class="block text-sm font-medium text-gray-700">Assign to
-                                Admin</label>
-                            <select name="assigned_admin_id" id="assigned_admin_id" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                                <option value="">Select Admin</option>
-                                @foreach ($admins as $admin)
-                                    <option value="{{ $admin->id }}"
-                                        {{ $ticket->assigned_admin_id == $admin->id ? 'selected' : '' }}>
-                                        {{ $admin->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit"
-                            class="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            Assign Ticket
-                        </button>
-                    </form>
+                <div class="overflow-hidden rounded-lg bg-white shadow-md">
+                    <div class="bg-gray-50 px-6 py-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Assignment</h3>
+                    </div>
+                    <div class="px-6 py-4">
+                        <form action="{{ route('central.support.assign', $ticket) }}" method="POST" class="space-y-6">
+                            @csrf
+                            <div class="space-y-1">
+                                <label for="assigned_admin_id" class="block text-sm font-semibold text-gray-800">
+                                    Assign to Admin
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <select name="assigned_admin_id" id="assigned_admin_id" required
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        <option value="">Select admin...</option>
+                                        @foreach ($admins as $admin)
+                                            <option value="{{ $admin->id }}"
+                                                {{ $ticket->assigned_admin_id == $admin->id ? 'selected' : '' }}>
+                                                {{ $admin->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                    </div>
+                                </div>
+                                @error('assigned_admin_id')
+                                    <p class="mt-1 flex items-center text-xs text-red-600">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            <button type="submit"
+                                class="inline-flex w-full transform items-center justify-center rounded-lg border border-transparent bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200">
+                                <i class="fas fa-user-plus mr-2"></i>Assign Ticket
+                            </button>
+                        </form>
+                    </div>
                 </div>
 
                 <!-- Status Management -->
-                <div class="rounded-lg bg-white p-6 shadow-md">
-                    <h3 class="mb-4 text-lg font-semibold text-gray-900">Status Management</h3>
-                    <form action="{{ route('central.support.update-status', $ticket) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <div class="mb-4">
-                            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                            <select name="status" id="status" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                                <option value="open" {{ $ticket->status == 'open' ? 'selected' : '' }}>Open</option>
-                                <option value="in_progress" {{ $ticket->status == 'in_progress' ? 'selected' : '' }}>In
-                                    Progress</option>
-                                <option value="resolved" {{ $ticket->status == 'resolved' ? 'selected' : '' }}>Resolved
-                                </option>
-                                <option value="closed" {{ $ticket->status == 'closed' ? 'selected' : '' }}>Closed</option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label for="resolution_notes" class="block text-sm font-medium text-gray-700">Resolution
-                                Notes</label>
-                            <textarea name="resolution_notes" id="resolution_notes" rows="3"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                                placeholder="Add resolution notes (required for resolved/closed status)">{{ $ticket->resolution_notes }}</textarea>
-                        </div>
-                        <button type="submit"
-                            class="w-full rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                            Update Status
-                        </button>
-                    </form>
+                <div class="overflow-hidden rounded-lg bg-white shadow-md">
+                    <div class="bg-gray-50 px-6 py-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Status Management</h3>
+                    </div>
+                    <div class="px-6 py-4">
+                        <form action="{{ route('central.support.update-status', $ticket) }}" method="POST"
+                            class="space-y-6">
+                            @csrf
+                            @method('PATCH')
+                            <div class="space-y-1">
+                                <label for="status" class="block text-sm font-semibold text-gray-800">
+                                    Status
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <select name="status" id="status" required
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        <option value="open" {{ $ticket->status == 'open' ? 'selected' : '' }}>Open
+                                        </option>
+                                        <option value="in_progress"
+                                            {{ $ticket->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                                        <option value="resolved" {{ $ticket->status == 'resolved' ? 'selected' : '' }}>
+                                            Resolved</option>
+                                        <option value="closed" {{ $ticket->status == 'closed' ? 'selected' : '' }}>Closed
+                                        </option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                    </div>
+                                </div>
+                                @error('status')
+                                    <p class="mt-1 flex items-center text-xs text-red-600">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            <div class="space-y-1">
+                                <label for="resolution_notes" class="block text-sm font-semibold text-gray-800">
+                                    Resolution Notes
+                                </label>
+                                <div class="relative">
+                                    <textarea name="resolution_notes" id="resolution_notes" rows="3"
+                                        class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        placeholder="Add resolution notes (required for resolved/closed status)">{{ $ticket->resolution_notes }}</textarea>
+                                    <div class="pointer-events-none absolute right-0 top-3 flex items-start pr-3">
+                                        <i class="fas fa-clipboard-check text-gray-400"></i>
+                                    </div>
+                                </div>
+                                @error('resolution_notes')
+                                    <p class="mt-1 flex items-center text-xs text-red-600">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            <button type="submit"
+                                class="inline-flex w-full transform items-center justify-center rounded-lg border border-transparent bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-green-200">
+                                <i class="fas fa-save mr-2"></i>Update Status
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
