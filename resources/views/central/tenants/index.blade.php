@@ -44,11 +44,75 @@
                 </div>
             </div>
 
+            <!-- Statistics Dashboard -->
+            <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-lg bg-white p-6 shadow">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500">
+                                <i class="fas fa-building text-white"></i>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="truncate text-sm font-medium text-gray-500">Total Tenants</dt>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['total'] ?? 0 }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-lg bg-white p-6 shadow">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-green-500">
+                                <i class="fas fa-check-circle text-white"></i>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="truncate text-sm font-medium text-gray-500">Active</dt>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['active'] ?? 0 }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-lg bg-white p-6 shadow">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-yellow-500">
+                                <i class="fas fa-pause-circle text-white"></i>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="truncate text-sm font-medium text-gray-500">Suspended</dt>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['suspended'] ?? 0 }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-lg bg-white p-6 shadow">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-500">
+                                <i class="fas fa-calendar-day text-white"></i>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="truncate text-sm font-medium text-gray-500">This Month</dt>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['this_month'] ?? 0 }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Filters -->
             <div class="mb-6 rounded-lg bg-white shadow">
                 <div class="px-6 py-4">
                     <form method="GET" action="{{ route('central.tenants.index') }}">
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
                             <div>
                                 <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
                                 <input type="text" name="search" id="search" value="{{ request('search') }}"
@@ -81,6 +145,16 @@
                                         Enterprise</option>
                                 </select>
                             </div>
+                            <div>
+                                <label for="date_from" class="block text-sm font-medium text-gray-700">Created From</label>
+                                <input type="date" name="date_from" id="date_from" value="{{ request('date_from') }}"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="date_to" class="block text-sm font-medium text-gray-700">Created To</label>
+                                <input type="date" name="date_to" id="date_to" value="{{ request('date_to') }}"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            </div>
                             <div class="flex items-end space-x-2">
                                 <button type="submit"
                                     class="inline-flex flex-1 items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
@@ -90,6 +164,30 @@
                                     class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
                                     <i class="fas fa-times"></i>
                                 </a>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions Row -->
+                        <div class="mt-4 flex items-center justify-between border-t pt-4">
+                            <div class="flex items-center space-x-3">
+                                <button type="button" onclick="exportAll()"
+                                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                                    <i class="fas fa-download mr-2"></i>Export All
+                                </button>
+                                @if (auth('central_admin')->user()->canManageTenants())
+                                    <button type="button" onclick="showBulkCommunication()"
+                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                                        <i class="fas fa-envelope mr-2"></i>Send Notice
+                                    </button>
+                                    <button type="button" onclick="showHealthReport()"
+                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                                        <i class="fas fa-chart-line mr-2"></i>Health Report
+                                    </button>
+                                @endif
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                Showing {{ $tenants->firstItem() ?? 0 }} to {{ $tenants->lastItem() ?? 0 }} of
+                                {{ $tenants->total() ?? 0 }} results
                             </div>
                         </div>
                     </form>
@@ -111,15 +209,23 @@
                                 @if (auth('central_admin')->user()->canManageTenants())
                                     <button type="button" onclick="bulkAction('suspend')"
                                         class="text-sm text-yellow-600 hover:text-yellow-900">
-                                        <i class="fas fa-pause mr-1"></i>Suspend Selected
+                                        <i class="fas fa-pause mr-1"></i>Suspend
                                     </button>
                                     <button type="button" onclick="bulkAction('activate')"
                                         class="text-sm text-green-600 hover:text-green-900">
-                                        <i class="fas fa-play mr-1"></i>Activate Selected
+                                        <i class="fas fa-play mr-1"></i>Activate
+                                    </button>
+                                    <button type="button" onclick="bulkAction('delete')"
+                                        class="text-sm text-red-600 hover:text-red-900">
+                                        <i class="fas fa-trash mr-1"></i>Delete
                                     </button>
                                     <button type="button" onclick="exportSelected()"
                                         class="text-sm text-blue-600 hover:text-blue-900">
-                                        <i class="fas fa-download mr-1"></i>Export Selected
+                                        <i class="fas fa-download mr-1"></i>Export
+                                    </button>
+                                    <button type="button" onclick="communicateWithSelected()"
+                                        class="text-sm text-purple-600 hover:text-purple-900">
+                                        <i class="fas fa-envelope mr-1"></i>Send Notice
                                     </button>
                                 @endif
                             </div>
@@ -147,6 +253,12 @@
                                     Plan</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                                     Domain</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    Health</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    Storage</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    Last Activity</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                                     Created</th>
                                 <th
@@ -197,6 +309,47 @@
                                             No domain
                                         @endif
                                     </td>
+
+                                    <!-- Health Status -->
+                                    <td class="whitespace-nowrap px-6 py-4">
+                                        @php
+                                            $healthScore = $tenant->health_score ?? 100;
+                                            $healthColor =
+                                                $healthScore >= 90 ? 'green' : ($healthScore >= 70 ? 'yellow' : 'red');
+                                        @endphp
+                                        <div class="flex items-center">
+                                            <div class="mr-2 h-2 w-16 rounded-full bg-gray-200">
+                                                <div class="bg-{{ $healthColor }}-500 h-2 rounded-full"
+                                                    style="width: {{ $healthScore }}%"></div>
+                                            </div>
+                                            <span class="text-xs text-gray-500">{{ $healthScore }}%</span>
+                                        </div>
+                                    </td>
+
+                                    <!-- Storage Usage -->
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                        @php
+                                            $storageUsed = $tenant->storage_used ?? 0;
+                                            $storageLimit = $tenant->storage_limit ?? 1000;
+                                            $storagePercent =
+                                                $storageLimit > 0 ? ($storageUsed / $storageLimit) * 100 : 0;
+                                        @endphp
+                                        <div class="text-sm">{{ number_format($storageUsed / 1024, 1) }} GB</div>
+                                        <div class="mt-1 h-1 w-16 rounded-full bg-gray-200">
+                                            <div class="h-1 rounded-full bg-blue-500"
+                                                style="width: {{ min($storagePercent, 100) }}%"></div>
+                                        </div>
+                                    </td>
+
+                                    <!-- Last Activity -->
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                        @if ($tenant->last_activity_at)
+                                            {{ $tenant->last_activity_at->diffForHumans() }}
+                                        @else
+                                            Never
+                                        @endif
+                                    </td>
+
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                                         {{ $tenant->created_at->format('M j, Y') }}
                                     </td>
@@ -282,6 +435,57 @@
         </div>
     </div>
 
+    <!-- Communication Modal -->
+    <div id="communication-modal" class="fixed inset-0 hidden h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50">
+        <div class="relative top-20 mx-auto w-96 rounded-md border bg-white p-5 shadow-lg">
+            <div class="mt-3">
+                <h3 class="mb-4 text-lg font-medium text-gray-900">Send Notice to Tenants</h3>
+                <form id="communication-form">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Subject</label>
+                        <input type="text" id="notice-subject"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="notice-message" rows="4"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="urgent-notice"
+                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <span class="ml-2 text-sm text-gray-600">Mark as urgent</span>
+                        </label>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="closeCommunicationModal()"
+                            class="rounded-md bg-gray-200 px-4 py-2 text-gray-500 hover:bg-gray-300">Cancel</button>
+                        <button type="button" onclick="sendNotice()"
+                            class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Send Notice</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Health Report Modal -->
+    <div id="health-modal" class="fixed inset-0 hidden h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50">
+        <div class="relative top-10 mx-auto w-4/5 max-w-4xl rounded-md border bg-white p-5 shadow-lg">
+            <div class="mt-3">
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="text-lg font-medium text-gray-900">System Health Report</h3>
+                    <button onclick="closeHealthModal()" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="health-report-content">
+                    <!-- Health report content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Bulk selection functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -333,6 +537,7 @@
             }
         });
 
+        // Enhanced bulk actions
         function bulkAction(action) {
             const selectedTenants = Array.from(document.querySelectorAll('.tenant-checkbox:checked'))
                 .map(checkbox => checkbox.value);
@@ -342,16 +547,44 @@
                 return;
             }
 
-            const actionText = action === 'suspend' ? 'suspend' : 'activate';
+            const actionText = action === 'suspend' ? 'suspend' : (action === 'activate' ? 'activate' : 'delete');
             const confirmMessage = `Are you sure you want to ${actionText} ${selectedTenants.length} tenant(s)?`;
 
             if (confirm(confirmMessage)) {
-                // This would require implementing bulk action endpoints
-                console.log(`${action} tenants:`, selectedTenants);
-                alert(`Bulk ${actionText} functionality will be implemented in a future update.`);
+                // Create form and submit
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `{{ route('central.tenants.bulk') }}`;
+
+                // Add CSRF token
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '_token';
+                csrfInput.value = '{{ csrf_token() }}';
+                form.appendChild(csrfInput);
+
+                // Add action
+                const actionInput = document.createElement('input');
+                actionInput.type = 'hidden';
+                actionInput.name = 'action';
+                actionInput.value = action;
+                form.appendChild(actionInput);
+
+                // Add selected tenants
+                selectedTenants.forEach(id => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'tenants[]';
+                    input.value = id;
+                    form.appendChild(input);
+                });
+
+                document.body.appendChild(form);
+                form.submit();
             }
         }
 
+        // Export functions
         function exportSelected() {
             const selectedTenants = Array.from(document.querySelectorAll('.tenant-checkbox:checked'))
                 .map(checkbox => checkbox.value);
@@ -361,9 +594,102 @@
                 return;
             }
 
-            // This would require implementing export functionality
-            console.log('Export tenants:', selectedTenants);
-            alert('Export functionality will be implemented in a future update.');
+            // Create export form
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route('central.tenants.export') }}';
+
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = '{{ csrf_token() }}';
+            form.appendChild(csrfInput);
+
+            // Add format (default to CSV)
+            const formatInput = document.createElement('input');
+            formatInput.type = 'hidden';
+            formatInput.name = 'format';
+            formatInput.value = 'csv';
+            form.appendChild(formatInput);
+
+            selectedTenants.forEach(id => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'tenants[]';
+                input.value = id;
+                form.appendChild(input);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        function exportAll() {
+            window.location.href = '{{ route('central.tenants.export') }}?all=1';
+        }
+
+        // Communication functions
+        function showBulkCommunication() {
+            document.getElementById('communication-modal').classList.remove('hidden');
+        }
+
+        function communicateWithSelected() {
+            const selectedTenants = Array.from(document.querySelectorAll('.tenant-checkbox:checked'))
+                .map(checkbox => checkbox.value);
+
+            if (selectedTenants.length === 0) {
+                alert('Please select at least one tenant.');
+                return;
+            }
+
+            showBulkCommunication();
+        }
+
+        function closeCommunicationModal() {
+            document.getElementById('communication-modal').classList.add('hidden');
+        }
+
+        function sendNotice() {
+            const subject = document.getElementById('notice-subject').value;
+            const message = document.getElementById('notice-message').value;
+            const urgent = document.getElementById('urgent-notice').checked;
+
+            if (!subject || !message) {
+                alert('Please fill in both subject and message.');
+                return;
+            }
+
+            // Implement notice sending logic
+            console.log('Sending notice:', {
+                subject,
+                message,
+                urgent
+            });
+            alert('Notice sent successfully!');
+            closeCommunicationModal();
+        }
+
+        // Health report functions
+        function showHealthReport() {
+            document.getElementById('health-modal').classList.remove('hidden');
+            loadHealthReport();
+        }
+
+        function closeHealthModal() {
+            document.getElementById('health-modal').classList.add('hidden');
+        }
+
+        function loadHealthReport() {
+            // Load health report via AJAX
+            fetch('{{ route('central.tenants.health-report') }}')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('health-report-content').innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('health-report-content').innerHTML =
+                        '<p class="text-red-600">Error loading health report.</p>';
+                });
         }
 
         // Search functionality

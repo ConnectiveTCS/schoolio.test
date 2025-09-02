@@ -38,6 +38,10 @@ foreach (config('tenancy.central_domains') as $domain) {
 
                 // Tenant management
                 Route::resource('tenants', TenantManagementController::class);
+                Route::post('tenants/bulk', [TenantManagementController::class, 'bulk'])->name('tenants.bulk');
+                Route::get('tenants/export', [TenantManagementController::class, 'export'])->name('tenants.export');
+                Route::post('tenants/export', [TenantManagementController::class, 'export']);
+                Route::get('tenants/health-report', [TenantManagementController::class, 'healthReport'])->name('tenants.health-report');
                 Route::post('tenants/{tenant}/suspend', [TenantManagementController::class, 'suspend'])->name('tenants.suspend');
                 Route::post('tenants/{tenant}/activate', [TenantManagementController::class, 'activate'])->name('tenants.activate');
                 Route::post('tenants/{tenant}/impersonate', [TenantManagementController::class, 'impersonate'])->name('tenants.impersonate');
