@@ -315,4 +315,76 @@ class TenantManagementController extends Controller
 
         return redirect()->away($impersonationUrl);
     }
+
+    /**
+     * Store a new domain for the tenant
+     */
+    public function storeDomain(Request $request, Tenant $tenant)
+    {
+        $user = Auth::guard('central_admin')->user();
+
+        if (!$user->canManageTenants()) {
+            return response()->json(['message' => 'You do not have permission to manage domains.'], 403);
+        }
+
+        $request->validate([
+            'domain' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:domains,domain',
+                'regex:/^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]$/'
+            ],
+        ], [
+            'domain.regex' => 'Please enter a valid domain name (e.g., example.com or subdomain.schoolio.test)',
+        ]);
+
+        try {
+            $domain = strtolower(trim($request->domain));
+
+            // Remove http/https if provided
+            $domain = preg_replace('#^https?://#', '', $domain);
+            $domain = rtrim($domain, '/');
+
+            $tenant->domains()->create([
+                'domain' => $domain,
+            ]);
+
+            return response()->json(['message' => 'Domain added successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error adding domain: ' . $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Delete a domain from the tenant
+     */
+    public function destroyDomain(Tenant $tenant, $domainId)
+    {
+        $user = Auth::guard('central_admin')->user();
+
+        if (!$user->canManageTenants()) {
+            return response()->json(['message' => 'You do not have permission to manage domains.'], 403);
+        }
+
+        try {
+            $domain = $tenant->domains()->findOrFail($domainId);
+
+            // Allow deletion if tenant has multiple domains
+            if ($tenant->domains()->count() <= 1) {
+                return response()->json([
+                    'message' => 'Cannot delete the last domain. Tenant must have at least one domain for access.'
+                ], 400);
+            }
+
+            $domainName = $domain->domain;
+            $domain->delete();
+
+            return response()->json(['message' => "Domain '{$domainName}' deleted successfully."]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['message' => 'Domain not found.'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error deleting domain: ' . $e->getMessage()], 500);
+        }
+    }
 }

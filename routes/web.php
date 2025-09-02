@@ -42,6 +42,10 @@ foreach (config('tenancy.central_domains') as $domain) {
                 Route::post('tenants/{tenant}/activate', [TenantManagementController::class, 'activate'])->name('tenants.activate');
                 Route::post('tenants/{tenant}/impersonate', [TenantManagementController::class, 'impersonate'])->name('tenants.impersonate');
 
+                // Domain management for tenants
+                Route::post('tenants/{tenant}/domains', [TenantManagementController::class, 'storeDomain'])->name('tenants.domains.store');
+                Route::delete('tenants/{tenant}/domains/{domain}', [TenantManagementController::class, 'destroyDomain'])->name('tenants.domains.destroy');
+
                 // Support system
                 Route::prefix('support')->name('support.')->group(function () {
                     Route::get('/', [SupportController::class, 'index'])->name('index');
