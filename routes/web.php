@@ -45,6 +45,8 @@ foreach (config('tenancy.central_domains') as $domain) {
                 Route::post('tenants/{tenant}/suspend', [TenantManagementController::class, 'suspend'])->name('tenants.suspend');
                 Route::post('tenants/{tenant}/activate', [TenantManagementController::class, 'activate'])->name('tenants.activate');
                 Route::post('tenants/{tenant}/impersonate', [TenantManagementController::class, 'impersonate'])->name('tenants.impersonate');
+                // Central-side tenant user role management (Phase 2)
+                Route::post('tenants/{tenant}/users/{userId}/role', [TenantManagementController::class, 'updateTenantUserRole'])->name('tenants.users.update-role');
 
                 // Domain management for tenants
                 Route::post('tenants/{tenant}/domains', [TenantManagementController::class, 'storeDomain'])->name('tenants.domains.store');

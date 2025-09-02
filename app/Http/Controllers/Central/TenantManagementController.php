@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Central;
 use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use App\Models\Domain;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -132,7 +133,10 @@ class TenantManagementController extends Controller
         // Get tenant statistics
         $stats = $this->getTenantStats($tenant);
 
-        return view('central.tenants.show', compact('tenant', 'stats'));
+        // Phase 1: Get tenant role & user snapshot (read-only)
+        $roleSnapshot = $this->getTenantRoleSnapshot($tenant);
+
+        return view('central.tenants.show', compact('tenant', 'stats', 'roleSnapshot'));
     }
 
     /**
@@ -287,6 +291,129 @@ class TenantManagementController extends Controller
         }
 
         return $stats;
+    }
+
+    /**
+     * Get a snapshot of tenant roles and sample users (read-only, Phase 1)
+     */
+    private function getTenantRoleSnapshot(Tenant $tenant): array
+    {
+        $snapshot = [];
+        try {
+            tenancy()->initialize($tenant);
+
+            // Verify required tables exist before querying (defensive in case of partial migrations)
+            $connection = DB::connection('tenant');
+            $schema = $connection->getSchemaBuilder();
+            $requiredTables = ['users', 'roles', 'model_has_roles', 'permissions', 'role_has_permissions'];
+            foreach ($requiredTables as $tbl) {
+                if (!$schema->hasTable($tbl)) {
+                    throw new \RuntimeException("Missing table '{$tbl}' in tenant database.");
+                }
+            }
+
+            // Role counts
+            $roles = $connection->table('roles')
+                ->leftJoin('model_has_roles', function ($join) {
+                    $join->on('roles.id', '=', 'model_has_roles.role_id')
+                        ->where('model_has_roles.model_type', '=', User::class);
+                })
+                ->select('roles.name', DB::raw('COUNT(model_has_roles.model_id) as users_count'))
+                ->groupBy('roles.id', 'roles.name')
+                ->orderBy('roles.name')
+                ->get();
+
+            // Permissions per role (build associative array role_name => [permissions])
+            $rolesPermissions = [];
+            foreach ($roles as $roleRow) {
+                $perms = $connection->table('permissions')
+                    ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                    ->join('roles as r2', 'r2.id', '=', 'role_has_permissions.role_id')
+                    ->where('r2.name', $roleRow->name)
+                    ->orderBy('permissions.name')
+                    ->pluck('permissions.name')
+                    ->toArray();
+                $rolesPermissions[$roleRow->name] = $perms;
+            }
+
+            // Sample users (first 15) with roles via Eloquent for convenience
+            $users = User::with('roles')
+                ->orderBy('id')
+                ->limit(15)
+                ->get()
+                ->map(function ($u) {
+                    return [
+                        'id' => $u->id,
+                        'name' => $u->name,
+                        'email' => $u->email,
+                        'roles' => $u->roles->pluck('name')->values()->all(),
+                    ];
+                });
+
+            // Total users count (reuse existing stats if available later; count directly here for isolation)
+            $totalUsers = $connection->table('users')->count();
+
+            $snapshot = [
+                'roles' => $roles,
+                'users' => $users,
+                'total_users' => $totalUsers,
+                'roles_permissions' => $rolesPermissions,
+            ];
+        } catch (\Throwable $e) {
+            $snapshot = [
+                'error' => 'Unable to fetch role/permission snapshot: ' . $e->getMessage(),
+            ];
+        } finally {
+            // Ensure tenant context is ended
+            try {
+                tenancy()->end();
+            } catch (\Throwable $e) {
+                // swallow
+            }
+        }
+
+        return $snapshot;
+    }
+
+    /**
+     * Phase 2: Update a tenant user's primary role (sync to single role)
+     */
+    public function updateTenantUserRole(Request $request, Tenant $tenant, $userId)
+    {
+        $centralUser = Auth::guard('central_admin')->user();
+        if (!$centralUser->canManageTenants()) {
+            abort(403, 'You do not have permission to modify tenant users.');
+        }
+
+        $request->validate([
+            'role' => 'required|string|max:100',
+        ]);
+
+        $newRole = $request->input('role');
+
+        try {
+            tenancy()->initialize($tenant);
+
+            // Validate target role exists in tenant context
+            $roleExists = DB::connection('tenant')->table('roles')->where('name', $newRole)->exists();
+            if (!$roleExists) {
+                return back()->with('error', 'Selected role does not exist in tenant.');
+            }
+
+            $user = User::findOrFail($userId);
+            $user->syncRoles([$newRole]);
+
+            return back()->with('success', 'User role updated.');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return back()->with('error', 'User not found in tenant.');
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unable to update role: ' . $e->getMessage());
+        } finally {
+            try {
+                tenancy()->end();
+            } catch (\Throwable $e) {
+            }
+        }
     }
 
     /**
