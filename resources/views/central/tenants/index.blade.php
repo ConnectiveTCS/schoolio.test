@@ -3,6 +3,26 @@
 @section('title', 'Tenant Management')
 
 @section('content')
+    <style>
+        /* Custom styles for sticky column */
+        .sticky-actions {
+            position: sticky;
+            right: 0;
+            z-index: 10;
+        }
+
+        .sticky-actions::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05));
+            pointer-events: none;
+        }
+    </style>
+
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="py-6">
             <div class="mb-8 md:flex md:items-center md:justify-between">
@@ -129,13 +149,14 @@
                                     Domain</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                                     Created</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="sticky-actions sticky right-0 bg-gray-50 px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
                                     Actions</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
                             @forelse($tenants as $tenant)
-                                <tr class="hover:bg-gray-50">
+                                <tr class="group hover:bg-gray-50">
                                     @if (auth('central_admin')->user()->canManageTenants())
                                         <td class="whitespace-nowrap px-6 py-4">
                                             <input type="checkbox" name="selected_tenants[]" value="{{ $tenant->id }}"
@@ -179,7 +200,8 @@
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                                         {{ $tenant->created_at->format('M j, Y') }}
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                    <td
+                                        class="sticky-actions sticky right-0 whitespace-nowrap bg-white px-6 py-4 text-right text-sm font-medium group-hover:bg-gray-50">
                                         <div class="flex items-center justify-end space-x-2">
                                             <a href="{{ route('central.tenants.show', $tenant) }}"
                                                 class="text-blue-600 hover:text-blue-900">
@@ -225,6 +247,15 @@
                                                         <i class="fas fa-user-secret"></i>
                                                     </button>
                                                 </form>
+                                                <form method="POST"
+                                                    action="{{ route('central.tenants.destroy', $tenant) }}"
+                                                    class="inline"
+                                                    onsubmit="return confirm('Are you sure you want to delete this tenant? This action cannot be undone.');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-900">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
                                             @endif
                                         </div>
                                     </td>
