@@ -7,6 +7,9 @@ use App\Models\SupportTicket;
 use App\Models\SupportTicketReply;
 use App\Models\CentralAdmin;
 use App\Models\Tenant;
+use App\Services\AutoAssignmentService;
+use App\Services\SlaService;
+use App\Services\EscalationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -393,6 +396,22 @@ class SupportController extends Controller
             ->whereNull('assigned_admin_id')
             ->count();
 
+        // SLA statistics
+        $slaStats = [
+            'on_track' => (clone $baseQuery)->where('sla_status', 'on_track')->count(),
+            'warning' => (clone $baseQuery)->where('sla_status', 'warning')->count(),
+            'critical' => (clone $baseQuery)->where('sla_status', 'critical')->count(),
+            'breached' => (clone $baseQuery)->where('sla_status', 'breached')->count(),
+        ];
+
+        // Escalation statistics
+        $escalationStats = [
+            'escalated_tickets' => (clone $baseQuery)->where('escalation_level', '>', 0)->count(),
+            'avg_escalation_level' => (clone $baseQuery)
+                ->where('escalation_level', '>', 0)
+                ->avg('escalation_level'),
+        ];
+
         return [
             'status_stats' => $statusStats,
             'priority_stats' => $priorityStats,
@@ -402,7 +421,69 @@ class SupportController extends Controller
             'admin_workload' => $adminWorkload,
             'recent_activity' => $recentActivity,
             'unassigned_count' => $unassignedCount,
+            'sla_stats' => $slaStats,
+            'escalation_stats' => $escalationStats,
             'total_tickets' => (clone $baseQuery)->count(),
         ];
+    }
+
+    /**
+     * Manually trigger auto-assignment for a specific ticket
+     */
+    public function triggerAutoAssignment(SupportTicket $ticket, AutoAssignmentService $autoAssignmentService)
+    {
+        $assigned = $autoAssignmentService->assignTicket($ticket);
+
+        if ($assigned) {
+            return redirect()->back()->with('success', 'Ticket auto-assigned successfully.');
+        }
+
+        return redirect()->back()->with('error', 'No auto-assignment rule matched for this ticket.');
+    }
+
+    /**
+     * Manually apply SLA policy to a ticket
+     */
+    public function applySlaPolicy(SupportTicket $ticket, SlaService $slaService)
+    {
+        $slaService->assignSlaPolicy($ticket);
+
+        return redirect()->back()->with('success', 'SLA policy applied successfully.');
+    }
+
+    /**
+     * Manually escalate a ticket
+     */
+    public function escalateTicket(SupportTicket $ticket, EscalationService $escalationService)
+    {
+        // Find applicable escalation rules and apply the first one
+        $rules = \App\Models\EscalationRule::active()->ordered()->get();
+
+        foreach ($rules as $rule) {
+            if ($rule->execute($ticket)) {
+                return redirect()->back()->with('success', 'Ticket escalated successfully using rule: ' . $rule->name);
+            }
+        }
+
+        return redirect()->back()->with('error', 'No escalation rule could be applied to this ticket.');
+    }
+
+    /**
+     * Get workflow automation dashboard data
+     */
+    public function getWorkflowStats()
+    {
+        $slaService = app(SlaService::class);
+
+        $stats = [
+            'sla_approaching' => $slaService->getTicketsApproachingSla(2)->count(),
+            'sla_breached' => $slaService->getBreachedTickets()->count(),
+            'auto_assignment_rules' => \App\Models\AutoAssignmentRule::active()->count(),
+            'escalation_rules' => \App\Models\EscalationRule::active()->count(),
+            'sla_policies' => \App\Models\SlaPolicy::active()->count(),
+            'pending_reminders' => \App\Models\FollowUpReminder::pending()->due()->count(),
+        ];
+
+        return response()->json($stats);
     }
 }

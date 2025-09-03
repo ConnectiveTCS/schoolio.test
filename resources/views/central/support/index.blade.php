@@ -107,6 +107,98 @@
             </div>
         </div>
 
+        <!-- Workflow Automation Analytics -->
+        <div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <!-- SLA Status Breakdown -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt
+                                class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                SLA On Track</dt>
+                            <dd class="text-lg font-medium text-green-600 dark:text-green-400">
+                                {{ $analytics['sla_stats']['on_track'] ?? 0 }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLA Warnings -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 18.5c-.77.833.192 2.5 1.732 2.5z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt
+                                class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                SLA Warning</dt>
+                            <dd class="text-lg font-medium text-yellow-600 dark:text-yellow-400">
+                                {{ $analytics['sla_stats']['warning'] ?? 0 }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLA Breached -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4m0 6h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt
+                                class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                SLA Breached</dt>
+                            <dd class="text-lg font-medium text-red-600 dark:text-red-400">
+                                {{ $analytics['sla_stats']['breached'] ?? 0 }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Escalated Tickets -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt
+                                class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                Escalated</dt>
+                            <dd class="text-lg font-medium text-purple-600 dark:text-purple-400">
+                                {{ $analytics['escalation_stats']['escalated_tickets'] ?? 0 }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Status and Priority Breakdown -->
         <div class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
             <!-- Status Breakdown -->
@@ -428,6 +520,9 @@
                                     Created</th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                    SLA Status</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                     Actions</th>
                             </tr>
                         </thead>
@@ -475,11 +570,53 @@
                                         class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                         {{ $ticket->created_at->format('M j, Y') }}
                                     </td>
+                                    <td class="whitespace-nowrap px-6 py-4">
+                                        @if ($ticket->sla_due_at)
+                                            <div class="flex flex-col space-y-1">
+                                                <span
+                                                    class="bg-{{ $ticket->sla_status_color }}-100 text-{{ $ticket->sla_status_color }}-800 dark:bg-{{ $ticket->sla_status_color }}-900 dark:text-{{ $ticket->sla_status_color }}-200 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors duration-200">
+                                                    {{ $ticket->sla_status_text }}
+                                                </span>
+                                                @if ($ticket->sla_due_at)
+                                                    <span
+                                                        class="text-xs text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                                        Due: {{ $ticket->sla_due_at->format('M j, H:i') }}
+                                                    </span>
+                                                @endif
+                                                @if ($ticket->escalation_level > 0)
+                                                    <span class="text-xs font-medium text-purple-600 dark:text-purple-400">
+                                                        ⬆️ Level {{ $ticket->escalation_level }}
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        @else
+                                            <span
+                                                class="text-xs text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                                No SLA
+                                            </span>
+                                        @endif
+                                    </td>
                                     <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                        <a href="{{ route('central.support.show', $ticket) }}"
-                                            class="text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
-                                            View
-                                        </a>
+                                        <div class="flex items-center justify-end space-x-2">
+                                            <a href="{{ route('central.support.show', $ticket) }}"
+                                                class="text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
+                                                View
+                                            </a>
+
+                                            @if (!$ticket->assigned_admin_id)
+                                                <button onclick="triggerAutoAssignment({{ $ticket->id }})"
+                                                    class="text-xs text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                                    Auto-Assign
+                                                </button>
+                                            @endif
+
+                                            @if (!$ticket->sla_policy_id)
+                                                <button onclick="applySlaPolicy({{ $ticket->id }})"
+                                                    class="text-xs text-purple-600 hover:text-purple-900 dark:text-purple-400 dark:hover:text-purple-300">
+                                                    Apply SLA
+                                                </button>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -511,4 +648,84 @@
             @endif
         </div>
     </div>
+
+    <script>
+        function triggerAutoAssignment(ticketId) {
+            if (!confirm('Are you sure you want to trigger auto-assignment for this ticket?')) {
+                return;
+            }
+
+            fetch(`/central/support/tickets/${ticketId}/auto-assign`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert(data.message || 'Failed to auto-assign ticket');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while auto-assigning the ticket');
+                });
+        }
+
+        function applySlaPolicy(ticketId) {
+            if (!confirm('Are you sure you want to apply SLA policy to this ticket?')) {
+                return;
+            }
+
+            fetch(`/central/support/tickets/${ticketId}/apply-sla`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert(data.message || 'Failed to apply SLA policy');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while applying SLA policy');
+                });
+        }
+
+        function escalateTicket(ticketId) {
+            if (!confirm('Are you sure you want to escalate this ticket?')) {
+                return;
+            }
+
+            fetch(`/central/support/tickets/${ticketId}/escalate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert(data.message || 'Failed to escalate ticket');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while escalating the ticket');
+                });
+        }
+    </script>
 @endsection

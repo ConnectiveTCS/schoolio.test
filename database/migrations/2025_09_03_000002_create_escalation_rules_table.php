@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('priority_order')->default(0);
 
             // Trigger conditions
-            $table->json('trigger_statuses')->default('["open", "in_progress"]'); // statuses that trigger escalation
+            $table->json('trigger_statuses')->nullable(); // statuses that trigger escalation
             $table->json('trigger_priorities')->nullable(); // priorities that trigger escalation
             $table->integer('hours_threshold'); // hours before escalation
 

@@ -66,6 +66,12 @@ foreach (config('tenancy.central_domains') as $domain) {
                     Route::patch('{ticket}/status', [SupportController::class, 'updateStatus'])->name('update-status');
                     Route::post('{ticket}/reply', [SupportController::class, 'reply'])->name('reply');
                     Route::get('{ticket}/download/{filename}', [SupportController::class, 'downloadAttachment'])->name('download')->where('filename', '.*');
+
+                    // Workflow Automation routes
+                    Route::post('tickets/{ticket}/auto-assign', [SupportController::class, 'triggerAutoAssignment'])->name('tickets.auto-assign');
+                    Route::post('tickets/{ticket}/apply-sla', [SupportController::class, 'applySlaPolicy'])->name('tickets.apply-sla');
+                    Route::post('tickets/{ticket}/escalate', [SupportController::class, 'escalateTicket'])->name('tickets.escalate');
+                    Route::get('workflow/stats', [SupportController::class, 'getWorkflowStats'])->name('workflow.stats');
                 });
 
                 // System settings
