@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Central\SupportController;
+use App\Http\Controllers\Central\SettingsController;
 use App\Http\Controllers\Central\CentralAdminController;
 use App\Http\Controllers\Central\TenantManagementController;
 use App\Http\Controllers\Central\Auth\RegisteredUserController;
@@ -67,13 +68,10 @@ foreach (config('tenancy.central_domains') as $domain) {
                     Route::get('{ticket}/download/{filename}', [SupportController::class, 'downloadAttachment'])->name('download')->where('filename', '.*');
                 });
 
-                // System settings (placeholder for future implementation)
-                // Route::get('settings', function () {
-                //     return view('central.settings.index');
-                // })->name('settings')->middleware('can:system_settings,App\Models\CentralAdmin');
-                Route::get('settings', function () {
-                    return view('central.settings.index');
-                })->name('settings');
+                // System settings
+                Route::get('settings', [SettingsController::class, 'index'])->name('settings');
+                Route::put('settings/email', [SettingsController::class, 'updateEmailConfig'])->name('settings.email.update');
+                Route::post('settings/email/test', [SettingsController::class, 'testEmail'])->name('settings.email.test');
                 Route::get('permissions', [CentralAdminController::class, 'permissions'])->name('permissions.index');
                 Route::post('permissions/create', [CentralAdminController::class, 'permissionsCreate'])->name('permissions.create');
             });

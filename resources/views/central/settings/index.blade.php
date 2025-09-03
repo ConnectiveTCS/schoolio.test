@@ -26,25 +26,9 @@
                         Configuration</h3>
                 </div>
                 <div class="px-6 py-4">
-                    <div class="py-12 text-center">
-                        <i
-                            class="fas fa-cogs mb-4 text-6xl text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
-                        <h3
-                            class="mb-2 text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
-                            System Settings</h3>
-                        <p
-                            class="mb-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
-                            Advanced system configuration options will be available in future updates.
-                        </p>
-                        <div
-                            class="space-y-2 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
-                            <p>• Email configuration</p>
-                            <p>• Payment gateway settings</p>
-                            <p>• Security policies</p>
-                            <p>• Backup and maintenance schedules</p>
-                            <p>• Performance monitoring</p>
-                        </div>
-                    </div>
+                    @include('central.settings.partials.email-configuration', [
+                        'emailSettings' => $emailSettings ?? [],
+                    ])
                 </div>
             </div>
 
