@@ -9,7 +9,7 @@
         class="shadow-xs focus-visible:outline-solid inline-flex items-center rounded-md bg-[color:var(--color-castleton-green)] px-3 py-2 text-sm font-semibold text-white hover:bg-[color:var(--color-brunswick-green)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
         <i class="fas fa-plus mr-2"></i>New Tenant
     </a>
-    <a href="{{ route('central.support.dashboard') }}"
+    <a href="{{ route('central.support.index') }}"
         class="shadow-xs focus-visible:outline-solid inline-flex items-center rounded-md bg-[color:var(--color-gunmetal)] px-3 py-2 text-sm font-semibold text-white hover:bg-[color:var(--color-prussian-blue)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-gunmetal)] dark:bg-[color:var(--color-light-gunmetal)] dark:text-[color:var(--color-gunmetal)] dark:hover:bg-[color:var(--color-light-prussian-blue)]">
         <i class="fas fa-chart-line mr-2"></i>Support Dashboard
     </a>

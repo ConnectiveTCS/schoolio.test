@@ -53,7 +53,10 @@ class SupportController extends Controller
         $admins = CentralAdmin::all();
         $tenants = Tenant::all();
 
-        return view('central.support.index', compact('tickets', 'admins', 'tenants'));
+        // Analytics data
+        $analytics = $this->getAnalyticsData($request);
+
+        return view('central.support.index', compact('tickets', 'admins', 'tenants', 'analytics'));
     }
 
     public function show(SupportTicket $ticket)
@@ -300,5 +303,106 @@ class SupportController extends Controller
 
         Log::warning('Attachment not found', ['ticket_id' => $ticket->id, 'filename' => $filename]);
         abort(404, 'Attachment not found.');
+    }
+
+    /**
+     * Get analytics data for the dashboard
+     */
+    private function getAnalyticsData(Request $request)
+    {
+        // Base query considering current filters (excluding pagination)
+        $baseQuery = SupportTicket::query();
+
+        // Apply same filters as main query for consistent analytics
+        if ($request->filled('status')) {
+            $baseQuery->byStatus($request->status);
+        }
+        if ($request->filled('priority')) {
+            $baseQuery->byPriority($request->priority);
+        }
+        if ($request->filled('category')) {
+            $baseQuery->byCategory($request->category);
+        }
+        if ($request->filled('assigned_admin')) {
+            $baseQuery->where('assigned_admin_id', $request->assigned_admin);
+        }
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $baseQuery->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('ticket_number', 'like', "%{$search}%");
+            });
+        }
+
+        // Status breakdown
+        $statusStats = [
+            'open' => (clone $baseQuery)->where('status', 'open')->count(),
+            'in_progress' => (clone $baseQuery)->where('status', 'in_progress')->count(),
+            'resolved' => (clone $baseQuery)->where('status', 'resolved')->count(),
+            'closed' => (clone $baseQuery)->where('status', 'closed')->count(),
+        ];
+
+        // Priority breakdown
+        $priorityStats = [
+            'low' => (clone $baseQuery)->where('priority', 'low')->count(),
+            'medium' => (clone $baseQuery)->where('priority', 'medium')->count(),
+            'high' => (clone $baseQuery)->where('priority', 'high')->count(),
+            'critical' => (clone $baseQuery)->where('priority', 'critical')->count(),
+        ];
+
+        // Category breakdown
+        $categoryStats = [
+            'technical' => (clone $baseQuery)->where('category', 'technical')->count(),
+            'billing' => (clone $baseQuery)->where('category', 'billing')->count(),
+            'feature_request' => (clone $baseQuery)->where('category', 'feature_request')->count(),
+            'general' => (clone $baseQuery)->where('category', 'general')->count(),
+        ];
+
+        // Calculate average response time (in hours) for resolved tickets
+        $avgResponseTime = (clone $baseQuery)
+            ->whereNotNull('resolved_at')
+            ->selectRaw('AVG(TIMESTAMPDIFF(HOUR, created_at, resolved_at)) as avg_hours')
+            ->value('avg_hours');
+
+        // Top 5 most active tenants (based on ticket count)
+        $topTenants = (clone $baseQuery)
+            ->join('tenants', 'support_tickets.tenant_id', '=', 'tenants.id')
+            ->select('tenants.name', 'tenants.id', DB::raw('COUNT(support_tickets.id) as ticket_count'))
+            ->groupBy('tenants.id', 'tenants.name')
+            ->orderBy('ticket_count', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Admin workload (tickets assigned to each admin)
+        $adminWorkload = (clone $baseQuery)
+            ->join('central_admins', 'support_tickets.assigned_admin_id', '=', 'central_admins.id')
+            ->select('central_admins.name', 'central_admins.id', DB::raw('COUNT(support_tickets.id) as ticket_count'))
+            ->whereNotNull('assigned_admin_id')
+            ->groupBy('central_admins.id', 'central_admins.name')
+            ->orderBy('ticket_count', 'desc')
+            ->get();
+
+        // Recent activity (tickets created in last 7 days)
+        $recentActivity = (clone $baseQuery)
+            ->where('created_at', '>=', now()->subDays(7))
+            ->count();
+
+        // Unassigned tickets count
+        $unassignedCount = (clone $baseQuery)
+            ->whereNull('assigned_admin_id')
+            ->count();
+
+        return [
+            'status_stats' => $statusStats,
+            'priority_stats' => $priorityStats,
+            'category_stats' => $categoryStats,
+            'avg_response_time' => round($avgResponseTime ?? 0, 1),
+            'top_tenants' => $topTenants,
+            'admin_workload' => $adminWorkload,
+            'recent_activity' => $recentActivity,
+            'unassigned_count' => $unassignedCount,
+            'total_tickets' => (clone $baseQuery)->count(),
+        ];
     }
 }

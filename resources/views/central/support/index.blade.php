@@ -12,6 +12,302 @@
                 requests from all tenants</p>
         </div>
 
+        <!-- Analytics Dashboard -->
+        <div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <!-- Total Tickets -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt
+                                class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                Total Tickets</dt>
+                            <dd
+                                class="text-lg font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                {{ number_format($analytics['total_tickets']) }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unassigned Tickets -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 18.5c-.77.833.192 2.5 1.732 2.5z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt
+                                class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                Unassigned</dt>
+                            <dd class="text-lg font-medium text-orange-600 dark:text-orange-400">
+                                {{ number_format($analytics['unassigned_count']) }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Average Response Time -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt
+                                class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                Avg Response</dt>
+                            <dd class="text-lg font-medium text-blue-600 dark:text-blue-400">
+                                {{ $analytics['avg_response_time'] }}h</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt
+                                class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                Last 7 Days</dt>
+                            <dd class="text-lg font-medium text-green-600 dark:text-green-400">
+                                {{ number_format($analytics['recent_activity']) }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status and Priority Breakdown -->
+        <div class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <!-- Status Breakdown -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <h3
+                    class="mb-4 text-lg font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                    Status Breakdown</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="mr-3 h-3 w-3 rounded-full bg-red-500"></div>
+                            <span
+                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">Open</span>
+                        </div>
+                        <span
+                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $analytics['status_stats']['open'] }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="mr-3 h-3 w-3 rounded-full bg-yellow-500"></div>
+                            <span
+                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">In
+                                Progress</span>
+                        </div>
+                        <span
+                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $analytics['status_stats']['in_progress'] }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="mr-3 h-3 w-3 rounded-full bg-green-500"></div>
+                            <span
+                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">Resolved</span>
+                        </div>
+                        <span
+                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $analytics['status_stats']['resolved'] }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="mr-3 h-3 w-3 rounded-full bg-gray-500"></div>
+                            <span
+                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">Closed</span>
+                        </div>
+                        <span
+                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $analytics['status_stats']['closed'] }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Priority Breakdown -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <h3
+                    class="mb-4 text-lg font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                    Priority Breakdown</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="mr-3 h-3 w-3 rounded-full bg-red-600"></div>
+                            <span
+                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">Critical</span>
+                        </div>
+                        <span
+                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $analytics['priority_stats']['critical'] }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="mr-3 h-3 w-3 rounded-full bg-orange-500"></div>
+                            <span
+                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">High</span>
+                        </div>
+                        <span
+                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $analytics['priority_stats']['high'] }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="mr-3 h-3 w-3 rounded-full bg-yellow-500"></div>
+                            <span
+                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">Medium</span>
+                        </div>
+                        <span
+                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $analytics['priority_stats']['medium'] }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="mr-3 h-3 w-3 rounded-full bg-green-500"></div>
+                            <span
+                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">Low</span>
+                        </div>
+                        <span
+                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $analytics['priority_stats']['low'] }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Analytics: Top Tenants and Admin Workload -->
+        <div class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <!-- Top Active Tenants -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <h3
+                    class="mb-4 text-lg font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                    Most Active Tenants</h3>
+                @if ($analytics['top_tenants']->count() > 0)
+                    <div class="space-y-3">
+                        @foreach ($analytics['top_tenants'] as $tenant)
+                            <div class="flex items-center justify-between">
+                                <span
+                                    class="truncate text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">{{ Str::limit($tenant->name, 20) }}</span>
+                                <div class="flex items-center">
+                                    <div
+                                        class="mr-3 h-2 w-16 rounded-full bg-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                        <div class="h-2 rounded-full bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)]"
+                                            style="width: {{ min(100, ($tenant->ticket_count / max($analytics['top_tenants']->max('ticket_count'), 1)) * 100) }}%">
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="w-8 text-right text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $tenant->ticket_count }}</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">No
+                        data available</p>
+                @endif
+            </div>
+
+            <!-- Admin Workload -->
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <h3
+                    class="mb-4 text-lg font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                    Admin Workload</h3>
+                @if ($analytics['admin_workload']->count() > 0)
+                    <div class="space-y-3">
+                        @foreach ($analytics['admin_workload'] as $admin)
+                            <div class="flex items-center justify-between">
+                                <span
+                                    class="truncate text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">{{ Str::limit($admin->name, 20) }}</span>
+                                <div class="flex items-center">
+                                    <div
+                                        class="mr-3 h-2 w-16 rounded-full bg-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                        <div class="h-2 rounded-full bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)]"
+                                            style="width: {{ min(100, ($admin->ticket_count / max($analytics['admin_workload']->max('ticket_count'), 1)) * 100) }}%">
+                                        </div>
+                                    </div>
+                                    <span
+                                        class="w-8 text-right text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $admin->ticket_count }}</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">No
+                        assigned tickets</p>
+                @endif
+            </div>
+        </div>
+
+        <!-- Category Breakdown -->
+        <div class="mb-8">
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+                <h3
+                    class="mb-4 text-lg font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                    Category Distribution</h3>
+                <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                            {{ $analytics['category_stats']['technical'] }}</div>
+                        <div
+                            class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            Technical</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600 dark:text-green-400">
+                            {{ $analytics['category_stats']['billing'] }}</div>
+                        <div
+                            class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            Billing</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                            {{ $analytics['category_stats']['feature_request'] }}</div>
+                        <div
+                            class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            Feature Request</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-600 dark:text-gray-400">
+                            {{ $analytics['category_stats']['general'] }}</div>
+                        <div
+                            class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            General</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Filters -->
         <div
             class="mb-6 rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
@@ -48,7 +344,8 @@
                         <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>Low</option>
                         <option value="medium" {{ request('priority') == 'medium' ? 'selected' : '' }}>Medium</option>
                         <option value="high" {{ request('priority') == 'high' ? 'selected' : '' }}>High</option>
-                        <option value="critical" {{ request('priority') == 'critical' ? 'selected' : '' }}>Critical</option>
+                        <option value="critical" {{ request('priority') == 'critical' ? 'selected' : '' }}>Critical
+                        </option>
                     </select>
                 </div>
 
