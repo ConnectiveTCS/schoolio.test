@@ -72,6 +72,10 @@ foreach (config('tenancy.central_domains') as $domain) {
                 Route::get('settings', [SettingsController::class, 'index'])->name('settings');
                 Route::put('settings/email', [SettingsController::class, 'updateEmailConfig'])->name('settings.email.update');
                 Route::post('settings/email/test', [SettingsController::class, 'testEmail'])->name('settings.email.test');
+                Route::put('settings/backup', [SettingsController::class, 'updateBackupConfig'])->name('settings.backup.update');
+                Route::post('settings/backup/create', [SettingsController::class, 'createBackup'])->name('settings.backup.create');
+                Route::post('settings/maintenance/toggle', [SettingsController::class, 'toggleMaintenance'])->name('settings.maintenance.toggle');
+                Route::get('settings/backup/list', [SettingsController::class, 'listBackups'])->name('settings.backup.list');
                 Route::get('permissions', [CentralAdminController::class, 'permissions'])->name('permissions.index');
                 Route::post('permissions/create', [CentralAdminController::class, 'permissionsCreate'])->name('permissions.create');
             });

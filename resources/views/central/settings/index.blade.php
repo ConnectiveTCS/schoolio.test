@@ -29,6 +29,14 @@
                     @include('central.settings.partials.email-configuration', [
                         'emailSettings' => $emailSettings ?? [],
                     ])
+
+                    <!-- Backup & Maintenance Schedule -->
+                    <div
+                        class="mt-8 border-t border-[color:var(--color-light-brunswick-green)] pt-6 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
+                        @include('central.settings.partials.backup-maintenance-schedule', [
+                            'backupSettings' => $backupSettings ?? [],
+                        ])
+                    </div>
                 </div>
             </div>
 

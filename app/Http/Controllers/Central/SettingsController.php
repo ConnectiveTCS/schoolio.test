@@ -17,8 +17,9 @@ class SettingsController extends Controller
     public function index()
     {
         $emailSettings = Setting::getEmailSettings();
+        $backupSettings = Setting::getBackupSettings();
 
-        return view('central.settings.index', compact('emailSettings'));
+        return view('central.settings.index', compact('emailSettings', 'backupSettings'));
     }
 
     /**
@@ -120,5 +121,115 @@ class SettingsController extends Controller
         Config::set('mail.mailers.smtp.encryption', $settings['mail_encryption']);
         Config::set('mail.from.address', $settings['mail_from_address']);
         Config::set('mail.from.name', $settings['mail_from_name']);
+    }
+
+    /**
+     * Update backup and maintenance configuration
+     */
+    public function updateBackupConfig(Request $request)
+    {
+        $request->validate([
+            'backup_enabled' => 'boolean',
+            'backup_frequency' => 'required|string|in:daily,weekly,monthly',
+            'backup_time' => 'required|string',
+            'backup_retention_days' => 'required|integer|min:1|max:365',
+            'backup_storage_path' => 'required|string|max:255',
+            'maintenance_enabled' => 'boolean',
+            'maintenance_frequency' => 'required|string|in:weekly,monthly,quarterly',
+            'maintenance_time' => 'required|string',
+            'maintenance_duration' => 'required|string|in:1,2,4,6',
+            'maintenance_message' => 'required|string|max:500',
+        ]);
+
+        try {
+            // Store backup settings
+            Setting::set('backup_enabled', $request->has('backup_enabled'), 'boolean', 'Enable automatic backups');
+            Setting::set('backup_frequency', $request->backup_frequency, 'string', 'Backup frequency');
+            Setting::set('backup_time', $request->backup_time, 'string', 'Backup time');
+            Setting::set('backup_retention_days', $request->backup_retention_days, 'integer', 'Backup retention days');
+            Setting::set('backup_storage_path', $request->backup_storage_path, 'string', 'Backup storage path');
+
+            // Store maintenance settings
+            Setting::set('maintenance_enabled', $request->has('maintenance_enabled'), 'boolean', 'Enable scheduled maintenance');
+            Setting::set('maintenance_frequency', $request->maintenance_frequency, 'string', 'Maintenance frequency');
+            Setting::set('maintenance_time', $request->maintenance_time, 'string', 'Maintenance time');
+            Setting::set('maintenance_duration', $request->maintenance_duration, 'string', 'Maintenance duration in hours');
+            Setting::set('maintenance_message', $request->maintenance_message, 'string', 'Maintenance message for users');
+
+            return redirect()->back()->with('backup_success', 'Backup and maintenance settings updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('backup_error', 'Failed to update backup settings: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Create a manual backup
+     */
+    public function createBackup()
+    {
+        try {
+            // Run backup command
+            Artisan::call('backup:run');
+
+            return redirect()->back()->with('backup_success', 'Manual backup created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('backup_error', 'Failed to create backup: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Toggle maintenance mode
+     */
+    public function toggleMaintenance()
+    {
+        try {
+            if (app()->isDownForMaintenance()) {
+                Artisan::call('up');
+                $message = 'Maintenance mode disabled successfully.';
+            } else {
+                $maintenanceMessage = Setting::get('maintenance_message', 'We are currently performing scheduled maintenance. Please check back later.');
+                Artisan::call('down', [
+                    '--message' => $maintenanceMessage,
+                    '--retry' => 60,
+                ]);
+                $message = 'Maintenance mode enabled successfully.';
+            }
+
+            return redirect()->back()->with('backup_success', $message);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('backup_error', 'Failed to toggle maintenance mode: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * List backup files
+     */
+    public function listBackups()
+    {
+        try {
+            $backupPath = Setting::get('backup_storage_path', 'storage/app/backups');
+            $fullPath = base_path($backupPath);
+
+            $backups = [];
+            if (is_dir($fullPath)) {
+                $files = glob($fullPath . '/*.zip');
+                foreach ($files as $file) {
+                    $backups[] = [
+                        'name' => basename($file),
+                        'size' => filesize($file),
+                        'date' => filemtime($file),
+                        'path' => $file
+                    ];
+                }
+                // Sort by date, newest first
+                usort($backups, function ($a, $b) {
+                    return $b['date'] - $a['date'];
+                });
+            }
+
+            return view('central.settings.backup-list', compact('backups'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('backup_error', 'Failed to list backups: ' . $e->getMessage());
+        }
     }
 }

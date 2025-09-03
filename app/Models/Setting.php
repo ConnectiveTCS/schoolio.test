@@ -79,4 +79,23 @@ class Setting extends Model
             'mail_from_name' => static::get('mail_from_name', config('mail.from.name')),
         ];
     }
+
+    /**
+     * Get all backup and maintenance settings
+     */
+    public static function getBackupSettings()
+    {
+        return [
+            'backup_enabled' => static::get('backup_enabled', false),
+            'backup_frequency' => static::get('backup_frequency', 'daily'),
+            'backup_time' => static::get('backup_time', '02:00'),
+            'backup_retention_days' => static::get('backup_retention_days', 30),
+            'backup_storage_path' => static::get('backup_storage_path', 'storage/app/backups'),
+            'maintenance_enabled' => static::get('maintenance_enabled', false),
+            'maintenance_frequency' => static::get('maintenance_frequency', 'weekly'),
+            'maintenance_time' => static::get('maintenance_time', '03:00'),
+            'maintenance_duration' => static::get('maintenance_duration', '2'),
+            'maintenance_message' => static::get('maintenance_message', 'We are currently performing scheduled maintenance. Please check back later.'),
+        ];
+    }
 }
