@@ -1,16 +1,46 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @plugin '@tailwindcss/forms';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-@custom-variant dark (&:is(.dark *));
+/* Extend dark variant to also react to [theme="dark"] attribute on <html> */
+@custom-variant dark (&:is(.dark *, [theme="dark"] *));
 
 @theme {
-  --font-sans:
-    Figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: Figtree, ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    --color-light-dark-green: #e8f2f0;
+    --color-light-brunswick-green: #d2e6e2;
+    --color-light-castleton-green: #cee8df;
+    --color-light-gunmetal: #d8dfe5;
+    --color-light-prussian-blue: #d4dce5;
+}
+
+/* Dark mode overrides: when .dark class OR [theme="dark"] is present, remap the "light" tokens
+   so utilities like bg-light-... adapt automatically without changing markup. */
+.dark {
+    /* In dark mode we override the *light* tokens so existing classes like
+       bg-light-dark-green automatically switch without needing dark: prefixes.
+       We also keep the explicit dark-* tokens for any direct dark:bg-dark-green usage. */
+    @theme {
+        /* Remap light token names to dark palette values */
+        --color-light-dark-green: #e8f2f0;
+        --color-light-brunswick-green: #d2e6e2;
+        --color-light-castleton-green: #cee8df;
+        --color-light-gunmetal: #d8dfe5;
+        --color-light-prussian-blue: #d4dce5;
+
+        /* Maintain separate dark-* tokens (if referenced via dark: utilities) */
+        --color-dark-green: #0d3a32;
+        --color-brunswick-green: #224942;
+        --color-castleton-green: #245b47;
+        --color-gunmetal: #223546;
+        --color-prussian-blue: #192a3c;
+    }
 }
 
 /*
@@ -22,27 +52,27 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentcolor);
+    }
 }
 
 /* Custom sidebar styles */
 @utility sidebar-nav-item {
-  @apply flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-150;
+    @apply flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-150;
 }
 @utility sidebar-nav-item-active {
-  @apply bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-100;
+    @apply bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-100;
 }
 @utility sidebar-nav-item-inactive {
-  @apply text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700;
+    @apply text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700;
 }
 @utility sidebar-submenu-item {
-  @apply block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150;
+    @apply block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150;
 }
 
 /* Smooth animations for sidebar */
