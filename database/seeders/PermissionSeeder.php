@@ -39,6 +39,16 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'delete calendar events']);
         Permission::create(['name' => 'view calendar events']);
 
+        $support = $roles->where('name', 'support')->first();
+        if ($support) {
+            $support->givePermissionTo([
+                'view dashboard',
+                'view users',
+                'view announcements',
+                'view calendar events',
+            ]);
+        }
+
         // Give permissions to roles
         $tenantAdmin = $roles->where('name', 'tenant_admin')->first();
         $tenantAdmin->givePermissionTo([

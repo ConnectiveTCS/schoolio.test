@@ -21,23 +21,32 @@
             background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05));
             pointer-events: none;
         }
+
+        /* Dark mode gradient for sticky column */
+        @media (prefers-color-scheme: dark) {
+            .sticky-actions::before {
+                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05));
+            }
+        }
     </style>
 
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto min-h-screen max-w-7xl px-4 transition-colors duration-200 sm:px-6 lg:px-8">
         <div class="py-6">
             <div class="mb-8 md:flex md:items-center md:justify-between">
                 <div class="min-w-0 flex-1">
-                    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl">
+                    <h2
+                        class="text-2xl font-bold leading-7 text-[color:var(--color-dark-green)] transition-colors duration-200 sm:truncate sm:text-3xl dark:text-[color:var(--color-light-dark-green)]">
                         Tenant Management
                     </h2>
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p
+                        class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                         Manage all tenant organizations and their settings.
                     </p>
                 </div>
                 <div class="mt-4 flex md:ml-4 md:mt-0">
                     @if (auth('central_admin')->user()->canManageTenants())
                         <a href="{{ route('central.tenants.create') }}"
-                            class="ml-3 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
+                            class="shadow-xs ml-3 inline-flex items-center rounded-md border border-transparent bg-[color:var(--color-castleton-green)] px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
                             <i class="fas fa-plus mr-2"></i>Create Tenant
                         </a>
                     @endif
@@ -46,62 +55,86 @@
 
             <!-- Statistics Dashboard -->
             <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="rounded-lg bg-white p-6 shadow-sm">
+                <div
+                    class="overflow-hidden rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-sm transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                     <div class="flex items-center">
                         <div class="shrink-0">
-                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500">
-                                <i class="fas fa-building text-white"></i>
+                            <div
+                                class="flex h-8 w-8 items-center justify-center rounded-md bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)]">
+                                <i class="fas fa-building text-white dark:text-[color:var(--color-dark-green)]"></i>
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="truncate text-sm font-medium text-gray-500">Total Tenants</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['total'] ?? 0 }}</dd>
+                                <dt
+                                    class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Total Tenants</dt>
+                                <dd
+                                    class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    {{ $stats['total'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
                 </div>
-                <div class="rounded-lg bg-white p-6 shadow-sm">
+                <div
+                    class="overflow-hidden rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-sm transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                     <div class="flex items-center">
                         <div class="shrink-0">
-                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-green-500">
-                                <i class="fas fa-check-circle text-white"></i>
+                            <div
+                                class="flex h-8 w-8 items-center justify-center rounded-md bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)]">
+                                <i class="fas fa-check-circle text-white dark:text-[color:var(--color-dark-green)]"></i>
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="truncate text-sm font-medium text-gray-500">Active</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['active'] ?? 0 }}</dd>
+                                <dt
+                                    class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Active</dt>
+                                <dd
+                                    class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    {{ $stats['active'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
                 </div>
-                <div class="rounded-lg bg-white p-6 shadow-sm">
+                <div
+                    class="overflow-hidden rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-sm transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                     <div class="flex items-center">
                         <div class="shrink-0">
-                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-yellow-500">
-                                <i class="fas fa-pause-circle text-white"></i>
+                            <div
+                                class="flex h-8 w-8 items-center justify-center rounded-md bg-[color:var(--color-gunmetal)] dark:bg-[color:var(--color-light-gunmetal)]">
+                                <i class="fas fa-pause-circle text-white dark:text-[color:var(--color-dark-green)]"></i>
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="truncate text-sm font-medium text-gray-500">Suspended</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['suspended'] ?? 0 }}</dd>
+                                <dt
+                                    class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Suspended</dt>
+                                <dd
+                                    class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    {{ $stats['suspended'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
                 </div>
-                <div class="rounded-lg bg-white p-6 shadow-sm">
+                <div
+                    class="overflow-hidden rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-6 shadow-sm transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                     <div class="flex items-center">
                         <div class="shrink-0">
-                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-500">
-                                <i class="fas fa-calendar-day text-white"></i>
+                            <div
+                                class="flex h-8 w-8 items-center justify-center rounded-md bg-[color:var(--color-prussian-blue)] dark:bg-[color:var(--color-light-prussian-blue)]">
+                                <i class="fas fa-calendar-day text-white dark:text-[color:var(--color-dark-green)]"></i>
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="truncate text-sm font-medium text-gray-500">This Month</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['this_month'] ?? 0 }}</dd>
+                                <dt
+                                    class="truncate text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    This Month</dt>
+                                <dd
+                                    class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    {{ $stats['this_month'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -109,20 +142,23 @@
             </div>
 
             <!-- Filters -->
-            <div class="mb-6 rounded-lg bg-white shadow-sm">
+            <div
+                class="mb-6 rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] shadow-sm transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                 <div class="px-6 py-4">
                     <form method="GET" action="{{ route('central.tenants.index') }}">
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
                             <div>
-                                <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
+                                <label for="search"
+                                    class="block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Search</label>
                                 <input type="text" name="search" id="search" value="{{ request('search') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                    class="shadow-xs mt-1 block w-full rounded-md border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] sm:text-sm dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                     placeholder="Name, email, or ID...">
                             </div>
                             <div>
-                                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                                <label for="status"
+                                    class="block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Status</label>
                                 <select name="status" id="status"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="shadow-xs mt-1 block w-full rounded-md border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] sm:text-sm dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                                     <option value="">All Statuses</option>
                                     <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active
                                     </option>
@@ -133,9 +169,10 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="plan" class="block text-sm font-medium text-gray-700">Plan</label>
+                                <label for="plan"
+                                    class="block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Plan</label>
                                 <select name="plan" id="plan"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="shadow-xs mt-1 block w-full rounded-md border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] sm:text-sm dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                                     <option value="">All Plans</option>
                                     <option value="basic" {{ request('plan') === 'basic' ? 'selected' : '' }}>Basic
                                     </option>
@@ -146,46 +183,52 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="date_from" class="block text-sm font-medium text-gray-700">Created From</label>
+                                <label for="date_from"
+                                    class="block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Created
+                                    From</label>
                                 <input type="date" name="date_from" id="date_from" value="{{ request('date_from') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="shadow-xs mt-1 block w-full rounded-md border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] sm:text-sm dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                             </div>
                             <div>
-                                <label for="date_to" class="block text-sm font-medium text-gray-700">Created To</label>
+                                <label for="date_to"
+                                    class="block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Created
+                                    To</label>
                                 <input type="date" name="date_to" id="date_to" value="{{ request('date_to') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="shadow-xs mt-1 block w-full rounded-md border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] sm:text-sm dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                             </div>
                             <div class="flex items-end space-x-2">
                                 <button type="submit"
-                                    class="inline-flex flex-1 items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
+                                    class="shadow-xs inline-flex flex-1 items-center justify-center rounded-md border border-transparent bg-[color:var(--color-castleton-green)] px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
                                     <i class="fas fa-search mr-2"></i>Filter
                                 </button>
                                 <a href="{{ route('central.tenants.index') }}"
-                                    class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
+                                    class="shadow-xs inline-flex items-center justify-center rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                     <i class="fas fa-times"></i>
                                 </a>
                             </div>
                         </div>
 
                         <!-- Quick Actions Row -->
-                        <div class="mt-4 flex items-center justify-between border-t pt-4">
+                        <div
+                            class="mt-4 flex items-center justify-between border-t border-[color:var(--color-light-brunswick-green)] pt-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
                             <div class="flex items-center space-x-3">
                                 <button type="button" onclick="exportAll()"
-                                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
+                                    class="shadow-xs inline-flex items-center rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-3 py-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                     <i class="fas fa-download mr-2"></i>Export All
                                 </button>
                                 @if (auth('central_admin')->user()->canManageTenants())
                                     <button type="button" onclick="showBulkCommunication()"
-                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
+                                        class="shadow-xs inline-flex items-center rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-3 py-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                         <i class="fas fa-envelope mr-2"></i>Send Notice
                                     </button>
                                     <button type="button" onclick="showHealthReport()"
-                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
+                                        class="shadow-xs inline-flex items-center rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-3 py-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                         <i class="fas fa-chart-line mr-2"></i>Health Report
                                     </button>
                                 @endif
                             </div>
-                            <div class="text-sm text-gray-500">
+                            <div
+                                class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                 Showing {{ $tenants->firstItem() ?? 0 }} to {{ $tenants->lastItem() ?? 0 }} of
                                 {{ $tenants->total() ?? 0 }} results
                             </div>
@@ -195,36 +238,39 @@
             </div>
 
             <!-- Tenants Table -->
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-md">
+            <div
+                class="overflow-hidden border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] shadow-sm transition-colors duration-200 sm:rounded-md dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                 @if ($tenants->count() > 0)
                     <!-- Bulk Actions Bar -->
-                    <div class="hidden border-b border-gray-200 bg-gray-50 px-6 py-3" id="bulk-actions">
+                    <div class="hidden border-b border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-6 py-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]"
+                        id="bulk-actions">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <span class="text-sm text-gray-700">
+                                <span
+                                    class="text-sm text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     <span id="selected-count">0</span> tenant(s) selected
                                 </span>
                             </div>
                             <div class="flex items-center space-x-3">
                                 @if (auth('central_admin')->user()->canManageTenants())
                                     <button type="button" onclick="bulkAction('suspend')"
-                                        class="text-sm text-yellow-600 hover:text-yellow-900">
+                                        class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                         <i class="fas fa-pause mr-1"></i>Suspend
                                     </button>
                                     <button type="button" onclick="bulkAction('activate')"
-                                        class="text-sm text-green-600 hover:text-green-900">
+                                        class="text-sm text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                                         <i class="fas fa-play mr-1"></i>Activate
                                     </button>
                                     <button type="button" onclick="bulkAction('delete')"
-                                        class="text-sm text-red-600 hover:text-red-900">
+                                        class="text-sm text-red-600 transition-colors duration-200 hover:text-red-900">
                                         <i class="fas fa-trash mr-1"></i>Delete
                                     </button>
                                     <button type="button" onclick="exportSelected()"
-                                        class="text-sm text-blue-600 hover:text-blue-900">
+                                        class="text-sm text-[color:var(--color-prussian-blue)] transition-colors duration-200 hover:text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-prussian-blue)] dark:hover:text-[color:var(--color-light-gunmetal)]">
                                         <i class="fas fa-download mr-1"></i>Export
                                     </button>
                                     <button type="button" onclick="communicateWithSelected()"
-                                        class="text-sm text-purple-600 hover:text-purple-900">
+                                        class="text-sm text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                                         <i class="fas fa-envelope mr-1"></i>Send Notice
                                     </button>
                                 @endif
@@ -234,74 +280,97 @@
                 @endif
 
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                    <table
+                        class="min-w-full divide-y divide-[color:var(--color-light-brunswick-green)] transition-colors duration-200 dark:divide-[color:var(--color-castleton-green)]">
+                        <thead
+                            class="bg-[color:var(--color-light-brunswick-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)]">
                             <tr>
                                 @if ($tenants->count() > 0 && auth('central_admin')->user()->canManageTenants())
                                     <th class="px-6 py-3 text-left">
                                         <input type="checkbox" id="select-all"
-                                            class="h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500">
+                                            class="h-4 w-4 rounded-sm border-[color:var(--color-light-brunswick-green)] text-[color:var(--color-castleton-green)] transition-colors duration-200 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                                     </th>
                                 @endif
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Tenant</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Contact</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Status</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Plan</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Domain</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Health</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Storage</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Last Activity</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Created</th>
                                 <th
-                                    class="sticky-actions sticky right-0 bg-gray-50 px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    class="sticky-actions sticky right-0 bg-[color:var(--color-light-brunswick-green)] px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-gunmetal)]">
                                     Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200 bg-white">
+                        <tbody
+                            class="divide-y divide-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:divide-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                             @forelse($tenants as $tenant)
-                                <tr class="group hover:bg-gray-50">
+                                <tr
+                                    class="group transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                     @if (auth('central_admin')->user()->canManageTenants())
                                         <td class="whitespace-nowrap px-6 py-4">
                                             <input type="checkbox" name="selected_tenants[]" value="{{ $tenant->id }}"
-                                                class="tenant-checkbox h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500">
+                                                class="tenant-checkbox h-4 w-4 rounded-sm border-[color:var(--color-light-brunswick-green)] text-[color:var(--color-castleton-green)] transition-colors duration-200 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                                         </td>
                                     @endif
                                     <td class="whitespace-nowrap px-6 py-4">
                                         <div class="flex items-center">
                                             <div>
-                                                <div class="text-sm font-medium text-gray-900">{{ $tenant->name }}</div>
-                                                <div class="text-sm text-gray-500">ID: {{ $tenant->id }}</div>
+                                                <div
+                                                    class="text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                                    {{ $tenant->name }}</div>
+                                                <div
+                                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                    ID: {{ $tenant->id }}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <div class="text-sm text-gray-900">{{ $tenant->email }}</div>
+                                        <div
+                                            class="text-sm text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                            {{ $tenant->email }}</div>
                                         @if ($tenant->phone)
-                                            <div class="text-sm text-gray-500">{{ $tenant->phone }}</div>
+                                            <div
+                                                class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                {{ $tenant->phone }}</div>
                                         @endif
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
                                         <span
-                                            class="{{ $tenant->status === 'active' ? 'bg-green-100 text-green-800' : '' }} {{ $tenant->status === 'suspended' ? 'bg-yellow-100 text-yellow-800' : '' }} {{ $tenant->status === 'inactive' ? 'bg-red-100 text-red-800' : '' }} inline-flex rounded-full px-2 py-1 text-xs font-semibold">
+                                            class="{{ $tenant->status === 'active' ? 'bg-[color:var(--color-light-castleton-green)] dark:bg-[color:var(--color-castleton-green)] text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]' : '' }} {{ $tenant->status === 'suspended' ? 'bg-[color:var(--color-light-gunmetal)] dark:bg-[color:var(--color-gunmetal)] text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]' : '' }} {{ $tenant->status === 'inactive' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' : '' }} inline-flex rounded-full px-2 py-1 text-xs font-semibold transition-colors duration-200">
                                             {{ ucfirst($tenant->status) }}
                                         </span>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                    <td
+                                        class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         {{ ucfirst($tenant->plan ?? 'N/A') }}
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                    <td
+                                        class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         @if ($tenant->domains->isNotEmpty())
                                             <a href="http://{{ $tenant->domains->first()->domain }}" target="_blank"
-                                                class="text-blue-600 hover:text-blue-900">
+                                                class="text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                                                 {{ $tenant->domains->first()->domain }}
                                                 <i class="fas fa-external-link-alt ml-1 text-xs"></i>
                                             </a>
@@ -315,19 +384,26 @@
                                         @php
                                             $healthScore = $tenant->health_score ?? 100;
                                             $healthColor =
-                                                $healthScore >= 90 ? 'green' : ($healthScore >= 70 ? 'yellow' : 'red');
+                                                $healthScore >= 90
+                                                    ? 'castleton-green'
+                                                    : ($healthScore >= 70
+                                                        ? 'gunmetal'
+                                                        : 'red');
                                         @endphp
                                         <div class="flex items-center">
-                                            <div class="mr-2 h-2 w-16 rounded-full bg-gray-200">
-                                                <div class="bg-{{ $healthColor }}-500 h-2 rounded-full"
+                                            <div
+                                                class="mr-2 h-2 w-16 rounded-full bg-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                                <div class="h-2 rounded-full bg-[color:var(--color-{{ $healthColor === 'castleton-green' ? 'castleton-green' : ($healthColor === 'gunmetal' ? 'gunmetal' : 'red-500') }})] transition-colors duration-200 dark:bg-[color:var(--color-{{ $healthColor === 'castleton-green' ? 'light-castleton-green' : ($healthColor === 'gunmetal' ? 'light-gunmetal' : 'red-400') }})]"
                                                     style="width: {{ $healthScore }}%"></div>
                                             </div>
-                                            <span class="text-xs text-gray-500">{{ $healthScore }}%</span>
+                                            <span
+                                                class="text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">{{ $healthScore }}%</span>
                                         </div>
                                     </td>
 
                                     <!-- Storage Usage -->
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                    <td
+                                        class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         @php
                                             $storageUsed = $tenant->storage_used ?? 0;
                                             $storageLimit = $tenant->storage_limit ?? 1000;
@@ -335,14 +411,16 @@
                                                 $storageLimit > 0 ? ($storageUsed / $storageLimit) * 100 : 0;
                                         @endphp
                                         <div class="text-sm">{{ number_format($storageUsed / 1024, 1) }} GB</div>
-                                        <div class="mt-1 h-1 w-16 rounded-full bg-gray-200">
-                                            <div class="h-1 rounded-full bg-blue-500"
+                                        <div
+                                            class="mt-1 h-1 w-16 rounded-full bg-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                            <div class="h-1 rounded-full bg-[color:var(--color-castleton-green)] transition-colors duration-200 dark:bg-[color:var(--color-light-castleton-green)]"
                                                 style="width: {{ min($storagePercent, 100) }}%"></div>
                                         </div>
                                     </td>
 
                                     <!-- Last Activity -->
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                    <td
+                                        class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         @if ($tenant->last_activity_at)
                                             {{ $tenant->last_activity_at->diffForHumans() }}
                                         @else
@@ -350,20 +428,21 @@
                                         @endif
                                     </td>
 
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                    <td
+                                        class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         {{ $tenant->created_at->format('M j, Y') }}
                                     </td>
                                     <td
-                                        class="sticky-actions sticky right-0 whitespace-nowrap bg-white px-6 py-4 text-right text-sm font-medium group-hover:bg-gray-50">
+                                        class="sticky-actions sticky right-0 whitespace-nowrap bg-[color:var(--color-light-dark-green)] px-6 py-4 text-right text-sm font-medium transition-colors duration-200 group-hover:bg-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-dark-green)] dark:group-hover:bg-[color:var(--color-brunswick-green)]">
                                         <div class="flex items-center justify-end space-x-2">
                                             <a href="{{ route('central.tenants.show', $tenant) }}"
-                                                class="text-blue-600 hover:text-blue-900">
+                                                class="text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                                                 <i class="fas fa-eye"></i>
                                             </a>
 
                                             @if (auth('central_admin')->user()->canManageTenants())
                                                 <a href="{{ route('central.tenants.edit', $tenant) }}"
-                                                    class="text-yellow-600 hover:text-yellow-900">
+                                                    class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-prussian-blue)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-prussian-blue)]">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
 
@@ -374,7 +453,7 @@
                                                         onsubmit="return confirm('Are you sure you want to suspend this tenant?');">
                                                         @csrf
                                                         <button type="submit"
-                                                            class="text-yellow-600 hover:text-yellow-900">
+                                                            class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-prussian-blue)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-prussian-blue)]">
                                                             <i class="fas fa-pause"></i>
                                                         </button>
                                                     </form>
@@ -385,7 +464,7 @@
                                                         onsubmit="return confirm('Are you sure you want to activate this tenant?');">
                                                         @csrf
                                                         <button type="submit"
-                                                            class="text-green-600 hover:text-green-900">
+                                                            class="text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                                                             <i class="fas fa-play"></i>
                                                         </button>
                                                     </form>
@@ -396,7 +475,8 @@
                                                     class="inline"
                                                     onsubmit="return confirm('This will take you to the tenant\'s domain. Continue?');">
                                                     @csrf
-                                                    <button type="submit" class="text-purple-600 hover:text-purple-900">
+                                                    <button type="submit"
+                                                        class="text-[color:var(--color-prussian-blue)] transition-colors duration-200 hover:text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-prussian-blue)] dark:hover:text-[color:var(--color-light-gunmetal)]">
                                                         <i class="fas fa-user-secret"></i>
                                                     </button>
                                                 </form>
@@ -406,17 +486,19 @@
                                                     onsubmit="return confirm('Are you sure you want to delete this tenant? This action cannot be undone.');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900">
+                                                    <button type="submit"
+                                                        class="text-red-600 transition-colors duration-200 hover:text-red-900">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
+                                                </form>
                                             @endif
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="{{ auth('central_admin')->user()->canManageTenants() ? '8' : '7' }}"
-                                        class="px-6 py-4 text-center text-sm text-gray-500">
+                                    <td colspan="{{ auth('central_admin')->user()->canManageTenants() ? '11' : '10' }}"
+                                        class="px-6 py-4 text-center text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         No tenants found.
                                     </td>
                                 </tr>
@@ -429,40 +511,51 @@
             <!-- Pagination -->
             @if ($tenants->hasPages())
                 <div class="mt-6">
-                    {{ $tenants->links() }}
+                    <div class="pagination-wrapper">
+                        {{ $tenants->links() }}
+                    </div>
                 </div>
             @endif
         </div>
     </div>
 
     <!-- Communication Modal -->
-    <div id="communication-modal" class="fixed inset-0 hidden h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50">
-        <div class="relative top-20 mx-auto w-96 rounded-md border bg-white p-5 shadow-lg">
+    <div id="communication-modal"
+        class="fixed inset-0 hidden h-full w-full overflow-y-auto bg-black bg-opacity-50 transition-colors duration-200">
+        <div
+            class="relative top-20 mx-auto w-96 rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-5 shadow-lg transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
             <div class="mt-3">
-                <h3 class="mb-4 text-lg font-medium text-gray-900">Send Notice to Tenants</h3>
+                <h3
+                    class="mb-4 text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                    Send Notice to Tenants</h3>
                 <form id="communication-form">
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Subject</label>
+                        <label
+                            class="block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Subject</label>
                         <input type="text" id="notice-subject"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500">
+                            class="shadow-xs mt-1 block w-full rounded-md border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                     </div>
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Message</label>
+                        <label
+                            class="block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Message</label>
                         <textarea id="notice-message" rows="4"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            class="shadow-xs mt-1 block w-full rounded-md border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"></textarea>
                     </div>
                     <div class="mb-4">
                         <label class="flex items-center">
                             <input type="checkbox" id="urgent-notice"
-                                class="rounded-sm border-gray-300 text-blue-600 shadow-xs focus:border-blue-300 focus:ring-3 focus:ring-blue-200 focus:ring-opacity-50">
-                            <span class="ml-2 text-sm text-gray-600">Mark as urgent</span>
+                                class="shadow-xs focus:ring-3 rounded-sm border-[color:var(--color-light-brunswick-green)] text-[color:var(--color-castleton-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-50 dark:border-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
+                            <span
+                                class="ml-2 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">Mark
+                                as urgent</span>
                         </label>
                     </div>
                     <div class="flex justify-end space-x-3">
                         <button type="button" onclick="closeCommunicationModal()"
-                            class="rounded-md bg-gray-200 px-4 py-2 text-gray-500 hover:bg-gray-300">Cancel</button>
+                            class="rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-4 py-2 text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-castleton-green)]">Cancel</button>
                         <button type="button" onclick="sendNotice()"
-                            class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Send Notice</button>
+                            class="rounded-md bg-[color:var(--color-castleton-green)] px-4 py-2 text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">Send
+                            Notice</button>
                     </div>
                 </form>
             </div>
@@ -470,16 +563,22 @@
     </div>
 
     <!-- Health Report Modal -->
-    <div id="health-modal" class="fixed inset-0 hidden h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50">
-        <div class="relative top-10 mx-auto w-4/5 max-w-4xl rounded-md border bg-white p-5 shadow-lg">
+    <div id="health-modal"
+        class="fixed inset-0 hidden h-full w-full overflow-y-auto bg-black bg-opacity-50 transition-colors duration-200">
+        <div
+            class="relative top-10 mx-auto w-4/5 max-w-4xl rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] p-5 shadow-lg transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
             <div class="mt-3">
                 <div class="mb-4 flex items-center justify-between">
-                    <h3 class="text-lg font-medium text-gray-900">System Health Report</h3>
-                    <button onclick="closeHealthModal()" class="text-gray-400 hover:text-gray-600">
+                    <h3
+                        class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        System Health Report</h3>
+                    <button onclick="closeHealthModal()"
+                        class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                <div id="health-report-content">
+                <div id="health-report-content"
+                    class="text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                     <!-- Health report content will be loaded here -->
                 </div>
             </div>

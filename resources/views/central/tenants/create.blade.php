@@ -3,41 +3,51 @@
 @section('title', 'Create New Tenant')
 
 @section('content')
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto min-h-screen max-w-4xl px-4 transition-colors duration-200 sm:px-6 lg:px-8">
         <div class="py-6">
             <div class="mb-8">
                 <div class="flex items-center">
-                    <a href="{{ route('central.tenants.index') }}" class="mr-4 text-blue-600 hover:text-blue-900">
+                    <a href="{{ route('central.tenants.index') }}"
+                        class="mr-4 text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                         <i class="fas fa-arrow-left"></i>
                     </a>
-                    <h1 class="text-2xl font-bold text-gray-900">Create New Tenant</h1>
+                    <h1
+                        class="text-2xl font-bold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        Create New Tenant</h1>
                 </div>
-                <p class="mt-1 text-sm text-gray-600">
+                <p
+                    class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                     Create a new tenant organization with its own database and domain.
                 </p>
             </div>
 
-            <div class="rounded-lg bg-white shadow-sm">
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] shadow-sm transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                 <form method="POST" action="{{ route('central.tenants.store') }}" class="space-y-6">
                     @csrf
 
-                    <div class="border-b border-gray-200 px-6 py-4">
-                        <h3 class="text-lg font-medium text-gray-900">Basic Information</h3>
+                    <div
+                        class="border-b border-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
+                        <h3
+                            class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                            Basic Information</h3>
                     </div>
 
                     <div class="space-y-6 px-6">
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="space-y-1">
-                                <label for="name" class="block text-sm font-semibold text-gray-800">
+                                <label for="name"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     Organization Name
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <input type="text" name="name" id="name" value="{{ old('name') }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                         placeholder="Enter organization name">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-building text-gray-400"></i>
+                                        <i
+                                            class="fas fa-building text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('name')
@@ -48,16 +58,18 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="email" class="block text-sm font-semibold text-gray-800">
+                                <label for="email"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     Contact Email
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <input type="email" name="email" id="email" value="{{ old('email') }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                         placeholder="contact@organization.com">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-envelope text-gray-400"></i>
+                                        <i
+                                            class="fas fa-envelope text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('email')
@@ -70,13 +82,16 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="space-y-1">
-                                <label for="phone" class="block text-sm font-semibold text-gray-800">Phone Number</label>
+                                <label for="phone"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Phone
+                                    Number</label>
                                 <div class="relative">
                                     <input type="text" name="phone" id="phone" value="{{ old('phone') }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                         placeholder="+1 (555) 123-4567">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-phone text-gray-400"></i>
+                                        <i
+                                            class="fas fa-phone text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('phone')
@@ -87,14 +102,16 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="alt_phone" class="block text-sm font-semibold text-gray-800">Alternative
+                                <label for="alt_phone"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Alternative
                                     Phone</label>
                                 <div class="relative">
                                     <input type="text" name="alt_phone" id="alt_phone" value="{{ old('alt_phone') }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                         placeholder="+1 (555) 987-6543">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-phone text-gray-400"></i>
+                                        <i
+                                            class="fas fa-phone text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('alt_phone')
@@ -106,13 +123,16 @@
                         </div>
 
                         <div class="space-y-1">
-                            <label for="website" class="block text-sm font-semibold text-gray-800">Website URL</label>
+                            <label for="website"
+                                class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Website
+                                URL</label>
                             <div class="relative">
                                 <input type="url" name="website" id="website" value="{{ old('website') }}"
-                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                     placeholder="https://example.com">
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <i class="fas fa-globe text-gray-400"></i>
+                                    <i
+                                        class="fas fa-globe text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                 </div>
                             </div>
                             @error('website')
@@ -123,13 +143,15 @@
                         </div>
 
                         <div class="space-y-1">
-                            <label for="address" class="block text-sm font-semibold text-gray-800">Address</label>
+                            <label for="address"
+                                class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Address</label>
                             <div class="relative">
                                 <textarea name="address" id="address" rows="4"
-                                    class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="shadow-xs block w-full resize-y rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                     placeholder="Enter complete address">{{ old('address') }}</textarea>
                                 <div class="pointer-events-none absolute right-0 top-3 flex items-start pr-3">
-                                    <i class="fas fa-map-marker-alt text-gray-400"></i>
+                                    <i
+                                        class="fas fa-map-marker-alt text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                 </div>
                             </div>
                             @error('address')
@@ -140,20 +162,24 @@
                         </div>
                     </div>
 
-                    <div class="border-t border-gray-200 px-6 py-4">
-                        <h3 class="text-lg font-medium text-gray-900">Configuration</h3>
+                    <div
+                        class="border-t border-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
+                        <h3
+                            class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                            Configuration</h3>
                     </div>
 
                     <div class="space-y-6 px-6">
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="space-y-1">
-                                <label for="plan" class="block text-sm font-semibold text-gray-800">
+                                <label for="plan"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     Subscription Plan
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="plan" id="plan" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full cursor-pointer appearance-none rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                                         <option value="">Select a plan...</option>
                                         <option value="basic" {{ old('plan') === 'basic' ? 'selected' : '' }}>Basic
                                         </option>
@@ -163,7 +189,8 @@
                                             Enterprise</option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('plan')
@@ -174,13 +201,14 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="school_type" class="block text-sm font-semibold text-gray-800">
+                                <label for="school_type"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     School Type
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="school_type" id="school_type" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full cursor-pointer appearance-none rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                                         <option value="">Select school type...</option>
                                         <option value="primary" {{ old('school_type') === 'primary' ? 'selected' : '' }}>
                                             Primary School</option>
@@ -193,7 +221,8 @@
                                             {{ old('school_type') === 'vocational' ? 'selected' : '' }}>Vocational</option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('school_type')
@@ -206,13 +235,14 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="space-y-1">
-                                <label for="language" class="block text-sm font-semibold text-gray-800">
+                                <label for="language"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     Default Language
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="language" id="language" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full cursor-pointer appearance-none rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                                         <option value="">Select language...</option>
                                         <option value="en" {{ old('language') === 'en' ? 'selected' : '' }}>English
                                         </option>
@@ -224,7 +254,8 @@
                                         </option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('language')
@@ -235,13 +266,14 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="timezone" class="block text-sm font-semibold text-gray-800">
+                                <label for="timezone"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     Timezone
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="timezone" id="timezone" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full cursor-pointer appearance-none rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                                         <option value="">Select timezone...</option>
                                         <option value="UTC" {{ old('timezone') === 'UTC' ? 'selected' : '' }}>UTC
                                         </option>
@@ -263,7 +295,8 @@
                                             {{ old('timezone') === 'Europe/Paris' ? 'selected' : '' }}>Paris</option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('timezone')
@@ -279,17 +312,19 @@
                                 Domain
                                 <span class="text-red-500">*</span>
                             </label>
-                            <div class="mt-1 flex rounded-lg shadow-xs">
+                            <div class="shadow-xs mt-1 flex rounded-lg">
                                 <input type="text" name="domain" id="domain" value="{{ old('domain') }}"
                                     required
-                                    class="block w-full min-w-0 flex-1 rounded-none rounded-l-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full min-w-0 flex-1 rounded-none rounded-l-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                     placeholder="tenant-name">
                                 <span
-                                    class="inline-flex items-center rounded-r-lg border border-l-0 border-gray-300 bg-gray-100 px-4 text-sm font-medium text-gray-600">
+                                    class="inline-flex items-center rounded-r-lg border border-l-0 border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-4 text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-gunmetal)]">
                                     .schoolio.test
                                 </span>
                             </div>
-                            <p class="mt-1 text-xs text-gray-500">This will be the subdomain for accessing the tenant.</p>
+                            <p
+                                class="mt-1 text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                This will be the subdomain for accessing the tenant.</p>
                             @error('domain')
                                 <p class="mt-1 flex items-center text-xs text-red-600">
                                     <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
@@ -298,13 +333,14 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-end space-x-3 rounded-b-lg bg-gray-50 px-6 py-4">
+                    <div
+                        class="flex justify-end space-x-3 rounded-b-lg bg-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)]">
                         <a href="{{ route('central.tenants.index') }}"
-                            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-xs transition-all duration-200 hover:bg-gray-100 focus:outline-hidden focus:ring-4 focus:ring-gray-200">
+                            class="shadow-xs focus:outline-hidden inline-flex items-center rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-6 py-3 text-sm font-semibold text-[color:var(--color-dark-green)] transition-all duration-200 hover:bg-[color:var(--color-light-brunswick-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                             <i class="fas fa-times mr-2"></i>Cancel
                         </a>
                         <button type="submit"
-                            class="inline-flex transform items-center rounded-lg border border-transparent bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-200">
+                            class="focus:outline-hidden inline-flex transform items-center rounded-lg border border-transparent bg-[color:var(--color-castleton-green)] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[color:var(--color-brunswick-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                             <i class="fas fa-plus mr-2"></i>Create Tenant
                         </button>
                     </div>

@@ -3,14 +3,15 @@
 @section('title', 'Tenant Details - ' . $tenant->name)
 
 @section('content')
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <div
+        class="mx-auto max-w-7xl bg-[color:var(--color-light-dark-green)] px-4 py-6 transition-colors duration-200 sm:px-6 lg:px-8 dark:bg-[color:var(--color-dark-green)]">
         <!-- Header Section -->
         <div class="mb-8">
             <!-- Navigation and Title -->
             <div class="mb-6 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
                     <a href="{{ route('central.tenants.index') }}"
-                        class="inline-flex items-center text-blue-600 transition-colors duration-200 hover:text-blue-900">
+                        class="inline-flex items-center text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                         <i class="fas fa-arrow-left mr-2"></i>
                         <span class="text-sm font-medium">Back to Tenants</span>
                     </a>
@@ -18,7 +19,7 @@
                 @if (auth('central_admin')->user()->canManageTenants())
                     <div class="flex space-x-3">
                         <a href="{{ route('central.tenants.edit', $tenant) }}"
-                            class="inline-flex items-center rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs transition-all duration-200 hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            class="shadow-xs focus:outline-hidden inline-flex items-center rounded-lg border border-transparent bg-[color:var(--color-castleton-green)] px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:scale-105 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                             <i class="fas fa-edit mr-2"></i>Edit Tenant
                         </a>
                     </div>
@@ -28,8 +29,11 @@
             <!-- Title and Status -->
             <div class="flex items-start justify-between">
                 <div>
-                    <h1 class="mb-2 text-3xl font-bold text-gray-900">{{ $tenant->name }}</h1>
-                    <div class="flex items-center space-x-4 text-sm text-gray-600">
+                    <h1
+                        class="mb-2 text-3xl font-bold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                        {{ $tenant->name }}</h1>
+                    <div
+                        class="flex items-center space-x-4 text-sm text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]">
                         <span class="flex items-center">
                             <i class="fas fa-id-card mr-1"></i>
                             ID: {{ $tenant->id }}

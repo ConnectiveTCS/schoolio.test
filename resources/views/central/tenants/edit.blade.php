@@ -3,43 +3,53 @@
 @section('title', 'Edit Tenant - ' . $tenant->name)
 
 @section('content')
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto min-h-screen max-w-4xl px-4 transition-colors duration-200 sm:px-6 lg:px-8">
         <div class="py-6">
             <div class="mb-8">
                 <div class="flex items-center">
-                    <a href="{{ route('central.tenants.show', $tenant) }}" class="mr-4 text-blue-600 hover:text-blue-900">
+                    <a href="{{ route('central.tenants.show', $tenant) }}"
+                        class="mr-4 text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                         <i class="fas fa-arrow-left"></i>
                     </a>
-                    <h1 class="text-2xl font-bold text-gray-900">Edit {{ $tenant->name }}</h1>
+                    <h1
+                        class="text-2xl font-bold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        Edit {{ $tenant->name }}</h1>
                 </div>
-                <p class="mt-1 text-sm text-gray-600">
+                <p
+                    class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                     Update tenant organization information and settings.
                 </p>
             </div>
 
-            <div class="rounded-lg bg-white shadow-sm">
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] shadow-sm transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                 <form method="POST" action="{{ route('central.tenants.update', $tenant) }}" class="space-y-6">
                     @csrf
                     @method('PUT')
 
-                    <div class="border-b border-gray-200 px-6 py-4">
-                        <h3 class="text-lg font-medium text-gray-900">Basic Information</h3>
+                    <div
+                        class="border-b border-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
+                        <h3
+                            class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                            Basic Information</h3>
                     </div>
 
                     <div class="space-y-6 px-6">
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="space-y-1">
-                                <label for="name" class="block text-sm font-semibold text-gray-800">
+                                <label for="name"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     Organization Name
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <input type="text" name="name" id="name"
                                         value="{{ old('name', $tenant->name) }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                         placeholder="Enter organization name">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-building text-gray-400"></i>
+                                        <i
+                                            class="fas fa-building text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('name')
@@ -50,17 +60,19 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="email" class="block text-sm font-semibold text-gray-800">
+                                <label for="email"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     Contact Email
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <input type="email" name="email" id="email"
                                         value="{{ old('email', $tenant->email) }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-gunmetal)] transition-all duration-200 hover:border-[color:var(--color-castleton-green)] focus:border-[color:var(--color-castleton-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] focus:ring-opacity-20 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                         placeholder="Enter contact email">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-envelope text-gray-400"></i>
+                                        <i
+                                            class="fas fa-envelope text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
                                     </div>
                                 </div>
                                 @error('email')
@@ -73,14 +85,17 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="space-y-1">
-                                <label for="phone" class="block text-sm font-semibold text-gray-800">Phone Number</label>
+                                <label for="phone"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Phone
+                                    Number</label>
                                 <div class="relative">
                                     <input type="text" name="phone" id="phone"
                                         value="{{ old('phone', $tenant->phone) }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]"
                                         placeholder="Enter phone number">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-phone text-gray-400"></i>
+                                        <i
+                                            class="fas fa-phone text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('phone')
@@ -91,15 +106,17 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="alt_phone" class="block text-sm font-semibold text-gray-800">Alternative
+                                <label for="alt_phone"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Alternative
                                     Phone</label>
                                 <div class="relative">
                                     <input type="text" name="alt_phone" id="alt_phone"
                                         value="{{ old('alt_phone', $tenant->alt_phone) }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]"
                                         placeholder="Enter alternative phone">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-phone-alt text-gray-400"></i>
+                                        <i
+                                            class="fas fa-phone-alt text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('alt_phone')
@@ -111,14 +128,17 @@
                         </div>
 
                         <div class="space-y-1">
-                            <label for="website" class="block text-sm font-semibold text-gray-800">Website URL</label>
+                            <label for="website"
+                                class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Website
+                                URL</label>
                             <div class="relative">
                                 <input type="url" name="website" id="website"
                                     value="{{ old('website', $tenant->website) }}"
-                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]"
                                     placeholder="https://example.com">
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <i class="fas fa-globe text-gray-400"></i>
+                                    <i
+                                        class="fas fa-globe text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                 </div>
                             </div>
                             @error('website')
@@ -129,13 +149,15 @@
                         </div>
 
                         <div class="space-y-1">
-                            <label for="address" class="block text-sm font-semibold text-gray-800">Address</label>
+                            <label for="address"
+                                class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Address</label>
                             <div class="relative">
                                 <textarea name="address" id="address" rows="4"
-                                    class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="shadow-xs block w-full resize-y rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]"
                                     placeholder="Enter complete address">{{ old('address', $tenant->address) }}</textarea>
                                 <div class="pointer-events-none absolute right-0 top-3 flex items-start pr-3">
-                                    <i class="fas fa-map-marker-alt text-gray-400"></i>
+                                    <i
+                                        class="fas fa-map-marker-alt text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                 </div>
                             </div>
                             @error('address')
@@ -146,20 +168,24 @@
                         </div>
                     </div>
 
-                    <div class="border-t border-gray-200 px-6 py-4">
-                        <h3 class="text-lg font-medium text-gray-900">Configuration</h3>
+                    <div
+                        class="border-t border-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)]">
+                        <h3
+                            class="text-lg font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                            Configuration</h3>
                     </div>
 
                     <div class="space-y-6 px-6">
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div class="space-y-1">
-                                <label for="status" class="block text-sm font-semibold text-gray-800">
+                                <label for="status"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
                                     Status
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="status" id="status" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]">
                                         <option value="active"
                                             {{ old('status', $tenant->status) === 'active' ? 'selected' : '' }}>Active
                                         </option>
@@ -172,7 +198,8 @@
                                         </option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('status')
@@ -183,13 +210,14 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="plan" class="block text-sm font-semibold text-gray-800">
+                                <label for="plan"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
                                     Subscription Plan
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="plan" id="plan" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]">
                                         <option value="basic"
                                             {{ old('plan', $tenant->plan) === 'basic' ? 'selected' : '' }}>
                                             Basic</option>
@@ -201,7 +229,8 @@
                                         </option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('plan')
@@ -212,13 +241,14 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="school_type" class="block text-sm font-semibold text-gray-800">
+                                <label for="school_type"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
                                     School Type
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="school_type" id="school_type" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]">
                                         <option value="primary"
                                             {{ old('school_type', $tenant->school_type) === 'primary' ? 'selected' : '' }}>
                                             Primary School</option>
@@ -233,7 +263,8 @@
                                             Vocational</option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('school_type')
@@ -246,13 +277,14 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="space-y-1">
-                                <label for="language" class="block text-sm font-semibold text-gray-800">
+                                <label for="language"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
                                     Default Language
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="language" id="language" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]">
                                         <option value="en"
                                             {{ old('language', $tenant->language) === 'en' ? 'selected' : '' }}>English
                                         </option>
@@ -267,7 +299,8 @@
                                         </option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('language')
@@ -278,13 +311,14 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="timezone" class="block text-sm font-semibold text-gray-800">
+                                <label for="timezone"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
                                     Timezone
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
                                     <select name="timezone" id="timezone" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]">
                                         <option value="UTC"
                                             {{ old('timezone', $tenant->timezone) === 'UTC' ? 'selected' : '' }}>UTC
                                         </option>
@@ -309,7 +343,8 @@
                                         </option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('timezone')
@@ -322,14 +357,17 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="space-y-1">
-                                <label for="trial_ends_at" class="block text-sm font-semibold text-gray-800">Trial End
+                                <label for="trial_ends_at"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Trial
+                                    End
                                     Date</label>
                                 <div class="relative">
                                     <input type="date" name="trial_ends_at" id="trial_ends_at"
                                         value="{{ old('trial_ends_at', $tenant->trial_ends_at ? $tenant->trial_ends_at->format('Y-m-d') : '') }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-calendar-alt text-gray-400"></i>
+                                        <i
+                                            class="fas fa-calendar-alt text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('trial_ends_at')
@@ -340,11 +378,12 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label for="payment_method" class="block text-sm font-semibold text-gray-800">Payment
+                                <label for="payment_method"
+                                    class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Payment
                                     Method</label>
                                 <div class="relative">
                                     <select name="payment_method" id="payment_method"
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]">
                                         <option value="">Select payment method...</option>
                                         <option value="stripe"
                                             {{ old('payment_method', $tenant->payment_method) === 'stripe' ? 'selected' : '' }}>
@@ -360,7 +399,8 @@
                                             Cash</option>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                        <i
+                                            class="fas fa-chevron-down text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                     </div>
                                 </div>
                                 @error('payment_method')
@@ -372,35 +412,42 @@
                         </div>
                     </div>
 
-                    <div class="border-t border-gray-200 px-6 py-4">
-                        <h3 class="text-lg font-medium text-gray-900">Domains</h3>
+                    <div
+                        class="border-t border-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)]">
+                        <h3
+                            class="text-lg font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                            Domains</h3>
                     </div>
 
                     <div class="space-y-6 px-6">
                         @if ($tenant->domains->isNotEmpty())
-                            <div class="rounded-md bg-blue-50 p-4">
+                            <div
+                                class="rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] p-4 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
                                 <div class="flex">
                                     <div class="shrink-0">
-                                        <i class="fas fa-info-circle text-blue-400"></i>
+                                        <i
+                                            class="fas fa-info-circle text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
                                     </div>
                                     <div class="ml-3">
-                                        <h3 class="text-sm font-medium text-blue-800">Current Domains</h3>
+                                        <h3
+                                            class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                            Current Domains</h3>
                                         <div class="mt-2">
                                             <ul class="space-y-2">
                                                 @foreach ($tenant->domains as $domain)
                                                     <li
-                                                        class="flex items-center justify-between rounded-sm border bg-white px-3 py-2">
+                                                        class="flex items-center justify-between gap-4 rounded-sm border border-[color:var(--color-light-brunswick-green)] bg-white px-3 py-2 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-dark-green)]">
                                                         <div class="flex items-center">
                                                             <span
-                                                                class="text-sm text-gray-900">{{ $domain->domain }}</span>
+                                                                class="text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">{{ $domain->domain }}</span>
                                                             <a href="http://{{ $domain->domain }}" target="_blank"
-                                                                class="ml-2 text-blue-600 hover:text-blue-900">
+                                                                class="ml-2 text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                                                                 <i class="fas fa-external-link-alt text-xs"></i>
                                                             </a>
                                                         </div>
                                                         <button type="button"
                                                             onclick="deleteDomain('{{ $domain->id }}', '{{ $domain->domain }}')"
-                                                            class="text-red-600 hover:text-red-900">
+                                                            class="cursor-pointer text-red-600 transition-colors duration-200 hover:text-red-900">
                                                             <i class="fas fa-trash text-sm"></i>
                                                         </button>
                                                     </li>
@@ -411,14 +458,17 @@
                                 </div>
                             </div>
                         @else
-                            <div class="rounded-md bg-yellow-50 p-4">
+                            <div
+                                class="rounded-md border border-yellow-200 bg-yellow-50 p-4 transition-colors duration-200 dark:border-yellow-700 dark:bg-yellow-900/20">
                                 <div class="flex">
                                     <div class="shrink-0">
                                         <i class="fas fa-exclamation-triangle text-yellow-400"></i>
                                     </div>
                                     <div class="ml-3">
-                                        <h3 class="text-sm font-medium text-yellow-800">No Domains Configured</h3>
-                                        <p class="mt-1 text-sm text-yellow-700">This tenant has no domains. Add a domain
+                                        <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-300">No Domains
+                                            Configured</h3>
+                                        <p class="mt-1 text-sm text-yellow-700 dark:text-yellow-400">This tenant has no
+                                            domains. Add a domain
                                             below to enable access.</p>
                                     </div>
                                 </div>
@@ -426,66 +476,88 @@
                         @endif
 
                         <!-- Add New Domain Section -->
-                        <div class="rounded-lg border border-gray-200 p-4">
-                            <h4 class="text-md mb-4 font-medium text-gray-900">Add New Domain</h4>
+                        <div
+                            class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-white p-4 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-dark-green)]">
+                            <h4
+                                class="mb-4 text-lg font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                Add New Domain</h4>
 
                             <div class="space-y-4">
                                 <div>
-                                    <label class="text-sm font-medium text-gray-700">Domain Type</label>
+                                    <label
+                                        class="text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Domain
+                                        Type</label>
                                     <div class="mt-2 space-y-2">
                                         <label class="inline-flex items-center">
                                             <input type="radio" name="domain_type" value="subdomain" checked
-                                                class="form-radio text-blue-600" onchange="toggleDomainType()">
-                                            <span class="ml-2 text-sm text-gray-700">Subdomain
+                                                class="form-radio text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"
+                                                onchange="toggleDomainType()">
+                                            <span
+                                                class="ml-2 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Subdomain
                                                 (yourname.schoolio.test)</span>
                                         </label>
                                         <label class="inline-flex items-center">
                                             <input type="radio" name="domain_type" value="custom"
-                                                class="form-radio text-blue-600" onchange="toggleDomainType()">
-                                            <span class="ml-2 text-sm text-gray-700">Custom Domain (yourdomain.com)</span>
+                                                class="form-radio text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"
+                                                onchange="toggleDomainType()">
+                                            <span
+                                                class="ml-2 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Custom
+                                                Domain (yourdomain.com)</span>
                                         </label>
                                     </div>
                                 </div>
 
                                 <div id="subdomain-section">
                                     <label for="subdomain"
-                                        class="block text-sm font-semibold text-gray-800">Subdomain</label>
-                                    <div class="mt-1 flex rounded-lg shadow-xs">
+                                        class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Subdomain</label>
+                                    <div class="shadow-xs mt-1 flex rounded-lg">
                                         <input type="text" name="subdomain" id="subdomain"
-                                            class="block w-full min-w-0 flex-1 rounded-none rounded-l-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                            class="block w-full min-w-0 flex-1 rounded-none rounded-l-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]"
                                             placeholder="yourname">
                                         <span
-                                            class="inline-flex items-center rounded-r-lg border border-l-0 border-gray-300 bg-gray-100 px-4 text-sm font-medium text-gray-600">
+                                            class="inline-flex items-center rounded-r-lg border border-l-0 border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-4 text-sm font-medium text-[color:var(--color-dark-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-dark-green)]">
                                             .schoolio.test
                                         </span>
                                     </div>
-                                    <p class="mt-1 text-xs text-gray-500">Choose a unique subdomain for this tenant</p>
+                                    <p
+                                        class="mt-1 text-xs text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]">
+                                        Choose a unique subdomain for this tenant</p>
                                 </div>
 
                                 <!-- Custom Domain Input -->
                                 <div id="custom-domain-section" style="display: none;" class="space-y-1">
-                                    <label for="custom_domain" class="block text-sm font-semibold text-gray-800">Custom
+                                    <label for="custom_domain"
+                                        class="block text-sm font-semibold text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">Custom
                                         Domain</label>
                                     <div class="relative">
                                         <input type="text" name="custom_domain" id="custom_domain"
-                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                            class="shadow-xs block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-3 text-sm text-[color:var(--color-dark-green)] placeholder-[color:var(--color-light-brunswick-green)] transition-all duration-200 hover:border-[color:var(--color-brunswick-green)] focus:border-[color:var(--color-castleton-green)] focus:bg-white focus:ring-4 focus:ring-[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-brunswick-green)] dark:hover:border-[color:var(--color-light-brunswick-green)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-castleton-green)]"
                                             placeholder="yourdomain.com">
                                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                            <i class="fas fa-globe text-gray-400"></i>
+                                            <i
+                                                class="fas fa-globe text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                                         </div>
                                     </div>
-                                    <p class="mt-1 text-xs text-gray-500">Enter your custom domain without http:// or
+                                    <p
+                                        class="mt-1 text-xs text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]">
+                                        Enter your custom domain without http:// or
                                         https://</p>
                                 </div>
 
                                 <!-- DNS Instructions for Custom Domain -->
-                                <div id="dns-instructions" style="display: none;" class="rounded-lg bg-gray-50 p-4">
-                                    <h5 class="mb-2 text-sm font-medium text-gray-900">DNS Configuration Required</h5>
-                                    <p class="mb-3 text-sm text-gray-600">To use a custom domain, you need to configure
+                                <div id="dns-instructions" style="display: none;"
+                                    class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] p-4 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                    <h5
+                                        class="mb-2 text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                        DNS Configuration Required</h5>
+                                    <p
+                                        class="mb-3 text-sm text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]">
+                                        To use a custom domain, you need to configure
                                         your DNS settings:</p>
 
                                     <div class="space-y-2 text-sm">
-                                        <div class="rounded-sm border bg-white p-3 font-mono">
+                                        <div
+                                            class="rounded-sm border border-[color:var(--color-light-brunswick-green)] bg-white p-3 font-mono transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-dark-green)]">
                                             <strong>CNAME Record:</strong><br>
                                             <span class="text-blue-600">yourdomain.com</span> → <span
                                                 class="text-green-600">schoolio.test</span>
@@ -510,20 +582,21 @@
                                 </div>
 
                                 <button type="button" onclick="addDomain()"
-                                    class="inline-flex transform items-center rounded-lg border border-transparent bg-linear-to-r from-green-500 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-green-600 hover:to-green-700 focus:outline-hidden focus:ring-4 focus:ring-green-200">
+                                    class="bg-linear-to-r focus:outline-hidden inline-flex transform items-center rounded-lg border border-transparent from-green-500 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-green-600 hover:to-green-700 focus:ring-4 focus:ring-green-200">
                                     <i class="fas fa-plus mr-2"></i>Add Domain
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex justify-end space-x-4 rounded-b-lg bg-gray-50 px-6 py-4">
+                    <div
+                        class="flex justify-end space-x-4 rounded-b-lg bg-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)]">
                         <a href="{{ route('central.tenants.show', $tenant) }}"
-                            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-xs transition-all duration-200 hover:bg-gray-100 focus:outline-hidden focus:ring-4 focus:ring-gray-200">
+                            class="shadow-xs focus:outline-hidden inline-flex items-center rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-6 py-3 text-sm font-semibold text-[color:var(--color-dark-green)] transition-all duration-200 hover:bg-[color:var(--color-light-brunswick-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                             <i class="fas fa-arrow-left mr-2"></i>Cancel
                         </a>
                         <button type="submit"
-                            class="inline-flex transform items-center rounded-lg border border-transparent bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-200">
+                            class="focus:outline-hidden inline-flex transform items-center rounded-lg border border-transparent bg-[color:var(--color-castleton-green)] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[color:var(--color-brunswick-green)] focus:ring-4 focus:ring-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
                             <i class="fas fa-save mr-2"></i>Update Tenant
                         </button>
                     </div>
