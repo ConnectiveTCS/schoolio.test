@@ -3,28 +3,41 @@
 @section('title', 'System Settings')
 
 @section('content')
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div
+        class="mx-auto min-h-screen max-w-7xl bg-[color:var(--color-light-dark-green)] px-4 transition-colors duration-200 sm:px-6 lg:px-8 dark:bg-[color:var(--color-dark-green)]">
         <div class="py-6">
             <div class="mb-8">
-                <h1 class="text-2xl font-bold text-gray-900">System Settings</h1>
-                <p class="mt-1 text-sm text-gray-600">
+                <h1
+                    class="text-2xl font-bold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                    System Settings</h1>
+                <p
+                    class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                     Configure system-wide settings and preferences.
                 </p>
             </div>
 
             <!-- Placeholder for future system settings -->
-            <div class="rounded-lg bg-white shadow-sm">
-                <div class="border-b border-gray-200 px-6 py-4">
-                    <h3 class="text-lg font-medium text-gray-900">Configuration</h3>
+            <div
+                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-sm transition-colors duration-200 hover:shadow-md dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
+                <div
+                    class="border-b border-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
+                    <h3
+                        class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        Configuration</h3>
                 </div>
                 <div class="px-6 py-4">
                     <div class="py-12 text-center">
-                        <i class="fas fa-cogs mb-4 text-6xl text-gray-400"></i>
-                        <h3 class="mb-2 text-lg font-medium text-gray-900">System Settings</h3>
-                        <p class="mb-4 text-sm text-gray-500">
+                        <i
+                            class="fas fa-cogs mb-4 text-6xl text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]"></i>
+                        <h3
+                            class="mb-2 text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                            System Settings</h3>
+                        <p
+                            class="mb-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                             Advanced system configuration options will be available in future updates.
                         </p>
-                        <div class="space-y-2 text-sm text-gray-600">
+                        <div
+                            class="space-y-2 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                             <p>• Email configuration</p>
                             <p>• Payment gateway settings</p>
                             <p>• Security policies</p>
@@ -36,27 +49,47 @@
             </div>
 
             <!-- Current Environment Information -->
-            <div class="mt-8 rounded-lg bg-white shadow-sm">
-                <div class="border-b border-gray-200 px-6 py-4">
-                    <h3 class="text-lg font-medium text-gray-900">Environment Information</h3>
+            <div
+                class="mt-8 rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-sm transition-colors duration-200 hover:shadow-md dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
+                <div
+                    class="border-b border-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
+                    <h3
+                        class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        Environment Information</h3>
                 </div>
                 <div class="px-6 py-4">
                     <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Environment</dt>
-                            <dd class="mt-1 text-sm text-gray-900">{{ app()->environment() }}</dd>
+                            <dt
+                                class="text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                Environment</dt>
+                            <dd
+                                class="mt-1 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                {{ app()->environment() }}</dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Laravel Version</dt>
-                            <dd class="mt-1 text-sm text-gray-900">{{ app()->version() }}</dd>
+                            <dt
+                                class="text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                Laravel Version</dt>
+                            <dd
+                                class="mt-1 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                {{ app()->version() }}</dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">PHP Version</dt>
-                            <dd class="mt-1 text-sm text-gray-900">{{ PHP_VERSION }}</dd>
+                            <dt
+                                class="text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                PHP Version</dt>
+                            <dd
+                                class="mt-1 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                {{ PHP_VERSION }}</dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Database</dt>
-                            <dd class="mt-1 text-sm text-gray-900">{{ config('database.default') }}</dd>
+                            <dt
+                                class="text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                Database</dt>
+                            <dd
+                                class="mt-1 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                {{ config('database.default') }}</dd>
                         </div>
                     </dl>
                 </div>
