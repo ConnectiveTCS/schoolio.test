@@ -46,9 +46,21 @@ class TenantManagementController extends Controller
             $query->where('plan', $request->plan);
         }
 
+        // Filter by date range
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
         $tenants = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        return view('central.tenants.index', compact('tenants'));
+        // Calculate statistics for the dashboard
+        $stats = $this->getTenantStatistics();
+
+        return view('central.tenants.index', compact('tenants', 'stats'));
     }
 
     /**
@@ -291,6 +303,22 @@ class TenantManagementController extends Controller
         }
 
         return $stats;
+    }
+
+    /**
+     * Get overall tenant statistics for the dashboard
+     */
+    private function getTenantStatistics()
+    {
+        $currentMonth = now()->startOfMonth();
+
+        return [
+            'total' => Tenant::count(),
+            'active' => Tenant::where('status', 'active')->count(),
+            'suspended' => Tenant::where('status', 'suspended')->count(),
+            'inactive' => Tenant::where('status', 'inactive')->count(),
+            'this_month' => Tenant::where('created_at', '>=', $currentMonth)->count(),
+        ];
     }
 
     /**
