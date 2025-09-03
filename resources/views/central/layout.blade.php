@@ -4,19 +4,19 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('title', 'Central Admin - SchoolIO')</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
     <body class="bg-gray-50">
         @auth('central_admin')
             <div class="flex h-screen overflow-hidden">
                 <!-- Sidebar -->
-                <div id="sidebar" class="flex w-64 flex-col bg-blue-800">
+                <div id="sidebar" class="flex w-64 flex-col bg-primary dark:bg-neutral">
                     <!-- Sidebar Header -->
-                    <div class="flex h-16 items-center justify-between bg-blue-900 px-4">
+                    <div class="flex h-16 items-center justify-between bg-brunswick-green px-4">
                         <div class="flex items-center">
                             <h1 class="text-lg font-bold text-white">SchoolIO</h1>
                         </div>
@@ -29,37 +29,37 @@
                     <!-- Navigation -->
                     <nav class="flex-1 space-y-1 p-4">
                         <a href="{{ route('central.dashboard') }}"
-                            class="{{ request()->routeIs('central.dashboard') ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
+                            class="{{ request()->routeIs('central.dashboard') ? 'bg-castleton-green text-white' : 'text-blue-100 hover:bg-castleton-green hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
                             <i class="fas fa-tachometer-alt mr-3 h-5 w-5"></i>
                             Dashboard
                         </a>
                         <a href="{{ route('central.tenants.index') }}"
-                            class="{{ request()->routeIs('central.tenants.*') ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
+                            class="{{ request()->routeIs('central.tenants.*') ? 'bg-castleton-green text-white' : 'text-blue-100 hover:bg-castleton-green hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
                             <i class="fas fa-building mr-3 h-5 w-5"></i>
                             Tenants
                         </a>
                         <a href="{{ route('central.support.index') }}"
-                            class="{{ request()->routeIs('central.support.*') ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
+                            class="{{ request()->routeIs('central.support.*') ? 'bg-castleton-green text-white' : 'text-blue-100 hover:bg-castleton-green hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
                             <i class="fas fa-headset mr-3 h-5 w-5"></i>
                             Support
                         </a>
                         @if (auth('central_admin')->user()->hasPermission('manage_admins'))
                             <a href="{{ route('central.admins.index') }}"
-                                class="{{ request()->routeIs('central.admins.*') ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
+                                class="{{ request()->routeIs('central.admins.*') ? 'bg-castleton-green text-white' : 'text-blue-100 hover:bg-castleton-green hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-users-cog mr-3 h-5 w-5"></i>
                                 Admins
                             </a>
                         @endif
                         @if (auth('central_admin')->user()->hasPermission('system_settings'))
                             <a href="{{ route('central.settings') }}"
-                                class="{{ request()->routeIs('central.settings') ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
+                                class="{{ request()->routeIs('central.settings') ? 'bg-castleton-green text-white' : 'text-blue-100 hover:bg-castleton-green hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-cogs mr-3 h-5 w-5"></i>
                                 Settings
                             </a>
                         @endif
                         @if (auth('central_admin')->user()->hasPermission('view_permissions'))
                             <a href="{{ route('central.permissions.index') }}"
-                                class="{{ request()->routeIs('central.permissions.*') ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
+                                class="{{ request()->routeIs('central.permissions.*') ? 'bg-castleton-green text-white' : 'text-blue-100 hover:bg-castleton-green hover:text-white' }} group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-shield-alt mr-3 h-5 w-5"></i>
                                 Permissions
                             </a>
