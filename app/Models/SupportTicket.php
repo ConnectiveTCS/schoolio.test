@@ -24,12 +24,21 @@ class SupportTicket extends Model
         'resolved_at',
         'resolution_notes',
         'attachments',
+        'first_response_at',
+        'sla_policy_id',
+        'sla_due_at',
+        'sla_status',
+        'last_escalated_at',
+        'escalation_level',
     ];
 
     protected $casts = [
         'tenant_user_details' => 'array',
         'attachments' => 'array',
         'resolved_at' => 'datetime',
+        'first_response_at' => 'datetime',
+        'sla_due_at' => 'datetime',
+        'last_escalated_at' => 'datetime',
     ];
 
     protected static function boot()
@@ -56,6 +65,16 @@ class SupportTicket extends Model
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class, 'tenant_id');
+    }
+
+    public function slaPolicy(): BelongsTo
+    {
+        return $this->belongsTo(SlaPolicy::class, 'sla_policy_id');
+    }
+
+    public function followUpReminders(): HasMany
+    {
+        return $this->hasMany(FollowUpReminder::class);
     }
 
     public function scopeByStatus($query, $status)
@@ -93,5 +112,71 @@ class SupportTicket extends Model
             'critical' => 'red',
             default => 'gray'
         };
+    }
+
+    public function getSlaStatusColorAttribute()
+    {
+        return match ($this->sla_status) {
+            'on_track' => 'green',
+            'warning' => 'yellow',
+            'critical' => 'red',
+            'breached' => 'red',
+            default => 'gray'
+        };
+    }
+
+    public function getSlaStatusTextAttribute()
+    {
+        return match ($this->sla_status) {
+            'on_track' => 'On Track',
+            'warning' => 'SLA Warning',
+            'critical' => 'SLA Critical',
+            'breached' => 'SLA Breached',
+            default => 'Unknown'
+        };
+    }
+
+    public function isOverdue(): bool
+    {
+        return $this->sla_due_at && now() > $this->sla_due_at;
+    }
+
+    public function isEscalated(): bool
+    {
+        return $this->escalation_level > 0;
+    }
+
+    public function hasFirstResponse(): bool
+    {
+        return !is_null($this->first_response_at);
+    }
+
+    public function applySlaPolicy(): void
+    {
+        $slaPolicy = SlaPolicy::active()
+            ->ordered()
+            ->get()
+            ->first(function ($policy) {
+                return $policy->appliesTo($this);
+            });
+
+        if ($slaPolicy) {
+            $this->update([
+                'sla_policy_id' => $slaPolicy->id,
+                'sla_due_at' => $slaPolicy->calculateSlaDeadline($this, 'resolution'),
+                'sla_status' => 'on_track',
+            ]);
+        }
+    }
+
+    public function updateSlaStatus(): void
+    {
+        if ($this->slaPolicy) {
+            $newStatus = $this->slaPolicy->getSlaStatus($this, 'resolution');
+
+            if ($newStatus !== $this->sla_status) {
+                $this->update(['sla_status' => $newStatus]);
+            }
+        }
     }
 }
