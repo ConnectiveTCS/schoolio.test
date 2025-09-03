@@ -9,7 +9,7 @@
 
     <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
         <div
-            class="overflow-hidden rounded-lg bg-white shadow ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
+            class="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
             <div class="px-6 py-8">
                 <form method="POST" action="{{ route('tenant.announcements.store') }}" enctype="multipart/form-data">
                     @csrf
@@ -26,7 +26,7 @@
                     <div class="mb-6">
                         <x-input-label for="content" :value="__('Content')" />
                         <textarea id="content" name="content" rows="6"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
                             required>{{ old('content') }}</textarea>
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
@@ -40,7 +40,7 @@
                             @foreach ($availableRoles as $roleKey => $roleLabel)
                                 <label class="inline-flex items-center">
                                     <input type="checkbox" name="target_roles[]" value="{{ $roleKey }}"
-                                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
+                                        class="rounded-sm border-gray-300 text-indigo-600 shadow-xs focus:border-indigo-300 focus:ring-3 focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
                                         {{ in_array($roleKey, old('target_roles', [])) ? 'checked' : '' }}>
                                     <span
                                         class="ml-2 text-sm text-gray-700 dark:text-gray-300">{{ $roleLabel }}</span>
@@ -79,7 +79,7 @@
                     <div class="mb-6">
                         <label class="inline-flex items-center">
                             <input type="checkbox" name="is_active" value="1"
-                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
+                                class="rounded-sm border-gray-300 text-indigo-600 shadow-xs focus:border-indigo-300 focus:ring-3 focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
                                 {{ old('is_active', true) ? 'checked' : '' }}>
                             <span
                                 class="ml-2 text-sm text-gray-700 dark:text-gray-300">{{ __('Active (announcement will be visible immediately)') }}</span>
@@ -90,7 +90,7 @@
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-end gap-4">
                         <a href="{{ route('tenant.announcements.index') }}"
-                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
+                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-xs transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
                             Cancel
                         </a>
                         <x-primary-button>

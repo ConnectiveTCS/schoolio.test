@@ -17,13 +17,13 @@
                     <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
                         placeholder="Ticket number, title..."
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                 </div>
 
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                     <select name="status" id="status"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                         <option value="">All Statuses</option>
                         <option value="open" {{ request('status') == 'open' ? 'selected' : '' }}>Open</option>
                         <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>In Progress
@@ -36,7 +36,7 @@
                 <div>
                     <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
                     <select name="priority" id="priority"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                         <option value="">All Priorities</option>
                         <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>Low</option>
                         <option value="medium" {{ request('priority') == 'medium' ? 'selected' : '' }}>Medium</option>
@@ -48,7 +48,7 @@
                 <div>
                     <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
                     <select name="category" id="category"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                         <option value="">All Categories</option>
                         <option value="technical" {{ request('category') == 'technical' ? 'selected' : '' }}>Technical
                         </option>
@@ -62,7 +62,7 @@
                 <div>
                     <label for="assigned_admin" class="block text-sm font-medium text-gray-700">Assigned Admin</label>
                     <select name="assigned_admin" id="assigned_admin"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                         <option value="">All Admins</option>
                         @foreach ($admins as $admin)
                             <option value="{{ $admin->id }}"
@@ -75,11 +75,11 @@
 
                 <div class="flex items-end space-x-2">
                     <button type="submit"
-                        class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500">
                         Filter
                     </button>
                     <a href="{{ route('central.support.index') }}"
-                        class="rounded-md bg-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        class="rounded-md bg-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-400 focus:outline-hidden focus:ring-2 focus:ring-gray-500">
                         Clear
                     </a>
                 </div>

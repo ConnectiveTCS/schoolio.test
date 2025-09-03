@@ -17,7 +17,7 @@
                 </p>
             </div>
 
-            <div class="rounded-lg bg-white shadow">
+            <div class="rounded-lg bg-white shadow-sm">
                 <form method="POST" action="{{ route('central.tenants.update', $tenant) }}" class="space-y-6">
                     @csrf
                     @method('PUT')
@@ -36,7 +36,7 @@
                                 <div class="relative">
                                     <input type="text" name="name" id="name"
                                         value="{{ old('name', $tenant->name) }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Enter organization name">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-building text-gray-400"></i>
@@ -57,7 +57,7 @@
                                 <div class="relative">
                                     <input type="email" name="email" id="email"
                                         value="{{ old('email', $tenant->email) }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Enter contact email">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-envelope text-gray-400"></i>
@@ -77,7 +77,7 @@
                                 <div class="relative">
                                     <input type="text" name="phone" id="phone"
                                         value="{{ old('phone', $tenant->phone) }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Enter phone number">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-phone text-gray-400"></i>
@@ -96,7 +96,7 @@
                                 <div class="relative">
                                     <input type="text" name="alt_phone" id="alt_phone"
                                         value="{{ old('alt_phone', $tenant->alt_phone) }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Enter alternative phone">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-phone-alt text-gray-400"></i>
@@ -115,7 +115,7 @@
                             <div class="relative">
                                 <input type="url" name="website" id="website"
                                     value="{{ old('website', $tenant->website) }}"
-                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                     placeholder="https://example.com">
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                     <i class="fas fa-globe text-gray-400"></i>
@@ -132,7 +132,7 @@
                             <label for="address" class="block text-sm font-semibold text-gray-800">Address</label>
                             <div class="relative">
                                 <textarea name="address" id="address" rows="4"
-                                    class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                     placeholder="Enter complete address">{{ old('address', $tenant->address) }}</textarea>
                                 <div class="pointer-events-none absolute right-0 top-3 flex items-start pr-3">
                                     <i class="fas fa-map-marker-alt text-gray-400"></i>
@@ -159,7 +159,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="status" id="status" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="active"
                                             {{ old('status', $tenant->status) === 'active' ? 'selected' : '' }}>Active
                                         </option>
@@ -189,7 +189,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="plan" id="plan" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="basic"
                                             {{ old('plan', $tenant->plan) === 'basic' ? 'selected' : '' }}>
                                             Basic</option>
@@ -218,7 +218,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="school_type" id="school_type" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="primary"
                                             {{ old('school_type', $tenant->school_type) === 'primary' ? 'selected' : '' }}>
                                             Primary School</option>
@@ -252,7 +252,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="language" id="language" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="en"
                                             {{ old('language', $tenant->language) === 'en' ? 'selected' : '' }}>English
                                         </option>
@@ -284,7 +284,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="timezone" id="timezone" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="UTC"
                                             {{ old('timezone', $tenant->timezone) === 'UTC' ? 'selected' : '' }}>UTC
                                         </option>
@@ -327,7 +327,7 @@
                                 <div class="relative">
                                     <input type="date" name="trial_ends_at" id="trial_ends_at"
                                         value="{{ old('trial_ends_at', $tenant->trial_ends_at ? $tenant->trial_ends_at->format('Y-m-d') : '') }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-calendar-alt text-gray-400"></i>
                                     </div>
@@ -344,7 +344,7 @@
                                     Method</label>
                                 <div class="relative">
                                     <select name="payment_method" id="payment_method"
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="">Select payment method...</option>
                                         <option value="stripe"
                                             {{ old('payment_method', $tenant->payment_method) === 'stripe' ? 'selected' : '' }}>
@@ -380,7 +380,7 @@
                         @if ($tenant->domains->isNotEmpty())
                             <div class="rounded-md bg-blue-50 p-4">
                                 <div class="flex">
-                                    <div class="flex-shrink-0">
+                                    <div class="shrink-0">
                                         <i class="fas fa-info-circle text-blue-400"></i>
                                     </div>
                                     <div class="ml-3">
@@ -389,7 +389,7 @@
                                             <ul class="space-y-2">
                                                 @foreach ($tenant->domains as $domain)
                                                     <li
-                                                        class="flex items-center justify-between rounded border bg-white px-3 py-2">
+                                                        class="flex items-center justify-between rounded-sm border bg-white px-3 py-2">
                                                         <div class="flex items-center">
                                                             <span
                                                                 class="text-sm text-gray-900">{{ $domain->domain }}</span>
@@ -413,7 +413,7 @@
                         @else
                             <div class="rounded-md bg-yellow-50 p-4">
                                 <div class="flex">
-                                    <div class="flex-shrink-0">
+                                    <div class="shrink-0">
                                         <i class="fas fa-exclamation-triangle text-yellow-400"></i>
                                     </div>
                                     <div class="ml-3">
@@ -450,7 +450,7 @@
                                 <div id="subdomain-section">
                                     <label for="subdomain"
                                         class="block text-sm font-semibold text-gray-800">Subdomain</label>
-                                    <div class="mt-1 flex rounded-lg shadow-sm">
+                                    <div class="mt-1 flex rounded-lg shadow-xs">
                                         <input type="text" name="subdomain" id="subdomain"
                                             class="block w-full min-w-0 flex-1 rounded-none rounded-l-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                             placeholder="yourname">
@@ -468,7 +468,7 @@
                                         Domain</label>
                                     <div class="relative">
                                         <input type="text" name="custom_domain" id="custom_domain"
-                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                             placeholder="yourdomain.com">
                                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                             <i class="fas fa-globe text-gray-400"></i>
@@ -485,12 +485,12 @@
                                         your DNS settings:</p>
 
                                     <div class="space-y-2 text-sm">
-                                        <div class="rounded border bg-white p-3 font-mono">
+                                        <div class="rounded-sm border bg-white p-3 font-mono">
                                             <strong>CNAME Record:</strong><br>
                                             <span class="text-blue-600">yourdomain.com</span> → <span
                                                 class="text-green-600">schoolio.test</span>
                                         </div>
-                                        <div class="rounded border bg-white p-3 font-mono">
+                                        <div class="rounded-sm border bg-white p-3 font-mono">
                                             <strong>A Record (alternative):</strong><br>
                                             <span class="text-blue-600">yourdom.com</span> → <span
                                                 class="text-green-600">{{ request()->server('SERVER_ADDR') ?? '127.0.0.1' }}</span>
@@ -510,7 +510,7 @@
                                 </div>
 
                                 <button type="button" onclick="addDomain()"
-                                    class="inline-flex transform items-center rounded-lg border border-transparent bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-green-200">
+                                    class="inline-flex transform items-center rounded-lg border border-transparent bg-linear-to-r from-green-500 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-green-600 hover:to-green-700 focus:outline-hidden focus:ring-4 focus:ring-green-200">
                                     <i class="fas fa-plus mr-2"></i>Add Domain
                                 </button>
                             </div>
@@ -519,11 +519,11 @@
 
                     <div class="flex justify-end space-x-4 rounded-b-lg bg-gray-50 px-6 py-4">
                         <a href="{{ route('central.tenants.show', $tenant) }}"
-                            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200">
+                            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-xs transition-all duration-200 hover:bg-gray-100 focus:outline-hidden focus:ring-4 focus:ring-gray-200">
                             <i class="fas fa-arrow-left mr-2"></i>Cancel
                         </a>
                         <button type="submit"
-                            class="inline-flex transform items-center rounded-lg border border-transparent bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200">
+                            class="inline-flex transform items-center rounded-lg border border-transparent bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-200">
                             <i class="fas fa-save mr-2"></i>Update Tenant
                         </button>
                     </div>

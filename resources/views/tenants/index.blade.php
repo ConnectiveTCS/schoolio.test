@@ -66,7 +66,7 @@
                 <div class="flex items-center justify-between py-4">
                     <!-- Logo and Brand -->
                     <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <img src="{{ asset($tenant->logo) }}"
                             alt="{{ $tenant->name ?? 'School' }}" class="h-12 w-12 rounded-full object-cover">
                         </div>
@@ -99,7 +99,7 @@
 
                         <!-- Theme Toggle Button -->
                         <button onclick="toggleTheme()"
-                            class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
+                            class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
                             title="Toggle theme">
                             <!-- Sun icon (visible in dark mode) -->
                             <svg class="hidden h-6 w-6 dark:block" fill="none" viewBox="0 0 24 24"
@@ -149,7 +149,7 @@
                         <!-- Features List -->
                         <div class="space-y-4">
                             <div class="flex items-center space-x-3">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <svg class="h-6 w-6 text-green-500 dark:text-green-400" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -159,7 +159,7 @@
                                 <p class="font-medium text-gray-700 dark:text-gray-300">Student & Teacher Management</p>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <svg class="h-6 w-6 text-green-500 dark:text-green-400" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -170,7 +170,7 @@
                                 </p>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <svg class="h-6 w-6 text-green-500 dark:text-green-400" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -180,7 +180,7 @@
                                 <p class="font-medium text-gray-700 dark:text-gray-300">Grade & Assignment Tracking</p>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <svg class="h-6 w-6 text-green-500 dark:text-green-400" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -241,7 +241,7 @@
                                 <div class="flex items-center justify-between">
                                     <label for="remember_me" class="flex items-center">
                                         <input id="remember_me" type="checkbox"
-                                            class="rounded border-gray-300 text-indigo-600 shadow-sm transition-colors duration-200 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-indigo-400 dark:focus:ring-indigo-400 dark:focus:ring-offset-gray-800"
+                                            class="rounded-sm border-gray-300 text-indigo-600 shadow-xs transition-colors duration-200 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-indigo-400 dark:focus:ring-indigo-400 dark:focus:ring-offset-gray-800"
                                             name="remember">
                                         <span
                                             class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>

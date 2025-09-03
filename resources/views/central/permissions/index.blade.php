@@ -16,7 +16,7 @@
                 </div>
                 <div class="mt-4 flex md:ml-4 md:mt-0">
                     <button onclick="document.getElementById('create-permission-form').classList.remove('hidden')"
-                        class="ml-3 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+                        class="ml-3 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
                         <i class="fas fa-plus mr-2"></i>Create Permission
                     </button>
                 </div>
@@ -25,7 +25,7 @@
             @if (session('success'))
                 <div class="mb-4 rounded-md bg-green-50 p-4">
                     <div class="flex">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd"
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -41,7 +41,7 @@
                 </div>
             @endif
 
-            <div id="create-permission-form" class="mb-8 hidden overflow-hidden rounded-lg bg-white shadow">
+            <div id="create-permission-form" class="mb-8 hidden overflow-hidden rounded-lg bg-white shadow-sm">
                 <div class="p-5">
                     <form action="{{ route('central.permissions.create') }}" method="POST">
                         @csrf
@@ -53,7 +53,7 @@
                         </div>
                         <div class="flex justify-end">
                             <button type="submit"
-                                class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+                                class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
                                 Create Permission
                             </button>
                         </div>
@@ -63,10 +63,10 @@
 
             <!-- Stats Cards -->
             <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                     <div class="p-5">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <i class="fas fa-users-cog text-2xl text-blue-600"></i>
                             </div>
                             <div class="ml-5 w-0 flex-1">
@@ -79,10 +79,10 @@
                     </div>
                 </div>
 
-                <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                     <div class="p-5">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <i class="fas fa-check-circle text-2xl text-green-600"></i>
                             </div>
                             <div class="ml-5 w-0 flex-1">
@@ -97,10 +97,10 @@
                     </div>
                 </div>
 
-                <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                     <div class="p-5">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <i class="fas fa-crown text-2xl text-purple-600"></i>
                             </div>
                             <div class="ml-5 w-0 flex-1">
@@ -117,7 +117,7 @@
             </div>
 
             <!-- Admins Table -->
-            <div class="overflow-hidden bg-white shadow sm:rounded-md">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-md">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">

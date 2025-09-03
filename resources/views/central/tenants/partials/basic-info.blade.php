@@ -1,5 +1,5 @@
 <!-- Basic Information -->
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200">
+                <div class="overflow-hidden rounded-xl bg-white shadow-xs ring-1 ring-gray-200">
                     <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
                         <h3 class="flex items-center text-lg font-semibold text-gray-900">
                             <i class="fas fa-building mr-2 text-blue-600"></i>

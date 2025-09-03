@@ -16,7 +16,7 @@
                 </div>
                 <div class="mt-4 flex md:ml-4 md:mt-0">
                     <a href="{{ route('central.admins.create') }}"
-                        class="ml-3 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+                        class="ml-3 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
                         <i class="fas fa-plus mr-2"></i>Create Admin
                     </a>
                 </div>
@@ -24,10 +24,10 @@
 
             <!-- Stats Cards -->
             <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                     <div class="p-5">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <i class="fas fa-users-cog text-2xl text-blue-600"></i>
                             </div>
                             <div class="ml-5 w-0 flex-1">
@@ -40,10 +40,10 @@
                     </div>
                 </div>
 
-                <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                     <div class="p-5">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <i class="fas fa-check-circle text-2xl text-green-600"></i>
                             </div>
                             <div class="ml-5 w-0 flex-1">
@@ -58,10 +58,10 @@
                     </div>
                 </div>
 
-                <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                     <div class="p-5">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <i class="fas fa-crown text-2xl text-purple-600"></i>
                             </div>
                             <div class="ml-5 w-0 flex-1">
@@ -78,7 +78,7 @@
             </div>
 
             <!-- Admins Table -->
-            <div class="overflow-hidden bg-white shadow sm:rounded-md">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-md">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -104,7 +104,7 @@
                                 <tr>
                                     <td class="whitespace-nowrap px-6 py-4">
                                         <div class="flex items-center">
-                                            <div class="h-10 w-10 flex-shrink-0">
+                                            <div class="h-10 w-10 shrink-0">
                                                 <div
                                                     class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500">
                                                     <span class="text-sm font-medium text-white">

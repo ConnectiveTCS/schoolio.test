@@ -2,7 +2,7 @@
 
         <!-- Hero Section -->
         <section
-            class="from-primary-50 bg-gradient-to-br to-white pb-12 pt-20 transition-colors duration-300 dark:from-gray-800 dark:to-gray-900 lg:pb-20 lg:pt-32">
+            class="from-primary-50 bg-linear-to-br to-white pb-12 pt-20 transition-colors duration-300 dark:from-gray-800 dark:to-gray-900 lg:pb-20 lg:pt-32">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="items-center lg:grid lg:grid-cols-2 lg:gap-8">
                     <div class="mb-12 lg:mb-0">
@@ -61,20 +61,20 @@
                                     <div class="h-3 w-3 rounded-full bg-green-400"></div>
                                 </div>
                                 <div class="bg-primary-50 dark:bg-primary-900/30 rounded-lg p-4">
-                                    <div class="bg-primary-200 dark:bg-primary-400/50 mb-2 h-4 w-3/4 rounded"></div>
-                                    <div class="bg-primary-100 dark:bg-primary-500/30 h-3 w-1/2 rounded"></div>
+                                    <div class="bg-primary-200 dark:bg-primary-400/50 mb-2 h-4 w-3/4 rounded-sm"></div>
+                                    <div class="bg-primary-100 dark:bg-primary-500/30 h-3 w-1/2 rounded-sm"></div>
                                 </div>
                                 <div class="grid grid-cols-3 gap-3">
-                                    <div class="rounded bg-gray-100 p-3 text-center dark:bg-gray-700">
+                                    <div class="rounded-sm bg-gray-100 p-3 text-center dark:bg-gray-700">
                                         <div class="text-primary-600 dark:text-primary-400 text-2xl font-bold">245
                                         </div>
                                         <div class="text-xs text-gray-600 dark:text-gray-400">Students</div>
                                     </div>
-                                    <div class="rounded bg-gray-100 p-3 text-center dark:bg-gray-700">
+                                    <div class="rounded-sm bg-gray-100 p-3 text-center dark:bg-gray-700">
                                         <div class="text-primary-600 dark:text-primary-400 text-2xl font-bold">18</div>
                                         <div class="text-xs text-gray-600 dark:text-gray-400">Teachers</div>
                                     </div>
-                                    <div class="rounded bg-gray-100 p-3 text-center dark:bg-gray-700">
+                                    <div class="rounded-sm bg-gray-100 p-3 text-center dark:bg-gray-700">
                                         <div class="text-primary-600 dark:text-primary-400 text-2xl font-bold">12</div>
                                         <div class="text-xs text-gray-600 dark:text-gray-400">Classes</div>
                                     </div>
@@ -274,7 +274,7 @@
                     enhance their academic community.
                 </p>
 
-                <div class="mx-auto max-w-md rounded-2xl bg-slate-100 dark:bg-gray-800 p-8 backdrop-blur-sm">
+                <div class="mx-auto max-w-md rounded-2xl bg-slate-100 dark:bg-gray-800 p-8 backdrop-blur-xs">
                     <div class="mb-6">
                         <div class="mb-2 text-4xl font-bold text-black dark:text-white">30 Days</div>
                         <div class="text-primary-100">Free Trial</div>
@@ -285,15 +285,15 @@
                         @csrf
                         <div>
                             <input type="text" name="name" placeholder="School Name" required
-                                class="placeholder-primary-200 w-full rounded-lg border border-white/30 bg-white dark:bg-white/20 px-4 py-3 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                                class="placeholder-primary-200 w-full rounded-lg border border-white/30 bg-white dark:bg-white/20 px-4 py-3 text-black dark:text-white focus:outline-hidden focus:ring-2 focus:ring-white/50">
                         </div>
                         <div>
                             <input type="email" name="email" placeholder="Administrator Email" required
-                                class="placeholder-primary-200 w-full rounded-lg border border-white/30 bg-white dark:bg-white/20 px-4 py-3 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                                class="placeholder-primary-200 w-full rounded-lg border border-white/30 bg-white dark:bg-white/20 px-4 py-3 text-black dark:text-white focus:outline-hidden focus:ring-2 focus:ring-white/50">
                         </div>
                         <div>
                             <select name="school_type" required
-                                class="w-full rounded-lg border border-white/30 bg-white dark:bg-white/20 px-4 py-3 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-white/50">
+                                class="w-full rounded-lg border border-white/30 bg-white dark:bg-white/20 px-4 py-3 text-black dark:text-white focus:outline-hidden focus:ring-2 focus:ring-white/50">
                                 <option value="">Select School Type</option>
                                 <option value="primary">Primary School</option>
                                 <option value="secondary">Secondary School</option>

@@ -10,7 +10,7 @@
     <div class="min-w-full p-6">
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
-        <div class="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
+        <div class="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-xs dark:bg-gray-800">
             <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">Edit User</h3>
             <form method="POST" action="{{ route('tenant.users.update', $user) }}">
                 @csrf
@@ -32,7 +32,7 @@
                 <div class="mb-4">
                     <x-input-label for="role" :value="__('Role')" />
                     <select id="role" name="role"
-                        class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
+                        class="rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
                         required>
                         @php
                             $userRole = $user->getRoleNames()->first();
@@ -50,7 +50,7 @@
                 <div class="flex items-center gap-4">
                     <x-primary-button>Update User</x-primary-button>
                     <a href="{{ route('tenant.users') }}"
-                        class="inline-flex items-center rounded-md border border-transparent bg-gray-300 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 transition duration-150 ease-in-out hover:bg-gray-400 focus:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-500 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500 dark:focus:bg-gray-500 dark:focus:ring-offset-gray-800 dark:active:bg-gray-400">
+                        class="inline-flex items-center rounded-md border border-transparent bg-gray-300 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 transition duration-150 ease-in-out hover:bg-gray-400 focus:bg-gray-400 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-500 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500 dark:focus:bg-gray-500 dark:focus:ring-offset-gray-800 dark:active:bg-gray-400">
                         Cancel
                     </a>
                 </div>

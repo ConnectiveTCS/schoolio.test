@@ -1,6 +1,6 @@
 <!-- User Roles & Permissions -->
                 @if (isset($roleSnapshot))
-                    <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200">
+                    <div class="overflow-hidden rounded-xl bg-white shadow-xs ring-1 ring-gray-200">
                         <div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-6 py-4">
                             <h3 class="flex items-center text-lg font-semibold text-gray-900">
                                 <i class="fas fa-users-cog mr-2 text-blue-600"></i>
@@ -16,7 +16,7 @@
                             @if (isset($roleSnapshot['error']))
                                 <div class="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
                                     <div class="flex items-start">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <i class="fas fa-exclamation-triangle text-yellow-600"></i>
                                         </div>
                                         <div class="ml-3">
@@ -99,7 +99,7 @@
                                                                                 <input type="checkbox"
                                                                                     name="permissions[]"
                                                                                     value="{{ $perm }}"
-                                                                                    class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                                                                    class="mr-2 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500"
                                                                                     @if (in_array($perm, $perms)) checked @endif>
                                                                                 <span
                                                                                     class="text-gray-700">{{ $perm }}</span>

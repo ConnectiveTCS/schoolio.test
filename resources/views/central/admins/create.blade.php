@@ -34,7 +34,7 @@
                                 </label>
                                 <div class="relative">
                                     <input type="text" name="name" id="name" value="{{ old('name') }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Enter full name">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-user text-gray-400"></i>
@@ -54,7 +54,7 @@
                                 </label>
                                 <div class="relative">
                                     <input type="email" name="email" id="email" value="{{ old('email') }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="admin@example.com">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-envelope text-gray-400"></i>
@@ -76,7 +76,7 @@
                                 </label>
                                 <div class="relative">
                                     <input type="password" name="password" id="password" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Enter secure password"
                                         onchange="document.getElementById('generated_password').innerText = document.getElementById('password').value;">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -97,7 +97,7 @@
                                 </label>
                                 <div class="relative">
                                     <input type="password" name="password_confirmation" id="password_confirmation" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Confirm password">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-check-circle text-gray-400"></i>
@@ -122,11 +122,11 @@
                             </div>
                             <div class="relative">
                                 <input type="text" id="generated_password" readonly
-                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-12 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-12 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                     placeholder="Generated password will appear here">
                                 <div class="absolute inset-y-0 right-0 flex items-center">
                                     <button type="button" id="copy_password"
-                                        class="mr-2 rounded-md p-1 text-gray-400 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                                        class="mr-2 rounded-md p-1 text-gray-400 hover:text-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
                                         disabled title="Copy to clipboard">
                                         <i class="fas fa-copy"></i>
                                     </button>
@@ -153,7 +153,7 @@
                             </label>
                             <div class="relative">
                                 <select name="role" id="role" required
-                                    class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                    class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                     <option value="">Select a role...</option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role }}" {{ old('role') === $role ? 'selected' : '' }}>
@@ -188,7 +188,7 @@
                                         <input type="checkbox" name="permissions[]" value="{{ $permission }}"
                                             id="{{ $safeId }}"
                                             {{ in_array($permission, old('permissions', [])) ? 'checked' : '' }}
-                                            class="h-4 w-4 rounded border-gray-300 text-blue-600 transition-all duration-200 focus:ring-4 focus:ring-blue-100 focus:ring-blue-500">
+                                            class="h-4 w-4 rounded-sm border-gray-300 text-blue-600 transition-all duration-200 focus:ring-4 focus:ring-blue-100 focus:ring-blue-500">
                                         <label for="{{ $safeId }}"
                                             class="ml-3 cursor-pointer text-sm font-medium text-gray-700">
                                             {{ $label }}
@@ -210,11 +210,11 @@
 
                     <div class="flex justify-end space-x-3 rounded-b-lg bg-gray-50 px-6 py-4">
                         <a href="{{ route('central.admins.index') }}"
-                            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200">
+                            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-xs transition-all duration-200 hover:bg-gray-100 focus:outline-hidden focus:ring-4 focus:ring-gray-200">
                             <i class="fas fa-times mr-2"></i>Cancel
                         </a>
                         <button type="submit"
-                            class="inline-flex transform items-center rounded-lg border border-transparent bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200">
+                            class="inline-flex transform items-center rounded-lg border border-transparent bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-200">
                             <i class="fas fa-plus mr-2"></i>Create Admin
                         </button>
                     </div>
@@ -223,7 +223,7 @@
 
             <!-- Role Description Cards -->
             <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div class="rounded-lg border border-purple-100 bg-purple-50 p-6 shadow-sm">
+                <div class="rounded-lg border border-purple-100 bg-purple-50 p-6 shadow-xs">
                     <div class="flex items-center">
                         <i class="fas fa-crown text-purple-600"></i>
                         <h4 class="ml-2 text-lg font-semibold text-purple-900">Super Admin</h4>
@@ -234,7 +234,7 @@
                     </p>
                 </div>
 
-                <div class="rounded-lg border border-blue-100 bg-blue-50 p-6 shadow-sm">
+                <div class="rounded-lg border border-blue-100 bg-blue-50 p-6 shadow-xs">
                     <div class="flex items-center">
                         <i class="fas fa-user-cog text-blue-600"></i>
                         <h4 class="ml-2 text-lg font-semibold text-blue-900">Admin</h4>
@@ -245,7 +245,7 @@
                     </p>
                 </div>
 
-                <div class="rounded-lg border border-gray-100 bg-gray-50 p-6 shadow-sm">
+                <div class="rounded-lg border border-gray-100 bg-gray-50 p-6 shadow-xs">
                     <div class="flex items-center">
                         <i class="fas fa-eye text-gray-600"></i>
                         <h4 class="ml-2 text-lg font-semibold text-gray-900">Viewer</h4>

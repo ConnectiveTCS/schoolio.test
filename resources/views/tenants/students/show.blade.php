@@ -11,7 +11,7 @@
     </x-slot>
 
     <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-        <div class="rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
+        <div class="rounded-lg bg-white p-6 shadow-xs dark:bg-gray-800">
             <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">Student Information</h3>
             <dl class="divide-y divide-gray-200 dark:divide-gray-700">
                 <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -126,7 +126,7 @@
                     <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Class Enrollments</h3>
                     @if ($availableClasses->count() > 0)
                         <button onclick="toggleEnrollForm()"
-                            class="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                            class="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-hidden focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
                             Enroll in Class
                         </button>
                     @endif
@@ -145,7 +145,7 @@
                                         Select Class
                                     </label>
                                     <select name="class_id" id="class_id" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white">
                                         <option value="">Choose a class...</option>
                                         @foreach ($availableClasses as $class)
                                             <option value="{{ $class->id }}">{{ $class->name }}
@@ -157,11 +157,11 @@
                                     </select>
                                 </div>
                                 <button type="submit"
-                                    class="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                    class="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                     Enroll
                                 </button>
                                 <button type="button" onclick="toggleEnrollForm()"
-                                    class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">
+                                    class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">
                                     Cancel
                                 </button>
                             </div>
@@ -255,11 +255,11 @@
 
             <div class="mt-6 flex flex-row justify-end space-x-4">
                 <a href="{{ route('tenant.students') }}"
-                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
+                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
                     Back to Students
                 </a>
                 <a href="{{ route('tenant.students.edit', $student) }}"
-                    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Edit Student
                 </a>
             </div>

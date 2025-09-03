@@ -10,7 +10,7 @@
     </x-slot>
 
     <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-        <div class="rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
+        <div class="rounded-lg bg-white p-6 shadow-xs dark:bg-gray-800">
             <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">User Information</h3>
             <dl class="divide-y divide-gray-200 dark:divide-gray-700">
                 <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">

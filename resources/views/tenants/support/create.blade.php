@@ -7,7 +7,7 @@
             <div class="flex items-center gap-x-4 text-sm text-gray-600 dark:text-gray-400">
                 <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()"
-                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
+                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
                     title="Toggle theme">
                     <!-- Sun icon (visible in dark mode) -->
                     <svg class="hidden h-6 w-6 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -25,7 +25,7 @@
     </x-slot>
     <div class="py-12">
         <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+            <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-8">
                         <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Create Support Ticket</h1>
@@ -41,7 +41,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Title <span
                                     class="text-red-500">*</span></label>
                             <input type="text" name="title" id="title" required value="{{ old('title') }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
                                 placeholder="Brief description of your issue">
                             @error('title')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -54,7 +54,7 @@
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category <span
                                         class="text-red-500">*</span></label>
                                 <select name="category" id="category" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
                                     <option value="">Select Category</option>
                                     <option value="technical" {{ old('category') == 'technical' ? 'selected' : '' }}>
                                         Technical Issue</option>
@@ -76,7 +76,7 @@
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Priority <span
                                         class="text-red-500">*</span></label>
                                 <select name="priority" id="priority" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
                                     <option value="">Select Priority</option>
                                     <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>Low -
                                         General question or minor issue</option>
@@ -98,7 +98,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description <span
                                     class="text-red-500">*</span></label>
                             <textarea name="description" id="description" rows="6" required
-                                class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
                                 placeholder="Please provide detailed information about your issue or request. Include any error messages, steps to reproduce the problem, and any other relevant information.">{{ old('description') }}</textarea>
                             @error('description')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -112,7 +112,7 @@
                             <label for="attachments"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Attachments</label>
                             <input type="file" name="attachments[]" id="attachments" multiple
-                                class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
                                 accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar"
                                 onchange="displaySelectedFiles(this)">
                             @error('attachments')
@@ -144,11 +144,11 @@
                         <div
                             class="flex items-center justify-between border-t border-gray-200 pt-6 dark:border-gray-600">
                             <a href="{{ route('tenant.support.index') }}"
-                                class="rounded-md bg-gray-300 px-6 py-2 text-gray-700 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
+                                class="rounded-md bg-gray-300 px-6 py-2 text-gray-700 hover:bg-gray-400 focus:outline-hidden focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
                                 Cancel
                             </a>
                             <button type="submit"
-                                class="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                class="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
                                 Submit Ticket
                             </button>
                         </div>

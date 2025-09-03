@@ -82,7 +82,7 @@
                     <div class="max-h-96 space-y-4 overflow-y-auto px-6 py-4">
                         @forelse($ticket->replies as $reply)
                             <div class="{{ $reply->sender_type === 'central_admin' ? 'justify-end' : '' }} flex space-x-3">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <div
                                         class="bg-{{ $reply->sender_type === 'central_admin' ? 'blue' : 'gray' }}-100 flex h-8 w-8 items-center justify-center rounded-full">
                                         @if ($reply->sender_type === 'central_admin')
@@ -186,7 +186,7 @@
                                 </label>
                                 <div class="relative">
                                     <textarea name="message" id="message" rows="4" required
-                                        class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Type your reply message here..."></textarea>
                                     <div class="pointer-events-none absolute right-0 top-3 flex items-start pr-3">
                                         <i class="fas fa-comment text-gray-400"></i>
@@ -205,7 +205,7 @@
                                 </label>
                                 <div class="relative">
                                     <input type="file" name="attachments[]" id="central_reply_attachments" multiple
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 file:mr-4 file:rounded-lg file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:border-gray-400 hover:file:bg-blue-100 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 file:mr-4 file:rounded-lg file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:border-gray-400 hover:file:bg-blue-100 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-paperclip text-gray-400"></i>
@@ -226,14 +226,14 @@
                             <div class="flex items-center justify-between pt-4">
                                 <div class="flex items-center">
                                     <input type="checkbox" name="is_internal" id="is_internal" value="1"
-                                        class="h-4 w-4 rounded border-gray-300 text-blue-600 transition-all duration-200 focus:ring-blue-500">
+                                        class="h-4 w-4 rounded-sm border-gray-300 text-blue-600 transition-all duration-200 focus:ring-blue-500">
                                     <label for="is_internal" class="ml-2 block text-sm font-medium text-gray-700">
                                         <i class="fas fa-eye-slash mr-1 text-gray-400"></i>
                                         Internal note (not visible to tenant)
                                     </label>
                                 </div>
                                 <button type="submit"
-                                    class="inline-flex transform items-center rounded-lg border border-transparent bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200">
+                                    class="inline-flex transform items-center rounded-lg border border-transparent bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-200">
                                     <i class="fas fa-paper-plane mr-2"></i>Send Reply
                                 </button>
                             </div>
@@ -261,7 +261,7 @@
                                 @if (!empty($ticket->tenant_user_details['role']))
                                     <br>
                                     <span
-                                        class="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">{{ ucfirst($ticket->tenant_user_details['role']) }}</span>
+                                        class="inline-flex items-center rounded-sm bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">{{ ucfirst($ticket->tenant_user_details['role']) }}</span>
                                 @endif
                                 @if (!empty($ticket->tenant_user_details['phone']))
                                     <br>
@@ -322,7 +322,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="assigned_admin_id" id="assigned_admin_id" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="">Select admin...</option>
                                         @foreach ($admins as $admin)
                                             <option value="{{ $admin->id }}"
@@ -342,7 +342,7 @@
                                 @enderror
                             </div>
                             <button type="submit"
-                                class="inline-flex w-full transform items-center justify-center rounded-lg border border-transparent bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200">
+                                class="inline-flex w-full transform items-center justify-center rounded-lg border border-transparent bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-200">
                                 <i class="fas fa-user-plus mr-2"></i>Assign Ticket
                             </button>
                         </form>
@@ -366,7 +366,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="status" id="status" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="open" {{ $ticket->status == 'open' ? 'selected' : '' }}>Open
                                         </option>
                                         <option value="in_progress"
@@ -392,7 +392,7 @@
                                 </label>
                                 <div class="relative">
                                     <textarea name="resolution_notes" id="resolution_notes" rows="3"
-                                        class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Add resolution notes (required for resolved/closed status)">{{ $ticket->resolution_notes }}</textarea>
                                     <div class="pointer-events-none absolute right-0 top-3 flex items-start pr-3">
                                         <i class="fas fa-clipboard-check text-gray-400"></i>
@@ -405,7 +405,7 @@
                                 @enderror
                             </div>
                             <button type="submit"
-                                class="inline-flex w-full transform items-center justify-center rounded-lg border border-transparent bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-green-200">
+                                class="inline-flex w-full transform items-center justify-center rounded-lg border border-transparent bg-linear-to-r from-green-500 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-green-600 hover:to-green-700 focus:outline-hidden focus:ring-4 focus:ring-green-200">
                                 <i class="fas fa-save mr-2"></i>Update Status
                             </button>
                         </form>
@@ -435,9 +435,9 @@
             </div>
             <div class="flex justify-end gap-2 border-t px-4 py-2">
                 <a id="downloadOriginal" href="#"
-                    class="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700" target="_blank"
+                    class="rounded-sm bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700" target="_blank"
                     rel="noopener">Download</a>
-                <button class="rounded bg-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-300"
+                <button class="rounded-sm bg-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-300"
                     data-preview-close>Close</button>
             </div>
         </div>

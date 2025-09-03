@@ -37,7 +37,7 @@
                 <div class="mt-4 flex md:ml-4 md:mt-0">
                     @if (auth('central_admin')->user()->canManageTenants())
                         <a href="{{ route('central.tenants.create') }}"
-                            class="ml-3 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+                            class="ml-3 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
                             <i class="fas fa-plus mr-2"></i>Create Tenant
                         </a>
                     @endif
@@ -46,9 +46,9 @@
 
             <!-- Statistics Dashboard -->
             <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="rounded-lg bg-white p-6 shadow">
+                <div class="rounded-lg bg-white p-6 shadow-sm">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <div class="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500">
                                 <i class="fas fa-building text-white"></i>
                             </div>
@@ -61,9 +61,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="rounded-lg bg-white p-6 shadow">
+                <div class="rounded-lg bg-white p-6 shadow-sm">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <div class="flex h-8 w-8 items-center justify-center rounded-md bg-green-500">
                                 <i class="fas fa-check-circle text-white"></i>
                             </div>
@@ -76,9 +76,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="rounded-lg bg-white p-6 shadow">
+                <div class="rounded-lg bg-white p-6 shadow-sm">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <div class="flex h-8 w-8 items-center justify-center rounded-md bg-yellow-500">
                                 <i class="fas fa-pause-circle text-white"></i>
                             </div>
@@ -91,9 +91,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="rounded-lg bg-white p-6 shadow">
+                <div class="rounded-lg bg-white p-6 shadow-sm">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <div class="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-500">
                                 <i class="fas fa-calendar-day text-white"></i>
                             </div>
@@ -109,20 +109,20 @@
             </div>
 
             <!-- Filters -->
-            <div class="mb-6 rounded-lg bg-white shadow">
+            <div class="mb-6 rounded-lg bg-white shadow-sm">
                 <div class="px-6 py-4">
                     <form method="GET" action="{{ route('central.tenants.index') }}">
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
                             <div>
                                 <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
                                 <input type="text" name="search" id="search" value="{{ request('search') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                                     placeholder="Name, email, or ID...">
                             </div>
                             <div>
                                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                                 <select name="status" id="status"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                     <option value="">All Statuses</option>
                                     <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active
                                     </option>
@@ -135,7 +135,7 @@
                             <div>
                                 <label for="plan" class="block text-sm font-medium text-gray-700">Plan</label>
                                 <select name="plan" id="plan"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                     <option value="">All Plans</option>
                                     <option value="basic" {{ request('plan') === 'basic' ? 'selected' : '' }}>Basic
                                     </option>
@@ -148,20 +148,20 @@
                             <div>
                                 <label for="date_from" class="block text-sm font-medium text-gray-700">Created From</label>
                                 <input type="date" name="date_from" id="date_from" value="{{ request('date_from') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                             </div>
                             <div>
                                 <label for="date_to" class="block text-sm font-medium text-gray-700">Created To</label>
                                 <input type="date" name="date_to" id="date_to" value="{{ request('date_to') }}"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                             </div>
                             <div class="flex items-end space-x-2">
                                 <button type="submit"
-                                    class="inline-flex flex-1 items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+                                    class="inline-flex flex-1 items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
                                     <i class="fas fa-search mr-2"></i>Filter
                                 </button>
                                 <a href="{{ route('central.tenants.index') }}"
-                                    class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                                    class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
                                     <i class="fas fa-times"></i>
                                 </a>
                             </div>
@@ -171,16 +171,16 @@
                         <div class="mt-4 flex items-center justify-between border-t pt-4">
                             <div class="flex items-center space-x-3">
                                 <button type="button" onclick="exportAll()"
-                                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
                                     <i class="fas fa-download mr-2"></i>Export All
                                 </button>
                                 @if (auth('central_admin')->user()->canManageTenants())
                                     <button type="button" onclick="showBulkCommunication()"
-                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
                                         <i class="fas fa-envelope mr-2"></i>Send Notice
                                     </button>
                                     <button type="button" onclick="showHealthReport()"
-                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
                                         <i class="fas fa-chart-line mr-2"></i>Health Report
                                     </button>
                                 @endif
@@ -195,7 +195,7 @@
             </div>
 
             <!-- Tenants Table -->
-            <div class="overflow-hidden bg-white shadow sm:rounded-md">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-md">
                 @if ($tenants->count() > 0)
                     <!-- Bulk Actions Bar -->
                     <div class="hidden border-b border-gray-200 bg-gray-50 px-6 py-3" id="bulk-actions">
@@ -240,7 +240,7 @@
                                 @if ($tenants->count() > 0 && auth('central_admin')->user()->canManageTenants())
                                     <th class="px-6 py-3 text-left">
                                         <input type="checkbox" id="select-all"
-                                            class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                            class="h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500">
                                     </th>
                                 @endif
                                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
@@ -272,7 +272,7 @@
                                     @if (auth('central_admin')->user()->canManageTenants())
                                         <td class="whitespace-nowrap px-6 py-4">
                                             <input type="checkbox" name="selected_tenants[]" value="{{ $tenant->id }}"
-                                                class="tenant-checkbox h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                                class="tenant-checkbox h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500">
                                         </td>
                                     @endif
                                     <td class="whitespace-nowrap px-6 py-4">
@@ -444,17 +444,17 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700">Subject</label>
                         <input type="text" id="notice-subject"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500">
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700">Message</label>
                         <textarea id="notice-message" rows="4"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500"></textarea>
                     </div>
                     <div class="mb-4">
                         <label class="flex items-center">
                             <input type="checkbox" id="urgent-notice"
-                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                class="rounded-sm border-gray-300 text-blue-600 shadow-xs focus:border-blue-300 focus:ring-3 focus:ring-blue-200 focus:ring-opacity-50">
                             <span class="ml-2 text-sm text-gray-600">Mark as urgent</span>
                         </label>
                     </div>

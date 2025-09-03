@@ -6,12 +6,12 @@
             </h2>
             <div class="flex items-center space-x-2">
                 <a href="{{ route('tenant.messages.reply', $message) }}"
-                    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
+                    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
                     <i class="fas fa-reply mr-2"></i>
                     Reply
                 </a>
                 <a href="{{ route('tenant.messages.index') }}"
-                    class="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 active:bg-gray-900">
+                    class="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 active:bg-gray-900">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Back to Messages
                 </a>
@@ -21,7 +21,7 @@
 
     <div class="p-6">
         <div class="mx-auto max-w-4xl">
-            <div class="overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-lg">
+            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <!-- Message Header -->
                 <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-700">
                     <div class="flex items-start justify-between">
@@ -58,7 +58,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                    class="inline-flex items-center rounded-md border border-red-300 bg-white px-3 py-2 text-sm text-red-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                    class="inline-flex items-center rounded-md border border-red-300 bg-white px-3 py-2 text-sm text-red-700 hover:bg-red-50 focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                                     <i class="fas fa-trash mr-1"></i>
                                     Delete
                                 </button>
@@ -166,7 +166,7 @@
                             @foreach ($message->attachments as $attachment)
                                 <div
                                     class="flex items-center rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-600 dark:bg-gray-700">
-                                    <div class="flex-shrink-0">
+                                    <div class="shrink-0">
                                         @if ($attachment->isImage())
                                             <i class="fas fa-image text-xl text-green-500"></i>
                                         @elseif($attachment->isDocument())
@@ -185,7 +185,7 @@
                                     </div>
                                     <div class="ml-3">
                                         <a href="{{ route('tenant.messages.attachment.download', [$message, $attachment]) }}"
-                                            class="inline-flex items-center rounded border border-transparent bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                            class="inline-flex items-center rounded-sm border border-transparent bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                             <i class="fas fa-download mr-1"></i>
                                             Download
                                         </a>
@@ -208,12 +208,12 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
                             <a href="{{ route('tenant.messages.reply', $message) }}"
-                                class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
+                                class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
                                 <i class="fas fa-reply mr-2"></i>
                                 Reply
                             </a>
                             <a href="{{ route('tenant.messages.create', ['recipient_id' => $message->getOtherParticipant(auth()->id())->id]) }}"
-                                class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-700 focus:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-900">
+                                class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-700 focus:bg-green-700 focus:outline-hidden focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-900">
                                 <i class="fas fa-plus mr-2"></i>
                                 New Message
                             </a>

@@ -43,13 +43,13 @@
     <body
         class="bg-white font-sans text-gray-900 antialiased transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
         <!-- Navigation -->
-        <nav class="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900/95"
+        <nav class="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur-xs transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900/95"
             x-data="{ mobileMenuOpen: false }">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <!-- Logo -->
                     <div class="flex items-center">
-                        <div class="flex flex-shrink-0 items-center">
+                        <div class="flex shrink-0 items-center">
                             <div class="bg-primary-600 flex h-8 w-8 items-center justify-center rounded-lg">
                                 <span class="text-lg font-bold text-white">S</span>
                             </div>
@@ -145,7 +145,7 @@
         </nav>
         <x-auth-session-status class="mb-4" :status="session('status')" />
         <main
-            class="from-primary-50 bg-gradient-to-br to-white pb-12 pt-20 transition-colors duration-300 dark:from-gray-800 dark:to-gray-900 lg:pb-20 lg:pt-32">
+            class="from-primary-50 bg-linear-to-br to-white pb-12 pt-20 transition-colors duration-300 dark:from-gray-800 dark:to-gray-900 lg:pb-20 lg:pt-32">
             {{ $slot }}
         </main>
         <!-- Footer -->

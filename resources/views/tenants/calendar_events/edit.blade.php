@@ -4,7 +4,7 @@
     </x-slot>
     <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
         <div
-            class="overflow-hidden rounded-lg bg-white shadow ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
+            class="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
             <div class="px-6 py-8">
                 <form method="POST" action="{{ route('tenant.calendar-events.update', $event) }}">
                     @csrf
@@ -18,7 +18,7 @@
                     <div class="mb-6">
                         <x-input-label for="description" :value="__('Description')" />
                         <textarea id="description" name="description" rows="4"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">{{ old('description', $event->description) }}</textarea>
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">{{ old('description', $event->description) }}</textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
                     <div class="mb-6">
@@ -49,7 +49,7 @@
                     <div class="mb-6">
                         <label class="inline-flex items-center">
                             <input type="checkbox" name="all_day" value="1"
-                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900"
+                                class="rounded-sm border-gray-300 text-indigo-600 shadow-xs focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900"
                                 {{ old('all_day', $event->all_day) ? 'checked' : '' }}>
                             <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">All Day</span>
                         </label>
@@ -61,7 +61,7 @@
                             @foreach ($availableRoles as $roleKey => $roleLabel)
                                 <label class="inline-flex items-center">
                                     <input type="checkbox" name="target_roles[]" value="{{ $roleKey }}"
-                                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900"
+                                        class="rounded-sm border-gray-300 text-indigo-600 shadow-xs focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900"
                                         {{ in_array($roleKey, old('target_roles', $event->target_roles ?? [])) ? 'checked' : '' }}>
                                     <span
                                         class="ml-2 text-sm text-gray-700 dark:text-gray-300">{{ $roleLabel }}</span>
@@ -73,7 +73,7 @@
                     <div class="mb-6">
                         <label class="inline-flex items-center">
                             <input type="checkbox" name="is_published" value="1"
-                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900"
+                                class="rounded-sm border-gray-300 text-indigo-600 shadow-xs focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900"
                                 {{ old('is_published', $event->is_published) ? 'checked' : '' }}>
                             <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Published</span>
                         </label>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="flex items-center justify-end gap-4">
                         <a href="{{ route('tenant.calendar-events.index') }}"
-                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 hover:bg-gray-50 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300">Cancel</a>
+                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-xs transition duration-150 hover:bg-gray-50 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300">Cancel</a>
                         <x-primary-button>{{ __('Save Changes') }}</x-primary-button>
                     </div>
                 </form>

@@ -10,7 +10,7 @@
     <div class="min-w-full p-6">
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
-        <div class="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
+        <div class="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-xs dark:bg-gray-800">
             <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">Edit Student</h3>
             <form method="POST" action="{{ route('tenant.students.update', $student) }}">
                 @csrf
@@ -58,7 +58,7 @@
                     <div class="mb-4">
                         <x-input-label for="gender" :value="__('Gender')" />
                         <select id="gender" name="gender"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
                             <option value="">Select Gender</option>
                             <option value="male" {{ old('gender', $student->gender) == 'male' ? 'selected' : '' }}>
                                 Male</option>
@@ -86,7 +86,7 @@
                         <div class="flex items-center">
                             <input id="is_active" type="checkbox" name="is_active" value="1"
                                 {{ old('is_active', $student->is_active) ? 'checked' : '' }}
-                                class="mr-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                class="mr-2 h-4 w-4 rounded-sm border-gray-300 text-indigo-600 focus:ring-indigo-500">
                             <x-input-label for="is_active" :value="__('Active Student')" class="cursor-pointer" />
                         </div>
                         <x-input-error class="mt-2" :messages="$errors->get('is_active')" />
@@ -199,7 +199,7 @@
 
                 <div class="flex items-center justify-end space-x-4">
                     <a href="{{ route('tenant.students') }}"
-                        class="rounded-md border border-gray-300 bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
+                        class="rounded-md border border-gray-300 bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 focus:outline-hidden focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
                         Cancel
                     </a>
                     <x-primary-button>Update Student</x-primary-button>

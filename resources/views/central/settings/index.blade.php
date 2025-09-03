@@ -13,7 +13,7 @@
             </div>
 
             <!-- Placeholder for future system settings -->
-            <div class="rounded-lg bg-white shadow">
+            <div class="rounded-lg bg-white shadow-sm">
                 <div class="border-b border-gray-200 px-6 py-4">
                     <h3 class="text-lg font-medium text-gray-900">Configuration</h3>
                 </div>
@@ -36,7 +36,7 @@
             </div>
 
             <!-- Current Environment Information -->
-            <div class="mt-8 rounded-lg bg-white shadow">
+            <div class="mt-8 rounded-lg bg-white shadow-sm">
                 <div class="border-b border-gray-200 px-6 py-4">
                     <h3 class="text-lg font-medium text-gray-900">Environment Information</h3>
                 </div>

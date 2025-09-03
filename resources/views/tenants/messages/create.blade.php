@@ -5,7 +5,7 @@
                 {{ __('Compose Message') }}
             </h2>
             <a href="{{ route('tenant.messages.index') }}"
-                class="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 active:bg-gray-900">
+                class="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 active:bg-gray-900">
                 <i class="fas fa-arrow-left mr-2"></i>
                 {{ __('Back to Messages') }}
             </a>
@@ -14,7 +14,7 @@
 
     <div class="p-6">
         <div class="mx-auto max-w-4xl">
-            <div class="bg-white shadow dark:bg-gray-800 sm:rounded-lg">
+            <div class="bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <form action="{{ route('tenant.messages.store') }}" method="POST" enctype="multipart/form-data"
                     class="p-6">
                     @csrf
@@ -27,7 +27,7 @@
                             Recipient *
                         </label>
                         <select name="recipient_id" id="recipient_id" required
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
                             <option value="">Select a recipient</option>
                             @if ($recipient)
                                 <option value="{{ $recipient->id }}" selected>{{ $recipient->name }}
@@ -56,7 +56,7 @@
                             Subject *
                         </label>
                         <input type="text" name="subject" id="subject" value="{{ old('subject') }}" required
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
                             placeholder="Enter message subject">
                         @error('subject')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -70,7 +70,7 @@
                             Priority
                         </label>
                         <select name="priority" id="priority"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
                             <option value="low" {{ old('priority') === 'low' ? 'selected' : '' }}>Low</option>
                             <option value="normal" {{ old('priority', 'normal') === 'normal' ? 'selected' : '' }}>
                                 Normal</option>
@@ -89,7 +89,7 @@
                             Message *
                         </label>
                         <textarea name="content" id="content" rows="8" required
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
                             placeholder="Type your message here...">{{ old('content') }}</textarea>
                         @error('content')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -109,7 +109,7 @@
                                 <i class="fas fa-cloud-upload-alt mb-3 text-3xl text-gray-400"></i>
                                 <div class="flex text-sm text-gray-600 dark:text-gray-400">
                                     <label for="attachments"
-                                        class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500 dark:bg-gray-800 dark:text-indigo-400">
+                                        class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-hidden focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500 dark:bg-gray-800 dark:text-indigo-400">
                                         <span>Upload files</span>
                                         <input id="attachments" name="attachments[]" type="file" multiple
                                             class="sr-only"
@@ -142,11 +142,11 @@
                     <!-- Form Actions -->
                     <div class="flex items-center justify-end space-x-3">
                         <a href="{{ route('tenant.messages.index') }}"
-                            class="inline-flex items-center rounded-md border border-transparent bg-gray-300 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 transition duration-150 ease-in-out hover:bg-gray-400 focus:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 active:bg-gray-500 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500 dark:focus:bg-gray-500 dark:active:bg-gray-400">
+                            class="inline-flex items-center rounded-md border border-transparent bg-gray-300 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 transition duration-150 ease-in-out hover:bg-gray-400 focus:bg-gray-400 focus:outline-hidden focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 active:bg-gray-500 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500 dark:focus:bg-gray-500 dark:active:bg-gray-400">
                             Cancel
                         </a>
                         <button type="submit"
-                            class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
+                            class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
                             <i class="fas fa-paper-plane mr-2"></i>
                             Send Message
                         </button>
@@ -173,7 +173,7 @@
                         files.forEach((file, index) => {
                             const fileItem = document.createElement('div');
                             fileItem.className =
-                                'flex items-center justify-between py-1 px-2 bg-white dark:bg-gray-600 rounded text-sm';
+                                'flex items-center justify-between py-1 px-2 bg-white dark:bg-gray-600 rounded-sm text-sm';
                             fileItem.innerHTML = `
                             <span class="text-gray-700 dark:text-gray-300">
                                 <i class="fas fa-file mr-2"></i>

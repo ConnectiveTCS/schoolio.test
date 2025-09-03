@@ -23,7 +23,7 @@
                             ($admin->role !== 'super_admin' || auth('central_admin')->user()->role === 'super_admin') &&
                                 $admin->id !== auth('central_admin')->id())
                             <a href="{{ route('central.admins.edit', $admin) }}"
-                                class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+                                class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
                                 <i class="fas fa-edit mr-2"></i>Edit Admin
                             </a>
                         @endif
@@ -35,7 +35,7 @@
                 <!-- Main Information -->
                 <div class="lg:col-span-2">
                     <!-- Basic Information -->
-                    <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+                    <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div class="border-b border-gray-200 px-6 py-4">
                             <h3 class="text-lg font-medium text-gray-900">Basic Information</h3>
                         </div>
@@ -87,7 +87,7 @@
                     </div>
 
                     <!-- Permissions -->
-                    <div class="mt-6 overflow-hidden bg-white shadow sm:rounded-lg">
+                    <div class="mt-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div class="border-b border-gray-200 px-6 py-4">
                             <h3 class="text-lg font-medium text-gray-900">Permissions</h3>
                         </div>
@@ -141,7 +141,7 @@
                     </div>
 
                     <!-- Activity Log (Placeholder) -->
-                    <div class="mt-6 overflow-hidden bg-white shadow sm:rounded-lg">
+                    <div class="mt-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div class="border-b border-gray-200 px-6 py-4">
                             <h3 class="text-lg font-medium text-gray-900">Recent Activity</h3>
                         </div>
@@ -159,7 +159,7 @@
                 <!-- Sidebar -->
                 <div class="space-y-6">
                     <!-- Profile Card -->
-                    <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+                    <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div class="px-6 py-4 text-center">
                             <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-blue-500">
                                 <span class="text-2xl font-medium text-white">
@@ -178,7 +178,7 @@
                     </div>
 
                     <!-- Quick Stats -->
-                    <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+                    <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div class="border-b border-gray-200 px-6 py-4">
                             <h3 class="text-lg font-medium text-gray-900">Account Stats</h3>
                         </div>
@@ -207,7 +207,7 @@
                     @if (
                         ($admin->role !== 'super_admin' || auth('central_admin')->user()->role === 'super_admin') &&
                             $admin->id !== auth('central_admin')->id())
-                        <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+                        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                             <div class="border-b border-gray-200 px-6 py-4">
                                 <h3 class="text-lg font-medium text-gray-900">Actions</h3>
                             </div>

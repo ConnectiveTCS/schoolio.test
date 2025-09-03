@@ -69,7 +69,7 @@
                     <!-- User Section -->
                     <div class="border-t border-blue-700 p-4">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600">
                                     <i class="fas fa-user text-sm text-white"></i>
                                 </div>
@@ -92,7 +92,7 @@
                 <!-- Main Content -->
                 <div class="flex flex-1 flex-col overflow-hidden">
                     <!-- Top Bar -->
-                    <header class="border-b border-gray-200 bg-white shadow-sm">
+                    <header class="border-b border-gray-200 bg-white shadow-xs">
                         <div class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                             <div class="flex items-center">
                                 <!-- Mobile menu button -->
@@ -117,7 +117,7 @@
                             <div class="mx-4 mt-4 sm:mx-6 lg:mx-8">
                                 <div class="rounded-md bg-green-50 p-4">
                                     <div class="flex">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <i class="fas fa-check-circle text-green-400"></i>
                                         </div>
                                         <div class="ml-3">
@@ -132,7 +132,7 @@
                             <div class="mx-4 mt-4 sm:mx-6 lg:mx-8">
                                 <div class="rounded-md bg-red-50 p-4">
                                     <div class="flex">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <i class="fas fa-exclamation-circle text-red-400"></i>
                                         </div>
                                         <div class="ml-3">
@@ -161,7 +161,7 @@
                     <div class="mx-auto max-w-7xl px-4 pt-4">
                         <div class="rounded-md bg-green-50 p-4">
                             <div class="flex">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <i class="fas fa-check-circle text-green-400"></i>
                                 </div>
                                 <div class="ml-3">
@@ -176,7 +176,7 @@
                     <div class="mx-auto max-w-7xl px-4 pt-4">
                         <div class="rounded-md bg-red-50 p-4">
                             <div class="flex">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <i class="fas fa-exclamation-circle text-red-400"></i>
                                 </div>
                                 <div class="ml-3">

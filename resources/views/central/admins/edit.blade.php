@@ -17,7 +17,7 @@
                 </p>
             </div>
 
-            <div class="rounded-lg bg-white shadow">
+            <div class="rounded-lg bg-white shadow-sm">
                 <form method="POST" action="{{ route('central.admins.update', $admin) }}" class="space-y-6">
                     @csrf
                     @method('PUT')
@@ -32,7 +32,7 @@
                                 <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
                                 <input type="text" name="name" id="name" value="{{ old('name', $admin->name) }}"
                                     required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                 @error('name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -42,7 +42,7 @@
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
                                 <input type="email" name="email" id="email"
                                     value="{{ old('email', $admin->email) }}" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                 @error('email')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -53,7 +53,7 @@
                             <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700">New Password</label>
                                 <input type="password" name="password" id="password"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                                     placeholder="Leave blank to keep current password">
                                 @error('password')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -64,7 +64,7 @@
                                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm
                                     New Password</label>
                                 <input type="password" name="password_confirmation" id="password_confirmation"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                                     placeholder="Confirm new password">
                                 @error('password_confirmation')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -83,7 +83,7 @@
                                 <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
                                 <select name="role" id="role" required
                                     {{ $admin->role === 'super_admin' && auth('central_admin')->user()->role !== 'super_admin' ? 'disabled' : '' }}
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                     @foreach ($roles as $role)
                                         <option value="{{ $role }}"
                                             {{ old('role', $admin->role) === $role ? 'selected' : '' }}>
@@ -105,7 +105,7 @@
                             <div>
                                 <label for="is_active" class="block text-sm font-medium text-gray-700">Status</label>
                                 <select name="is_active" id="is_active" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                     <option value="1" {{ old('is_active', $admin->is_active) ? 'selected' : '' }}>
                                         Active</option>
                                     <option value="0" {{ !old('is_active', $admin->is_active) ? 'selected' : '' }}>
@@ -122,7 +122,7 @@
 
                             {{-- Debug information
                             @if (config('app.debug'))
-                                <div class="mb-2 rounded border border-yellow-200 bg-yellow-50 p-2 text-xs">
+                                <div class="mb-2 rounded-sm border border-yellow-200 bg-yellow-50 p-2 text-xs">
                                     <strong>Debug:</strong> Admin permissions:
                                     {{ json_encode($admin->permissions ?? []) }}<br>
                                     <strong>Available permissions:</strong> {{ json_encode(array_keys($permissions)) }}<br>
@@ -152,7 +152,7 @@ if ($oldPermissions !== null) {
                                     <div class="flex items-center">
                                         <input type="checkbox" name="permissions[]" value="{{ $permission }}"
                                             id="{{ $safeId }}" {{ $isChecked ? 'checked' : '' }}
-                                            class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                            class="h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500">
                                         <label for="{{ $safeId }}" class="ml-2 text-sm text-gray-700">
                                             {{ $label }}
                                             @if (config('app.debug'))
@@ -204,11 +204,11 @@ if ($oldPermissions !== null) {
 
                     <div class="flex justify-end space-x-3 bg-gray-50 px-6 py-4">
                         <a href="{{ route('central.admins.show', $admin) }}"
-                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50">
                             Cancel
                         </a>
                         <button type="submit"
-                            class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+                            class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-blue-700">
                             <i class="fas fa-save mr-2"></i>Update Admin
                         </button>
                     </div>

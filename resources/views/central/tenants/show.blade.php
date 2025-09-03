@@ -18,7 +18,7 @@
                 @if (auth('central_admin')->user()->canManageTenants())
                     <div class="flex space-x-3">
                         <a href="{{ route('central.tenants.edit', $tenant) }}"
-                            class="inline-flex items-center rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            class="inline-flex items-center rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs transition-all duration-200 hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                             <i class="fas fa-edit mr-2"></i>Edit Tenant
                         </a>
                     </div>

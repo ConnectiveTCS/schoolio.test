@@ -7,7 +7,7 @@
             <div class="flex items-center gap-x-4 text-sm text-gray-600 dark:text-gray-400">
                 <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()"
-                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
+                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
                     title="Toggle theme">
                     <!-- Sun icon (visible in dark mode) -->
                     <svg class="hidden h-6 w-6 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -25,7 +25,7 @@
     </x-slot>
     <div class="py-12">
         <div class="mx-auto max-w-6xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+            <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <!-- Header -->
                     <div class="mb-8">
@@ -124,7 +124,7 @@
                                         <div
                                             class="{{ $reply->sender_type === 'central_admin' ? 'justify-start' : 'justify-end' }} flex space-x-3">
                                             @if ($reply->sender_type === 'central_admin')
-                                                <div class="flex-shrink-0">
+                                                <div class="shrink-0">
                                                     <div
                                                         class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
                                                         <svg class="h-4 w-4 text-blue-600 dark:text-blue-400"
@@ -202,7 +202,7 @@
                                                 </div>
                                             </div>
                                             @if ($reply->sender_type === 'tenant_user')
-                                                <div class="flex-shrink-0">
+                                                <div class="shrink-0">
                                                     <div
                                                         class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-600">
                                                         <svg class="h-4 w-4 text-gray-600 dark:text-gray-300"
@@ -235,7 +235,7 @@
                                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Add
                                                     Reply</label>
                                                 <textarea name="message" id="message" rows="3" required
-                                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
+                                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
                                                     placeholder="Type your message..."></textarea>
                                             </div>
 
@@ -244,7 +244,7 @@
                                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Attachments</label>
                                                 <input type="file" name="attachments[]" id="reply_attachments"
                                                     multiple
-                                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
+                                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
                                                     accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar">
                                                 <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                                                     Max 5 files, 10MB each. Supported: PDF, DOC, DOCX, XLS, XLSX, PPT,
@@ -254,7 +254,7 @@
 
                                             <div class="flex justify-end">
                                                 <button type="submit"
-                                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
                                                     Send Reply
                                                 </button>
                                             </div>
@@ -386,11 +386,11 @@
                                 <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Actions</h3>
                                 <div class="space-y-3">
                                     <a href="{{ route('tenant.support.create') }}"
-                                        class="block w-full rounded-md bg-blue-600 px-4 py-2 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                        class="block w-full rounded-md bg-blue-600 px-4 py-2 text-center text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
                                         Create New Ticket
                                     </a>
                                     <a href="{{ route('tenant.support.index') }}"
-                                        class="block w-full rounded-md bg-gray-200 px-4 py-2 text-center text-gray-800 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
+                                        class="block w-full rounded-md bg-gray-200 px-4 py-2 text-center text-gray-800 hover:bg-gray-300 focus:outline-hidden focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
                                         View All Tickets
                                     </a>
                                 </div>
@@ -427,10 +427,10 @@
         </div>
         <div class="flex justify-end gap-2 border-t px-4 py-2 dark:border-gray-700">
             <a id="downloadOriginal" href="#"
-                class="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+                class="rounded-sm bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
                 target="_blank" rel="noopener">Download</a>
             <button
-                class="rounded bg-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
+                class="rounded-sm bg-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
                 data-preview-close>Close</button>
         </div>
     </div>

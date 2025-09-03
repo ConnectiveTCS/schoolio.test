@@ -106,7 +106,7 @@
                         @foreach ($recent_tickets as $ticket)
                             <div class="flex items-center justify-between rounded-lg border border-gray-200 p-4">
                                 <div class="flex items-center space-x-4">
-                                    <div class="flex-shrink-0">
+                                    <div class="shrink-0">
                                         <span
                                             class="bg-{{ $ticket->status_color }}-100 text-{{ $ticket->status_color }}-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">
                                             {{ ucfirst($ticket->status) }}

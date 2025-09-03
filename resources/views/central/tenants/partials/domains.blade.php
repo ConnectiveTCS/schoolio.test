@@ -1,5 +1,5 @@
 <!-- Domains -->
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200">
+                <div class="overflow-hidden rounded-xl bg-white shadow-xs ring-1 ring-gray-200">
                     <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
                         <h3 class="flex items-center text-lg font-semibold text-gray-900">
                             <i class="fas fa-globe mr-2 text-blue-600"></i>
@@ -17,7 +17,7 @@
                                     <div
                                         class="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4 transition-colors duration-200 hover:bg-gray-100">
                                         <div class="flex items-center space-x-3">
-                                            <div class="flex-shrink-0">
+                                            <div class="shrink-0">
                                                 <div
                                                     class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
                                                     <i class="fas fa-link text-xs text-blue-600"></i>

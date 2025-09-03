@@ -12,7 +12,7 @@
             <div class="space-y-6">
                 @foreach ($announcements as $announcement)
                     <div
-                        class="overflow-hidden rounded-lg bg-white shadow ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
+                        class="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
                         <div class="px-6 py-6">
                             <!-- Header -->
                             <div class="mb-4 flex items-start justify-between">

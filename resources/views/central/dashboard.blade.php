@@ -6,11 +6,11 @@
 
 @section('page_actions')
     <a href="{{ route('central.tenants.create') }}"
-        class="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+        class="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
         <i class="fas fa-plus mr-2"></i>New Tenant
     </a>
     <a href="{{ route('central.support.dashboard') }}"
-        class="inline-flex items-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+        class="inline-flex items-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-gray-500 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
         <i class="fas fa-chart-line mr-2"></i>Support Dashboard
     </a>
 @endsection
@@ -26,10 +26,10 @@
 
         <!-- Stats Cards -->
         <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                 <div class="p-5">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <i class="fas fa-building text-2xl text-blue-600"></i>
                         </div>
                         <div class="ml-5 w-0 flex-1">
@@ -42,10 +42,10 @@
                 </div>
             </div>
 
-            <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                 <div class="p-5">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <i class="fas fa-check-circle text-2xl text-green-600"></i>
                         </div>
                         <div class="ml-5 w-0 flex-1">
@@ -59,10 +59,10 @@
                 </div>
             </div>
 
-            <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                 <div class="p-5">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <i class="fas fa-pause-circle text-2xl text-yellow-600"></i>
                         </div>
                         <div class="ml-5 w-0 flex-1">
@@ -76,10 +76,10 @@
                 </div>
             </div>
 
-            <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                 <div class="p-5">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <i class="fas fa-users-cog text-2xl text-purple-600"></i>
                         </div>
                         <div class="ml-5 w-0 flex-1">
@@ -95,7 +95,7 @@
         </div>
 
         <!-- Quick Actions -->
-        <div class="mb-8 rounded-lg bg-white shadow">
+        <div class="mb-8 rounded-lg bg-white shadow-sm">
             <div class="border-b border-gray-200 px-6 py-4">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">Quick Actions</h3>
             </div>
@@ -131,7 +131,7 @@
         <!-- System Health & Metrics -->
         <div class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
             <!-- Recent Activities -->
-            <div class="rounded-lg bg-white shadow">
+            <div class="rounded-lg bg-white shadow-sm">
                 <div class="border-b border-gray-200 px-6 py-4">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Recent System Activities</h3>
                 </div>
@@ -179,7 +179,7 @@
             </div>
 
             <!-- System Status -->
-            <div class="rounded-lg bg-white shadow">
+            <div class="rounded-lg bg-white shadow-sm">
                 <div class="border-b border-gray-200 px-6 py-4">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">System Status</h3>
                 </div>
@@ -187,7 +187,7 @@
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <div class="h-2 w-2 rounded-full bg-green-400"></div>
                                 </div>
                                 <div class="ml-3">
@@ -202,7 +202,7 @@
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <div class="h-2 w-2 rounded-full bg-green-400"></div>
                                 </div>
                                 <div class="ml-3">
@@ -218,7 +218,7 @@
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <div class="h-2 w-2 rounded-full bg-green-400"></div>
                                 </div>
                                 <div class="ml-3">
@@ -233,7 +233,7 @@
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <div class="h-2 w-2 rounded-full bg-yellow-400"></div>
                                 </div>
                                 <div class="ml-3">
@@ -251,7 +251,7 @@
         </div>
 
         <!-- Recent Tenants -->
-        <div class="rounded-lg bg-white shadow">
+        <div class="rounded-lg bg-white shadow-sm">
             <div class="border-b border-gray-200 px-6 py-4">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">Recent Tenants</h3>
             </div>
@@ -325,7 +325,7 @@
         // Add some interactivity to the dashboard
         document.addEventListener('DOMContentLoaded', function() {
             // Animate the stat cards on load
-            const statCards = document.querySelectorAll('.overflow-hidden.rounded-lg.bg-white.shadow');
+            const statCards = document.querySelectorAll('.overflow-hidden.rounded-lg.bg-white.shadow-sm');
             statCards.forEach((card, index) => {
                 setTimeout(() => {
                     card.style.opacity = '0';

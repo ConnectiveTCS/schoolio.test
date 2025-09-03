@@ -5,7 +5,7 @@
                 {{ __('Messages') }}
             </h2>
             <a href="{{ route('tenant.messages.create') }}"
-                class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
+                class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
                 <i class="fas fa-plus mr-2"></i>
                 {{ __('Compose Message') }}
             </a>
@@ -50,7 +50,7 @@
             </div>
 
             <!-- Messages List -->
-            <div class="overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-md">
+            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-md">
                 @if ($messages->count() > 0)
                     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
                         @foreach ($messages as $message)
@@ -59,7 +59,7 @@
                                     class="block px-4 py-4 sm:px-6">
                                     <div class="flex items-center justify-between">
                                         <div class="flex min-w-0 flex-1 items-center">
-                                            <div class="flex-shrink-0">
+                                            <div class="shrink-0">
                                                 @if ($activeTab === 'sent')
                                                     <div
                                                         class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600">
@@ -146,7 +146,7 @@
                         @if ($activeTab === 'inbox')
                             <div class="mt-6">
                                 <a href="{{ route('tenant.messages.create') }}"
-                                    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
+                                    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
                                     <i class="fas fa-plus mr-2"></i>
                                     Compose Your First Message
                                 </a>

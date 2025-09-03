@@ -3,7 +3,7 @@
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">{{ __('Upcoming Events') }}</h2>
     </x-slot>
     <div class="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        <div class="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800">
+        <div class="overflow-hidden rounded-lg bg-white shadow-xs dark:bg-gray-800">
             <div class="p-6">
                 @if ($events->count())
                     <div class="space-y-4">

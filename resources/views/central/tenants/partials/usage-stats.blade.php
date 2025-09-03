@@ -1,5 +1,5 @@
 <!-- Statistics -->
-<div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200">
+<div class="overflow-hidden rounded-xl bg-white shadow-xs ring-1 ring-gray-200">
     <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
         <h3 class="flex items-center text-lg font-semibold text-gray-900">
             <i class="fas fa-chart-bar mr-2 text-blue-600"></i>
@@ -10,7 +10,7 @@
         @if (isset($stats['error']))
             <div class="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
                 <div class="flex items-start">
-                    <div class="flex-shrink-0">
+                    <div class="shrink-0">
                         <i class="fas fa-exclamation-triangle text-yellow-600"></i>
                     </div>
                     <div class="ml-3">
@@ -26,7 +26,7 @@
         @else
             <dl class="space-y-6">
                 <div
-                    class="flex items-center justify-between rounded-lg border border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100 p-4">
+                    class="flex items-center justify-between rounded-lg border border-blue-200 bg-linear-to-r from-blue-50 to-blue-100 p-4">
                     <div class="flex items-center">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600">
                             <i class="fas fa-users text-white"></i>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div
-                    class="flex items-center justify-between rounded-lg border border-green-200 bg-gradient-to-r from-green-50 to-green-100 p-4">
+                    class="flex items-center justify-between rounded-lg border border-green-200 bg-linear-to-r from-green-50 to-green-100 p-4">
                     <div class="flex items-center">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-green-600">
                             <i class="fas fa-graduation-cap text-white"></i>
@@ -54,7 +54,7 @@
                 </div>
 
                 <div
-                    class="flex items-center justify-between rounded-lg border border-purple-200 bg-gradient-to-r from-purple-50 to-purple-100 p-4">
+                    class="flex items-center justify-between rounded-lg border border-purple-200 bg-linear-to-r from-purple-50 to-purple-100 p-4">
                     <div class="flex items-center">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-purple-600">
                             <i class="fas fa-chalkboard-teacher text-white"></i>
@@ -68,7 +68,7 @@
                 </div>
 
                 <div
-                    class="flex items-center justify-between rounded-lg border border-orange-200 bg-gradient-to-r from-orange-50 to-orange-100 p-4">
+                    class="flex items-center justify-between rounded-lg border border-orange-200 bg-linear-to-r from-orange-50 to-orange-100 p-4">
                     <div class="flex items-center">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-orange-600">
                             <i class="fas fa-door-open text-white"></i>
@@ -82,7 +82,7 @@
                 </div>
 
                 <div
-                    class="flex items-center justify-between rounded-lg border border-red-200 bg-gradient-to-r from-red-50 to-red-100 p-4">
+                    class="flex items-center justify-between rounded-lg border border-red-200 bg-linear-to-r from-red-50 to-red-100 p-4">
                     <div class="flex items-center">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-red-600">
                             <i class="fas fa-bullhorn text-white"></i>

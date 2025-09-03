@@ -192,7 +192,7 @@
                     <form method="POST" action="{{ route('end-impersonation') }}" class="inline">
                         @csrf
                         <button type="submit"
-                            class="rounded bg-red-600 px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-red-700"
+                            class="rounded-sm bg-red-600 px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-red-700"
                             onclick="return confirm('Are you sure you want to end impersonation?')">
                             End Impersonation
                         </button>
@@ -223,7 +223,7 @@
                         class="sidebar-transition fixed inset-y-0 left-0 z-30 flex h-full w-64 flex-col bg-white shadow-lg dark:bg-gray-800 lg:static lg:translate-x-0">
 
                         <div
-                            class="flex h-16 flex-shrink-0 items-center justify-center border-b border-gray-200 px-6 dark:border-gray-700">
+                            class="flex h-16 shrink-0 items-center justify-center border-b border-gray-200 px-6 dark:border-gray-700">
                             <div class="flex items-center justify-center">
                                 @if (tenant('logo'))
                                     <img src="{{ route('tenant.file', tenant('logo')) }}"
@@ -486,7 +486,7 @@
                             </div>
 
                             <!-- User menu at bottom -->
-                            <div class="flex-shrink-0 border-t border-gray-200 pt-6 dark:border-gray-700">
+                            <div class="shrink-0 border-t border-gray-200 pt-6 dark:border-gray-700">
                                 <div x-data="{ userMenuOpen: false }" class="relative">
                                     <button @click="userMenuOpen = !userMenuOpen"
                                         class="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-150 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
@@ -550,7 +550,7 @@
                 <div class="flex h-full flex-1 flex-col overflow-hidden lg:ml-0">
                     <!-- Top navigation bar -->
                     <header
-                        class="flex-shrink-0 border-b border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        class="shrink-0 border-b border-gray-200 bg-white shadow-xs dark:border-gray-700 dark:bg-gray-800">
                         <div class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                             <!-- Mobile menu button -->
                             <button @click="sidebarOpen = true"
@@ -576,7 +576,7 @@
                                     <button @mouseenter="notificationOpen = true"
                                         @mouseleave="setTimeout(() => { if (!$refs.dropdown.matches(':hover') && !$el.matches(':hover')) notificationOpen = false }, 100)"
                                         @click="modalOpen = true" title="View recent activities"
-                                        class="relative rounded-md p-1 text-gray-500 transition-colors duration-200 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800">
+                                        class="relative rounded-md p-1 text-gray-500 transition-colors duration-200 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800">
                                         {{ svg('ri-notification-fill', ['class' => 'h-6 w-6 ml-2 hover:text-red-500']) }}
                                         <!-- Notification dot -->
                                         <span x-show="activities.length > 0"
@@ -595,7 +595,7 @@
                                         x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100 scale-100"
                                         x-transition:leave-end="opacity-0 scale-95"
-                                        class="absolute right-0 top-full z-[9999] mt-2 w-80 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                                        class="absolute right-0 top-full z-9999 mt-2 w-80 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
 
                                         <!-- Dropdown header -->
                                         <div class="border-b border-gray-200 px-4 py-3 dark:border-gray-700">
@@ -615,7 +615,7 @@
                                                     class="border-b border-gray-100 px-4 py-3 last:border-b-0 hover:bg-gray-50 dark:border-gray-700/50 dark:hover:bg-gray-700/50">
                                                     <div class="flex items-start space-x-3">
                                                         <!-- Activity icon -->
-                                                        <div class="flex-shrink-0">
+                                                        <div class="shrink-0">
                                                             <div :class="{
                                                                 'bg-blue-100 dark:bg-blue-900/30': activity
                                                                     .type === 'enrollment',
@@ -709,7 +709,7 @@
                                         x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100 scale-100"
                                         x-transition:leave-end="opacity-0 scale-95"
-                                        class="absolute right-0 top-full z-[9999] mt-2 w-80 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                                        class="absolute right-0 top-full z-9999 mt-2 w-80 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
                                         <div class="px-4 py-8 text-center">
                                             <div class="mb-2 text-gray-400">
                                                 <svg class="mx-auto h-8 w-8" fill="none" stroke="currentColor"
@@ -731,10 +731,10 @@
                                         x-transition:leave="transition ease-in duration-200"
                                         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                         @keydown.escape.window="modalOpen = false"
-                                        class="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto p-4">
+                                        class="fixed inset-0 z-9999 flex items-center justify-center overflow-y-auto p-4">
                                         <!-- Backdrop -->
                                         <div @click="modalOpen = false"
-                                            class="fixed inset-0 z-[9998] bg-black bg-opacity-50"></div>
+                                            class="fixed inset-0 z-9998 bg-black bg-opacity-50"></div>
 
                                         <!-- Modal -->
                                         <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300"
@@ -743,7 +743,7 @@
                                             x-transition:leave="transition ease-in duration-200"
                                             x-transition:leave-start="opacity-100 scale-100"
                                             x-transition:leave-end="opacity-0 scale-95"
-                                            class="relative z-[10000] max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-xl dark:bg-gray-800">
+                                            class="relative z-10000 max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-xl dark:bg-gray-800">
 
                                             <!-- Modal header -->
                                             <div
@@ -793,7 +793,7 @@
                                                         <div
                                                             class="group flex items-start space-x-4 rounded-lg border border-gray-200 p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700/50">
                                                             <!-- Activity icon -->
-                                                            <div class="flex-shrink-0">
+                                                            <div class="shrink-0">
                                                                 <div :class="{
                                                                     'bg-blue-100 dark:bg-blue-900/30': activity
                                                                         .type === 'enrollment',
@@ -888,7 +888,7 @@
                                                                 :disabled="loading" title="Clear this activity"
                                                                 :class="loading ? 'opacity-50 cursor-not-allowed' :
                                                                     'opacity-0 group-hover:opacity-100'"
-                                                                class="rounded-sm p-1 text-gray-400 transition-all hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:hover:text-red-400 dark:focus:ring-offset-gray-800">
+                                                                class="rounded-xs p-1 text-gray-400 transition-all hover:text-red-600 focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:hover:text-red-400 dark:focus:ring-offset-gray-800">
                                                                 <svg class="h-4 w-4" fill="none"
                                                                     stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round"
@@ -931,7 +931,7 @@
 
                     <!-- Footer -->
                     <footer
-                        class="flex-shrink-0 border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+                        class="shrink-0 border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
                         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                             <div class="flex items-center justify-between">
                                 <div class="text-sm text-gray-600 dark:text-gray-400">

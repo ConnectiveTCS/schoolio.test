@@ -17,7 +17,7 @@
                 </p>
             </div>
 
-            <div class="rounded-lg bg-white shadow">
+            <div class="rounded-lg bg-white shadow-sm">
                 <form method="POST" action="{{ route('central.tenants.store') }}" class="space-y-6">
                     @csrf
 
@@ -34,7 +34,7 @@
                                 </label>
                                 <div class="relative">
                                     <input type="text" name="name" id="name" value="{{ old('name') }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="Enter organization name">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-building text-gray-400"></i>
@@ -54,7 +54,7 @@
                                 </label>
                                 <div class="relative">
                                     <input type="email" name="email" id="email" value="{{ old('email') }}" required
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="contact@organization.com">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-envelope text-gray-400"></i>
@@ -73,7 +73,7 @@
                                 <label for="phone" class="block text-sm font-semibold text-gray-800">Phone Number</label>
                                 <div class="relative">
                                     <input type="text" name="phone" id="phone" value="{{ old('phone') }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="+1 (555) 123-4567">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-phone text-gray-400"></i>
@@ -91,7 +91,7 @@
                                     Phone</label>
                                 <div class="relative">
                                     <input type="text" name="alt_phone" id="alt_phone" value="{{ old('alt_phone') }}"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                         placeholder="+1 (555) 987-6543">
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                         <i class="fas fa-phone text-gray-400"></i>
@@ -109,7 +109,7 @@
                             <label for="website" class="block text-sm font-semibold text-gray-800">Website URL</label>
                             <div class="relative">
                                 <input type="url" name="website" id="website" value="{{ old('website') }}"
-                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                     placeholder="https://example.com">
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                     <i class="fas fa-globe text-gray-400"></i>
@@ -126,7 +126,7 @@
                             <label for="address" class="block text-sm font-semibold text-gray-800">Address</label>
                             <div class="relative">
                                 <textarea name="address" id="address" rows="4"
-                                    class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                                     placeholder="Enter complete address">{{ old('address') }}</textarea>
                                 <div class="pointer-events-none absolute right-0 top-3 flex items-start pr-3">
                                     <i class="fas fa-map-marker-alt text-gray-400"></i>
@@ -153,7 +153,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="plan" id="plan" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="">Select a plan...</option>
                                         <option value="basic" {{ old('plan') === 'basic' ? 'selected' : '' }}>Basic
                                         </option>
@@ -180,7 +180,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="school_type" id="school_type" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="">Select school type...</option>
                                         <option value="primary" {{ old('school_type') === 'primary' ? 'selected' : '' }}>
                                             Primary School</option>
@@ -212,7 +212,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="language" id="language" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="">Select language...</option>
                                         <option value="en" {{ old('language') === 'en' ? 'selected' : '' }}>English
                                         </option>
@@ -241,7 +241,7 @@
                                 </label>
                                 <div class="relative">
                                     <select name="timezone" id="timezone" required
-                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
+                                        class="block w-full cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm shadow-xs transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100">
                                         <option value="">Select timezone...</option>
                                         <option value="UTC" {{ old('timezone') === 'UTC' ? 'selected' : '' }}>UTC
                                         </option>
@@ -279,7 +279,7 @@
                                 Domain
                                 <span class="text-red-500">*</span>
                             </label>
-                            <div class="mt-1 flex rounded-lg shadow-sm">
+                            <div class="mt-1 flex rounded-lg shadow-xs">
                                 <input type="text" name="domain" id="domain" value="{{ old('domain') }}"
                                     required
                                     class="block w-full min-w-0 flex-1 rounded-none rounded-l-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm placeholder-gray-400 transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
@@ -300,11 +300,11 @@
 
                     <div class="flex justify-end space-x-3 rounded-b-lg bg-gray-50 px-6 py-4">
                         <a href="{{ route('central.tenants.index') }}"
-                            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200">
+                            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-xs transition-all duration-200 hover:bg-gray-100 focus:outline-hidden focus:ring-4 focus:ring-gray-200">
                             <i class="fas fa-times mr-2"></i>Cancel
                         </a>
                         <button type="submit"
-                            class="inline-flex transform items-center rounded-lg border border-transparent bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200">
+                            class="inline-flex transform items-center rounded-lg border border-transparent bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:to-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-200">
                             <i class="fas fa-plus mr-2"></i>Create Tenant
                         </button>
                     </div>

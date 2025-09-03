@@ -7,7 +7,7 @@
             <div class="flex items-center gap-x-4 text-sm text-gray-600 dark:text-gray-400">
                 <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()"
-                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
+                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
                     title="Toggle theme">
                     <!-- Sun icon (visible in dark mode) -->
                     <svg class="hidden h-6 w-6 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -25,7 +25,7 @@
     </x-slot>
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+            <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-8">
                         <div class="flex items-center justify-between">
@@ -35,7 +35,7 @@
                                 </p>
                             </div>
                             <a href="{{ route('tenant.support.create') }}"
-                                class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
                                 New Ticket
                             </a>
                         </div>
@@ -49,7 +49,7 @@
                                 <label for="status"
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
                                 <select name="status" id="status"
-                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
                                     <option value="">All Statuses</option>
                                     <option value="open" {{ request('status') == 'open' ? 'selected' : '' }}>Open
                                     </option>
@@ -66,7 +66,7 @@
                                 <label for="priority"
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Priority</label>
                                 <select name="priority" id="priority"
-                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
                                     <option value="">All Priorities</option>
                                     <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>Low
                                     </option>
@@ -83,7 +83,7 @@
                                 <label for="category"
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
                                 <select name="category" id="category"
-                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
                                     <option value="">All Categories</option>
                                     <option value="technical"
                                         {{ request('category') == 'technical' ? 'selected' : '' }}>Technical</option>
@@ -99,11 +99,11 @@
 
                             <div class="flex items-end space-x-2">
                                 <button type="submit"
-                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
                                     Filter
                                 </button>
                                 <a href="{{ route('tenant.support.index') }}"
-                                    class="rounded-md bg-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
+                                    class="rounded-md bg-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-400 focus:outline-hidden focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
                                     Clear
                                 </a>
                             </div>
@@ -273,7 +273,7 @@
                                         </div>
                                         <div class="ml-4">
                                             <a href="{{ route('tenant.support.show', $ticket) }}"
-                                                class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                                class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
                                                 View Details
                                             </a>
                                         </div>
@@ -300,7 +300,7 @@
                                 support ticket.</p>
                             <div class="mt-6">
                                 <a href="{{ route('tenant.support.create') }}"
-                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
                                     Create Support Ticket
                                 </a>
                             </div>

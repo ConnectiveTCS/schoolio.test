@@ -7,7 +7,7 @@
             <div class="flex items-center gap-x-4 text-sm text-gray-600 dark:text-gray-400">
                 <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()"
-                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
+                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
                     title="Toggle theme">
                     <!-- Sun icon (visible in dark mode) -->
                     <svg class="hidden h-6 w-6 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -29,7 +29,7 @@
         <div class="mx-auto max-w-7xl">
             <!-- Dashboard Stats -->
             <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500">
@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-500">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-yellow-500">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-500">
@@ -112,7 +112,7 @@
             <!-- Recent Activity and Quick Actions -->
             <div class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
                 <!-- Recent Activity -->
-                <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg lg:col-span-2">
+                <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg lg:col-span-2">
                     <div class="p-6">
                         <div class="mb-4 flex items-center justify-between">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
@@ -121,7 +121,7 @@
                         <div class="space-y-4">
                             @forelse ($dashboardData['recent_activities'] as $activity)
                                 <div class="flex items-start space-x-3">
-                                    <div class="flex-shrink-0">
+                                    <div class="shrink-0">
                                         @if ($activity['type'] === 'enrollment')
                                             <div
                                                 class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
@@ -195,7 +195,7 @@
                                             {{ $activity['activity'] }}</p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">{{ $activity['time'] }}</p>
                                     </div>
-                                    <div class="flex-shrink-0">
+                                    <div class="shrink-0">
                                         @if ($activity['type'] === 'enrollment')
                                             <span
                                                 class="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
@@ -251,12 +251,12 @@
                 </div>
 
                 <!-- Quick Actions -->
-                <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6">
                         <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Quick Actions</h3>
                         <div class="space-y-3">
                             <button
-                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
+                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-blue-900">
                                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -264,7 +264,7 @@
                                 Add Student
                             </button>
                             <button
-                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-700 focus:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-900">
+                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-700 focus:bg-green-700 focus:outline-hidden focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-900">
                                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
@@ -273,7 +273,7 @@
                                 Create Course
                             </button>
                             <button
-                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-purple-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-purple-700 focus:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 active:bg-purple-900">
+                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-purple-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-purple-700 focus:bg-purple-700 focus:outline-hidden focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 active:bg-purple-900">
                                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
@@ -282,7 +282,7 @@
                                 Take Attendance
                             </button>
                             <button
-                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-yellow-700 focus:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 active:bg-yellow-900">
+                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-yellow-700 focus:bg-yellow-700 focus:outline-hidden focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 active:bg-yellow-900">
                                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
@@ -298,7 +298,7 @@
             <!-- Upcoming Events and Announcements -->
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <!-- Upcoming Events -->
-                <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6">
                         <div class="mb-4 flex items-center justify-between">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Upcoming Events</h3>
@@ -328,14 +328,14 @@
                 </div>
 
                 <!-- Announcements -->
-                <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
                     <div class="p-6">
                         <div class="mb-4 flex items-center justify-between">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Recent Announcements</h3>
                             <div class="flex items-center gap-2">
                                 @can('create announcements')
                                     <a href="{{ route('tenant.announcements.create') }}"
-                                        class="inline-flex items-center gap-1 rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                                        class="inline-flex items-center gap-1 rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white shadow-xs transition-colors hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                         <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M12 4v16m8-8H4"></path>
@@ -396,7 +396,7 @@
                                     @can('create announcements')
                                         <div class="mt-4">
                                             <a href="{{ route('tenant.announcements.create') }}"
-                                                class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                                                class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs transition-colors hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

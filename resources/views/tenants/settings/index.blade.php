@@ -10,7 +10,7 @@
     <div class="p-6">
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
-        <div class="mx-auto max-w-4xl rounded-lg bg-white shadow-sm dark:bg-gray-800">
+        <div class="mx-auto max-w-4xl rounded-lg bg-white shadow-xs dark:bg-gray-800">
             <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-700">
                 <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">School Settings</h3>
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Manage your school's basic information and
@@ -26,14 +26,14 @@
                 <div class="mb-8">
                     <h4 class="mb-4 text-base font-medium text-gray-900 dark:text-gray-100">School Logo</h4>
                     <div class="flex items-center space-x-6">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <label for="logo" class="cursor-pointer">
                                 @if ($tenant->logo)
                                     <img src="{{ route('tenant.file', $tenant->logo) }}" alt="{{ $tenant->name }} Logo"
-                                        class="h-24 w-24 rounded-lg object-cover shadow-sm" id="logoPreview">
+                                        class="h-24 w-24 rounded-lg object-cover shadow-xs" id="logoPreview">
                                 @else
                                     <img src="{{ asset('alsahwa.svg') }}" alt="{{ $tenant->name }} Logo"
-                                        class="h-24 w-24 rounded-lg object-cover shadow-sm" id="logoPreview">
+                                        class="h-24 w-24 rounded-lg object-cover shadow-xs" id="logoPreview">
                                 @endif
                             </label>
                         </div>
@@ -41,7 +41,7 @@
                             <input type="file" name="logo" id="logo" class="hidden"
                                 onchange="document.getElementById('logoPreview').src = window.URL.createObjectURL(this.files[0])">
                             <label for="logo"
-                                class="inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white dark:focus:bg-white dark:focus:ring-offset-gray-800 dark:active:bg-gray-300">
+                                class="inline-flex cursor-pointer items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white dark:focus:bg-white dark:focus:ring-offset-gray-800 dark:active:bg-gray-300">
                                 Choose New Logo
                             </label>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">PNG, JPG up to 2MB. Recommended:
@@ -59,7 +59,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">School
                                 Name</label>
                             <input type="text" name="name" id="name" value="{{ old('name', $tenant->name) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                             @error('name')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -70,7 +70,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Address</label>
                             <input type="text" name="address" id="address"
                                 value="{{ old('address', $tenant->address) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                             @error('address')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -81,7 +81,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Website</label>
                             <input type="url" name="website" id="website"
                                 value="{{ old('website', $tenant->website) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                             @error('website')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -98,7 +98,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
                             <input type="email" name="email" id="email"
                                 value="{{ old('email', $tenant->email) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                             @error('email')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -109,7 +109,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
                             <input type="text" name="phone" id="phone"
                                 value="{{ old('phone', $tenant->phone) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                             @error('phone')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -121,7 +121,7 @@
                                 Phone</label>
                             <input type="text" name="alt_phone" id="alt_phone"
                                 value="{{ old('alt_phone', $tenant->alt_phone) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                             @error('alt_phone')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -137,7 +137,7 @@
                             <label for="language"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Language</label>
                             <select name="language" id="language"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                                 <option value="">Select Language</option>
                                 <option value="en"
                                     {{ old('language', $tenant->language) == 'en' ? 'selected' : '' }}>
@@ -207,7 +207,7 @@
                             <label for="timezone"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Timezone</label>
                             <select name="timezone" id="timezone"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                                 <option value="">Select Timezone</option>
                                 @foreach (timezone_identifiers_list() as $tz)
                                     <option value="{{ $tz }}"
