@@ -177,6 +177,14 @@
             .dark .scrollbar-thin::-webkit-scrollbar-thumb {
                 background: #64748b;
             }
+
+            /* Font Awesome icon sizing with Tailwind classes */
+            .fas.h-3, .far.h-3, .fab.h-3 { font-size: 0.75rem; }
+            .fas.h-4, .far.h-4, .fab.h-4 { font-size: 1rem; }
+            .fas.h-5, .far.h-5, .fab.h-5 { font-size: 1.25rem; }
+            .fas.h-6, .far.h-6, .fab.h-6 { font-size: 1.5rem; }
+            .fas.h-8, .far.h-8, .fab.h-8 { font-size: 2rem; }
+            .fas.h-12, .far.h-12, .fab.h-12 { font-size: 3rem; }
         </style>
     </head>
 
@@ -239,10 +247,7 @@
                             </div>
                             <button @click="sidebarOpen = false"
                                 class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] lg:hidden dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
-                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
+                                <i class="fas fa-times h-6 w-6"></i>
                             </button>
                         </div>
 
@@ -252,13 +257,7 @@
                                 <!-- Dashboard -->
                                 <a href="{{ route('dashboard') }}"
                                     class="sidebar-nav-item {{ request()->routeIs('dashboard') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
-                                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z">
-                                        </path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 5a2 2 0 012-2h4a2 2 0 012 2v3H8V5z"></path>
-                                    </svg>
+                                    <i class="fas fa-tachometer-alt mr-3 h-5 w-5"></i>
                                     Dashboard
                                 </a>
 
@@ -267,20 +266,10 @@
                                     <button @click="open = !open"
                                         class="sidebar-nav-item {{ request()->routeIs('tenant.students*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                         <div class="flex items-center">
-                                            <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z">
-                                                </path>
-                                            </svg>
+                                            <i class="fas fa-user-graduate mr-3 h-5 w-5"></i>
                                             Students
                                         </div>
-                                        <svg class="h-4 w-4 transition-transform duration-150"
-                                            :class="{ 'rotate-90': open }" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 5l7 7-7 7"></path>
-                                        </svg>
+                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150" :class="{ 'rotate-90': open }"></i>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
                                         <a href="{{ route('tenant.students') }}"
@@ -297,20 +286,10 @@
                                     <button @click="open = !open"
                                         class="sidebar-nav-item {{ request()->routeIs('tenant.teachers*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                         <div class="flex items-center">
-                                            <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                                </path>
-                                            </svg>
+                                            <i class="fas fa-chalkboard-teacher mr-3 h-5 w-5"></i>
                                             Teachers
                                         </div>
-                                        <svg class="h-4 w-4 transition-transform duration-150"
-                                            :class="{ 'rotate-90': open }" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 5l7 7-7 7"></path>
-                                        </svg>
+                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150" :class="{ 'rotate-90': open }"></i>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
                                         <a href="{{ route('tenant.teachers') }}"
@@ -327,20 +306,10 @@
                                     <button @click="open = !open"
                                         class="sidebar-nav-item {{ request()->routeIs('tenant.classes*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                         <div class="flex items-center">
-                                            <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                                                </path>
-                                            </svg>
+                                            <i class="fas fa-school mr-3 h-5 w-5"></i>
                                             Classes
                                         </div>
-                                        <svg class="h-4 w-4 transition-transform duration-150"
-                                            :class="{ 'rotate-90': open }" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 5l7 7-7 7"></path>
-                                        </svg>
+                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150" :class="{ 'rotate-90': open }"></i>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
                                         <a href="{{ route('tenant.classes') }}"
@@ -356,12 +325,7 @@
                                 <!-- Users -->
                                 <a href="{{ route('tenant.users') }}"
                                     class="sidebar-nav-item {{ request()->routeIs('tenant.users*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
-                                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                        </path>
-                                    </svg>
+                                    <i class="fas fa-users mr-3 h-5 w-5"></i>
                                     Users
                                 </a>
 
@@ -371,20 +335,10 @@
                                         <button @click="open = !open"
                                             class="sidebar-nav-item {{ request()->routeIs('tenant.announcements*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                             <div class="flex items-center">
-                                                <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z">
-                                                    </path>
-                                                </svg>
+                                                <i class="fas fa-bullhorn mr-3 h-5 w-5"></i>
                                                 Announcements
                                             </div>
-                                            <svg class="h-4 w-4 transition-transform duration-200"
-                                                :class="{ 'rotate-90': open }" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 5l7 7-7 7"></path>
-                                            </svg>
+                                            <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-200" :class="{ 'rotate-90': open }"></i>
                                         </button>
                                         <div x-show="open" x-transition class="ml-6 space-y-1">
                                             <a href="{{ route('tenant.announcements.my') }}"
@@ -410,19 +364,10 @@
                                         <button @click="open = !open"
                                             class="sidebar-nav-item {{ request()->routeIs('tenant.calendar-events*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                             <div class="flex items-center">
-                                                <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                </svg>
+                                                <i class="fas fa-calendar-alt mr-3 h-5 w-5"></i>
                                                 Calendar
                                             </div>
-                                            <svg class="h-4 w-4 transition-transform duration-200"
-                                                :class="{ 'rotate-90': open }" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 5l7 7-7 7" />
-                                            </svg>
+                                            <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-200" :class="{ 'rotate-90': open }"></i>
                                         </button>
                                         <div x-show="open" x-transition class="ml-6 space-y-1">
                                             <a href="{{ route('tenant.calendar-events.user') }}"
@@ -444,24 +389,14 @@
 
                                 <!-- Reports -->
                                 <a href="#" class="sidebar-nav-item sidebar-nav-item-inactive">
-                                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                                        </path>
-                                    </svg>
+                                    <i class="fas fa-chart-bar mr-3 h-5 w-5"></i>
                                     Reports
                                 </a>
 
                                 <!-- Messages -->
                                 <a href="{{ route('tenant.messages.index') }}"
                                     class="sidebar-nav-item {{ request()->routeIs('tenant.messages.*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
-                                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
-                                        </path>
-                                    </svg>
+                                    <i class="fas fa-comments mr-3 h-5 w-5"></i>
                                     Messages
                                     @if (auth()->user() && auth()->user()->unread_messages_count > 0)
                                         <span
@@ -474,26 +409,14 @@
                                 <!-- Support -->
                                 <a href="{{ route('tenant.support.index') }}"
                                     class="sidebar-nav-item {{ request()->routeIs('tenant.support.*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
-                                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z">
-                                        </path>
-                                    </svg>
+                                    <i class="fas fa-life-ring mr-3 h-5 w-5"></i>
                                     Support
                                 </a>
 
                                 <!-- Settings -->
                                 <a href="{{ route('settings') }}"
                                     class="sidebar-nav-item {{ request()->routeIs('settings*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
-                                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                        </path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
+                                    <i class="fas fa-cog mr-3 h-5 w-5"></i>
                                     Settings
                                 </a>
                             </div>
@@ -529,11 +452,7 @@
                                                 @endauth
                                             </div>
                                         </div>
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7"></path>
-                                        </svg>
+                                        <i class="fas fa-chevron-down h-4 w-4"></i>
                                     </button>
 
                                     <!-- User dropdown -->
@@ -570,10 +489,7 @@
                             <!-- Mobile menu button -->
                             <button @click="sidebarOpen = true"
                                 class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] lg:hidden dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
-                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16"></path>
-                                </svg>
+                                <i class="fas fa-bars h-6 w-6"></i>
                             </button>
 
                             <!-- Page heading -->
@@ -592,7 +508,7 @@
                                         @mouseleave="setTimeout(() => { if (!$refs.dropdown.matches(':hover') && !$el.matches(':hover')) notificationOpen = false }, 100)"
                                         @click="modalOpen = true" title="View recent activities"
                                         class="focus:outline-hidden relative rounded-md p-1 text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-brunswick-green)] dark:focus:ring-offset-[color:var(--color-castleton-green)]">
-                                        {{ svg('ri-notification-fill', ['class' => 'h-6 w-6 ml-2 hover:text-red-500']) }}
+                                        <i class="fas fa-bell h-6 w-6 ml-2 hover:text-red-500"></i>
                                         <!-- Notification dot -->
                                         <span x-show="activities.length > 0"
                                             class="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-red-500"></span>
@@ -648,52 +564,14 @@
                                                             }"
                                                                 class="flex h-6 w-6 items-center justify-center rounded-full transition-colors duration-200">
                                                                 <!-- Icon based on type -->
-                                                                <svg class="h-3 w-3"
+                                                                <i class="h-3 w-3"
                                                                     :class="{
-                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                            .type === 'enrollment',
-                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                            .type === 'staff',
-                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                            .type === 'announcement',
-                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                            .type === 'class',
-                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                            .type === 'attendance'
-                                                                    }"
-                                                                    fill="none" stroke="currentColor"
-                                                                    viewBox="0 0 24 24">
-                                                                    <!-- Enrollment icon -->
-                                                                    <path x-show="activity.type === 'enrollment'"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
-                                                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z">
-                                                                    </path>
-                                                                    <!-- Staff icon -->
-                                                                    <path x-show="activity.type === 'staff'"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
-                                                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                                                    </path>
-                                                                    <!-- Announcement icon -->
-                                                                    <path x-show="activity.type === 'announcement'"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
-                                                                        d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z">
-                                                                    </path>
-                                                                    <!-- Class icon -->
-                                                                    <path x-show="activity.type === 'class'"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
-                                                                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                                                                    </path>
-                                                                    <!-- Attendance icon -->
-                                                                    <path x-show="activity.type === 'attendance'"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
-                                                                        d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                                                                    </path>
-                                                                </svg>
+                                                                        'fas fa-user-graduate text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'enrollment',
+                                                                        'fas fa-chalkboard-teacher text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'staff',
+                                                                        'fas fa-bullhorn text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'announcement',
+                                                                        'fas fa-school text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'class',
+                                                                        'fas fa-clipboard-check text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'attendance'
+                                                                    }"></i>
                                                             </div>
                                                         </div>
                                                         <!-- Activity content -->
@@ -733,13 +611,7 @@
                                         <div class="px-4 py-8 text-center">
                                             <div
                                                 class="mb-2 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
-                                                <svg class="mx-auto h-8 w-8" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M15 17h5l-5 5v-5zM9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2">
-                                                    </path>
-                                                </svg>
+                                                <i class="fas fa-clipboard-list mx-auto h-8 w-8"></i>
                                             </div>
                                             <p
                                                 class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
@@ -787,26 +659,13 @@
                                                         class="rounded-md border border-red-300 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors duration-200 hover:border-red-400 hover:bg-red-50 hover:text-red-800 disabled:hover:border-red-300 disabled:hover:bg-transparent dark:border-red-600 dark:text-red-400 dark:hover:border-red-500 dark:hover:bg-red-900/20 dark:hover:text-red-300 dark:disabled:hover:border-red-600 dark:disabled:hover:bg-transparent">
                                                         <span x-show="!loading">Clear All</span>
                                                         <span x-show="loading" class="flex items-center">
-                                                            <svg class="-ml-1 mr-1 h-3 w-3 animate-spin"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                viewBox="0 0 24 24">
-                                                                <circle class="opacity-25" cx="12"
-                                                                    cy="12" r="10" stroke="currentColor"
-                                                                    stroke-width="4"></circle>
-                                                                <path class="opacity-75" fill="currentColor"
-                                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                                                </path>
-                                                            </svg>
+                                                            <i class="fas fa-spinner fa-spin -ml-1 mr-1 h-3 w-3"></i>
                                                             Clearing...
                                                         </span>
                                                     </button>
                                                     <button @click="modalOpen = false"
                                                         class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
-                                                        <svg class="h-6 w-6" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                                        </svg>
+                                                        <i class="fas fa-times h-6 w-6"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -833,66 +692,14 @@
                                                                         .type === 'attendance'
                                                                 }"
                                                                     class="flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200">
-                                                                    <svg class="h-5 w-5"
+                                                                    <i class="h-5 w-5"
                                                                         :class="{
-                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                                .type === 'enrollment',
-                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                                .type === 'staff',
-                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                                .type === 'announcement',
-                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                                .type === 'class',
-                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
-                                                                                .type === 'attendance'
-                                                                        }"
-                                                                        fill="none" stroke="currentColor"
-                                                                        viewBox="0 0 24 24">
-                                                                        :class="{
-                                                                            'text-blue-600 dark:text-blue-400': activity
-                                                                                .type === 'enrollment',
-                                                                            'text-purple-600 dark:text-purple-400': activity
-                                                                                .type === 'staff',
-                                                                            'text-green-600 dark:text-green-400': activity
-                                                                                .type === 'announcement',
-                                                                            'text-yellow-600 dark:text-yellow-400': activity
-                                                                                .type === 'class',
-                                                                            'text-indigo-600 dark:text-indigo-400': activity
-                                                                                .type === 'attendance'
-                                                                        }"
-                                                                        fill="none" stroke="currentColor"
-                                                                        viewBox="0 0 24 24">
-                                                                        <!-- Enrollment icon -->
-                                                                        <path x-show="activity.type === 'enrollment'"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z">
-                                                                        </path>
-                                                                        <!-- Staff icon -->
-                                                                        <path x-show="activity.type === 'staff'"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                                                        </path>
-                                                                        <!-- Announcement icon -->
-                                                                        <path x-show="activity.type === 'announcement'"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z">
-                                                                        </path>
-                                                                        <!-- Class icon -->
-                                                                        <path x-show="activity.type === 'class'"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                                                                        </path>
-                                                                        <!-- Attendance icon -->
-                                                                        <path x-show="activity.type === 'attendance'"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                                                                        </path>
-                                                                    </svg>
+                                                                            'fas fa-user-graduate text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'enrollment',
+                                                                            'fas fa-chalkboard-teacher text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'staff',
+                                                                            'fas fa-bullhorn text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'announcement',
+                                                                            'fas fa-school text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'class',
+                                                                            'fas fa-clipboard-check text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'attendance'
+                                                                        }"></i>
                                                                 </div>
                                                             </div>
 
@@ -929,12 +736,7 @@
                                                                 :class="loading ? 'opacity-50 cursor-not-allowed' :
                                                                     'opacity-0 group-hover:opacity-100'"
                                                                 class="rounded-xs focus:outline-hidden p-1 text-[color:var(--color-gunmetal)] transition-all duration-200 hover:text-red-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-red-400 dark:focus:ring-offset-[color:var(--color-castleton-green)]">
-                                                                <svg class="h-4 w-4" fill="none"
-                                                                    stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <path stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="M6 18L18 6M6 6l12 12"></path>
-                                                                </svg>
+                                                                <i class="fas fa-times h-4 w-4"></i>
                                                             </button>
                                                         </div>
                                                     </template>
@@ -944,13 +746,7 @@
                                                 <div x-show="activities.length === 0" class="py-12 text-center">
                                                     <div
                                                         class="mb-4 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
-                                                        <svg class="mx-auto h-12 w-12" fill="none"
-                                                            stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                            </path>
-                                                        </svg>
+                                                        <i class="fas fa-file-alt mx-auto h-12 w-12"></i>
                                                     </div>
                                                     <h3
                                                         class="mb-1 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
