@@ -180,10 +180,10 @@
         </style>
     </head>
 
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased transition-colors duration-200">
         <!-- Impersonation Banner -->
         @if (session('central_admin_impersonating'))
-            <div class="relative z-50 bg-red-500 px-4 py-2 text-center text-white">
+            <div class="relative z-50 bg-red-500 px-4 py-2 text-center text-white transition-colors duration-200">
                 <div class="flex items-center justify-center space-x-4">
                     <div class="flex items-center">
                         <i class="fas fa-user-secret mr-2"></i>
@@ -192,7 +192,7 @@
                     <form method="POST" action="{{ route('end-impersonation') }}" class="inline">
                         @csrf
                         <button type="submit"
-                            class="rounded-sm bg-red-600 px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-red-700"
+                            class="rounded-sm bg-red-600 px-3 py-1 text-sm font-medium text-white transition-colors duration-200 hover:bg-red-700"
                             onclick="return confirm('Are you sure you want to end impersonation?')">
                             End Impersonation
                         </button>
@@ -201,7 +201,8 @@
             </div>
         @endif
 
-        <div class="h-screen bg-gray-100 dark:bg-gray-900">
+        <div
+            class="h-screen bg-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-dark-green)]">
             <!-- Sidebar Layout -->
             <div class="flex h-full">
                 <!-- Sidebar -->
@@ -220,25 +221,24 @@
                         x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
                         x-transition:leave="transition ease-in-out duration-300 transform"
                         x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
-                        class="sidebar-transition fixed inset-y-0 left-0 z-30 flex h-full w-64 flex-col bg-white shadow-lg dark:bg-gray-800 lg:static lg:translate-x-0">
+                        class="sidebar-transition fixed inset-y-0 left-0 z-30 flex h-full w-64 flex-col bg-[color:var(--color-light-castleton-green)] shadow-lg transition-colors duration-200 lg:static lg:translate-x-0 dark:bg-[color:var(--color-castleton-green)]">
 
                         <div
-                            class="flex h-16 shrink-0 items-center justify-center border-b border-gray-200 px-6 dark:border-gray-700">
+                            class="flex h-16 shrink-0 items-center justify-center border-b border-[color:var(--color-light-brunswick-green)] px-6 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
                             <div class="flex items-center justify-center">
                                 @if (tenant('logo'))
                                     <img src="{{ route('tenant.file', tenant('logo')) }}"
-                                        alt="{{ tenant('name') ?? 'School' }}"
-                                        class="h-12 w-12 rounded-full object-cover"
+                                        alt="{{ tenant('name') ?? 'School' }}" class="h-12 w-12 object-cover"
                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                 @endif
                                 <!-- Fallback logo -->
-                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 text-lg font-bold text-white"
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--color-castleton-green)] text-lg font-bold text-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)]"
                                     style="{{ tenant('logo') ? 'display: none;' : 'display: flex;' }}">
                                     {{ strtoupper(substr(tenant('name') ?? 'S', 0, 1)) }}
                                 </div>
                             </div>
                             <button @click="sidebarOpen = false"
-                                class="text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 lg:hidden">
+                                class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] lg:hidden dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M6 18L18 6M6 6l12 12"></path>
@@ -263,9 +263,9 @@
                                 </a>
 
                                 <!-- Students Section -->
-                                <div x-data="{ open: false }" class="space-y-1">
+                                <div x-data="{ open: {{ request()->routeIs('tenant.students*') ? 'true' : 'false' }} }" class="space-y-1">
                                     <button @click="open = !open"
-                                        class="sidebar-nav-item sidebar-nav-item-inactive w-full justify-between">
+                                        class="sidebar-nav-item {{ request()->routeIs('tenant.students*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                         <div class="flex items-center">
                                             <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -283,17 +283,19 @@
                                         </svg>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
-                                        <a href="{{ route('tenant.students') }}" class="sidebar-submenu-item">All
+                                        <a href="{{ route('tenant.students') }}"
+                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.students.index') || request()->routeIs('tenant.students') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
                                             Students</a>
                                         <a href="{{ route('tenant.students.create') }}"
-                                            class="sidebar-submenu-item">Add Student</a>
+                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.students.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Add
+                                            Student</a>
                                     </div>
                                 </div>
 
                                 <!-- Teachers Section -->
-                                <div x-data="{ open: false }" class="space-y-1">
+                                <div x-data="{ open: {{ request()->routeIs('tenant.teachers*') ? 'true' : 'false' }} }" class="space-y-1">
                                     <button @click="open = !open"
-                                        class="sidebar-nav-item sidebar-nav-item-inactive w-full justify-between">
+                                        class="sidebar-nav-item {{ request()->routeIs('tenant.teachers*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                         <div class="flex items-center">
                                             <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -311,17 +313,19 @@
                                         </svg>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
-                                        <a href="{{ route('tenant.teachers') }}" class="sidebar-submenu-item">All
+                                        <a href="{{ route('tenant.teachers') }}"
+                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.teachers.index') || request()->routeIs('tenant.teachers') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
                                             Teachers</a>
                                         <a href="{{ route('tenant.teachers.create') }}"
-                                            class="sidebar-submenu-item">Add Teacher</a>
+                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.teachers.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Add
+                                            Teacher</a>
                                     </div>
                                 </div>
 
-                                <!-- Courses Section -->
-                                <div x-data="{ open: false }" class="space-y-1">
+                                <!-- Classes Section -->
+                                <div x-data="{ open: {{ request()->routeIs('tenant.classes*') ? 'true' : 'false' }} }" class="space-y-1">
                                     <button @click="open = !open"
-                                        class="sidebar-nav-item sidebar-nav-item-inactive w-full justify-between">
+                                        class="sidebar-nav-item {{ request()->routeIs('tenant.classes*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                         <div class="flex items-center">
                                             <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -339,17 +343,19 @@
                                         </svg>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
-                                        <a href="{{ route('tenant.classes') }}" class="sidebar-submenu-item">All
+                                        <a href="{{ route('tenant.classes') }}"
+                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.index') || request()->routeIs('tenant.classes') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
                                             Classes</a>
                                         <a href="{{ route('tenant.classes.create') }}"
-                                            class="sidebar-submenu-item">Create Class</a>
+                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Create
+                                            Class</a>
                                         <a href="#" class="sidebar-submenu-item">Schedules</a>
                                     </div>
                                 </div>
 
-                                <!-- Attendance -->
+                                <!-- Users -->
                                 <a href="{{ route('tenant.users') }}"
-                                    class="sidebar-nav-item sidebar-nav-item-inactive">
+                                    class="sidebar-nav-item {{ request()->routeIs('tenant.users*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
                                     <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -361,9 +367,9 @@
 
                                 <!-- Announcements Section -->
                                 @can('view announcements')
-                                    <div x-data="{ open: false }" class="space-y-1">
+                                    <div x-data="{ open: {{ request()->routeIs('tenant.announcements*') ? 'true' : 'false' }} }" class="space-y-1">
                                         <button @click="open = !open"
-                                            class="sidebar-nav-item sidebar-nav-item-inactive w-full justify-between">
+                                            class="sidebar-nav-item {{ request()->routeIs('tenant.announcements*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                             <div class="flex items-center">
                                                 <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
@@ -382,14 +388,17 @@
                                         </button>
                                         <div x-show="open" x-transition class="ml-6 space-y-1">
                                             <a href="{{ route('tenant.announcements.my') }}"
-                                                class="sidebar-submenu-item">My Announcements</a>
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.announcements.my') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">My
+                                                Announcements</a>
                                             @can('manage announcements')
                                                 <a href="{{ route('tenant.announcements.index') }}"
-                                                    class="sidebar-submenu-item">Manage Announcements</a>
+                                                    class="sidebar-submenu-item {{ request()->routeIs('tenant.announcements.index') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Manage
+                                                    Announcements</a>
                                             @endcan
                                             @can('create announcements')
                                                 <a href="{{ route('tenant.announcements.create') }}"
-                                                    class="sidebar-submenu-item">Create Announcement</a>
+                                                    class="sidebar-submenu-item {{ request()->routeIs('tenant.announcements.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Create
+                                                    Announcement</a>
                                             @endcan
                                         </div>
                                     </div>
@@ -397,9 +406,9 @@
 
                                 <!-- Calendar Events Section -->
                                 @can('view calendar events')
-                                    <div x-data="{ open: false }" class="space-y-1">
+                                    <div x-data="{ open: {{ request()->routeIs('tenant.calendar-events*') ? 'true' : 'false' }} }" class="space-y-1">
                                         <button @click="open = !open"
-                                            class="sidebar-nav-item sidebar-nav-item-inactive w-full justify-between">
+                                            class="sidebar-nav-item {{ request()->routeIs('tenant.calendar-events*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                             <div class="flex items-center">
                                                 <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
@@ -417,14 +426,17 @@
                                         </button>
                                         <div x-show="open" x-transition class="ml-6 space-y-1">
                                             <a href="{{ route('tenant.calendar-events.user') }}"
-                                                class="sidebar-submenu-item">My Calendar</a>
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.calendar-events.user') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">My
+                                                Calendar</a>
                                             @can('manage calendar events')
                                                 <a href="{{ route('tenant.calendar-events.index') }}"
-                                                    class="sidebar-submenu-item">Manage Events</a>
+                                                    class="sidebar-submenu-item {{ request()->routeIs('tenant.calendar-events.index') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Manage
+                                                    Events</a>
                                             @endcan
                                             @can('create calendar events')
                                                 <a href="{{ route('tenant.calendar-events.create') }}"
-                                                    class="sidebar-submenu-item">Create Event</a>
+                                                    class="sidebar-submenu-item {{ request()->routeIs('tenant.calendar-events.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Create
+                                                    Event</a>
                                             @endcan
                                         </div>
                                     </div>
@@ -472,7 +484,8 @@
                                 </a>
 
                                 <!-- Settings -->
-                                <a href="{{ route('settings') }}" class="sidebar-nav-item sidebar-nav-item-inactive">
+                                <a href="{{ route('settings') }}"
+                                    class="sidebar-nav-item {{ request()->routeIs('settings*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
                                     <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -486,12 +499,13 @@
                             </div>
 
                             <!-- User menu at bottom -->
-                            <div class="shrink-0 border-t border-gray-200 pt-6 dark:border-gray-700">
+                            <div
+                                class="shrink-0 border-t border-[color:var(--color-light-brunswick-green)] pt-6 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
                                 <div x-data="{ userMenuOpen: false }" class="relative">
                                     <button @click="userMenuOpen = !userMenuOpen"
-                                        class="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-150 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                                        class="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                         <div
-                                            class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-xs font-semibold text-white">
+                                            class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--color-castleton-green)] text-xs font-semibold text-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)]">
                                             @auth
                                                 {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
                                             @else
@@ -506,7 +520,8 @@
                                                     User
                                                 @endauth
                                             </div>
-                                            <div class="text-xs text-gray-500 dark:text-gray-400">
+                                            <div
+                                                class="text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                                 @auth
                                                     {{ Auth::user()->email ?? '' }}
                                                 @else
@@ -529,13 +544,13 @@
                                         x-transition:leave-start="transform opacity-100 scale-100"
                                         x-transition:leave-end="transform opacity-0 scale-95"
                                         @click.away="userMenuOpen = false"
-                                        class="absolute bottom-full left-0 right-0 mb-2 rounded-md border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-600 dark:bg-gray-700">
+                                        class="absolute bottom-full left-0 right-0 mb-2 rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] py-1 shadow-lg transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
                                         <a href="{{ route('profile.edit') }}"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">Profile</a>
+                                            class="block px-4 py-2 text-sm text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">Profile</a>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <button type="submit"
-                                                class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">
+                                                class="block w-full px-4 py-2 text-left text-sm text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                                 Log Out
                                             </button>
                                         </form>
@@ -550,11 +565,11 @@
                 <div class="flex h-full flex-1 flex-col overflow-hidden lg:ml-0">
                     <!-- Top navigation bar -->
                     <header
-                        class="shrink-0 border-b border-gray-200 bg-white shadow-xs dark:border-gray-700 dark:bg-gray-800">
+                        class="shadow-xs shrink-0 border-b border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
                         <div class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                             <!-- Mobile menu button -->
                             <button @click="sidebarOpen = true"
-                                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 lg:hidden">
+                                class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] lg:hidden dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 6h16M4 12h16M4 18h16"></path>
@@ -576,7 +591,7 @@
                                     <button @mouseenter="notificationOpen = true"
                                         @mouseleave="setTimeout(() => { if (!$refs.dropdown.matches(':hover') && !$el.matches(':hover')) notificationOpen = false }, 100)"
                                         @click="modalOpen = true" title="View recent activities"
-                                        class="relative rounded-md p-1 text-gray-500 transition-colors duration-200 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800">
+                                        class="focus:outline-hidden relative rounded-md p-1 text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-brunswick-green)] dark:focus:ring-offset-[color:var(--color-castleton-green)]">
                                         {{ svg('ri-notification-fill', ['class' => 'h-6 w-6 ml-2 hover:text-red-500']) }}
                                         <!-- Notification dot -->
                                         <span x-show="activities.length > 0"
@@ -595,52 +610,55 @@
                                         x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100 scale-100"
                                         x-transition:leave-end="opacity-0 scale-95"
-                                        class="absolute right-0 top-full z-9999 mt-2 w-80 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                                        class="z-9999 absolute right-0 top-full mt-2 w-80 rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-lg transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
 
                                         <!-- Dropdown header -->
-                                        <div class="border-b border-gray-200 px-4 py-3 dark:border-gray-700">
+                                        <div
+                                            class="border-b border-[color:var(--color-light-brunswick-green)] px-4 py-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
                                             <div class="flex items-center justify-between">
-                                                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Recent
+                                                <h3
+                                                    class="text-sm font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                                    Recent
                                                     Activity</h3>
                                                 <span x-text="activities.length"
-                                                    class="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"></span>
+                                                    class="inline-flex items-center rounded-full bg-[color:var(--color-castleton-green)] px-2 py-1 text-xs font-medium text-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)]"></span>
                                             </div>
                                         </div>
 
                                         <!-- Activity list (preview) -->
-                                        <div class="max-h-64 overflow-y-auto">
+                                        <div class="scrollbar-thin max-h-64 overflow-y-auto">
                                             <template x-for="(activity, index) in activities.slice(0, 5)"
                                                 :key="index">
                                                 <div
-                                                    class="border-b border-gray-100 px-4 py-3 last:border-b-0 hover:bg-gray-50 dark:border-gray-700/50 dark:hover:bg-gray-700/50">
+                                                    class="dark:border-[color:var(--color-castleton-green)]/50 dark:hover:bg-[color:var(--color-brunswick-green)]/50 border-b border-[color:var(--color-light-brunswick-green)] px-4 py-3 transition-colors duration-200 last:border-b-0 hover:bg-[color:var(--color-light-brunswick-green)]">
                                                     <div class="flex items-start space-x-3">
                                                         <!-- Activity icon -->
                                                         <div class="shrink-0">
                                                             <div :class="{
-                                                                'bg-blue-100 dark:bg-blue-900/30': activity
+                                                                'bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]/30': activity
                                                                     .type === 'enrollment',
-                                                                'bg-purple-100 dark:bg-purple-900/30': activity
+                                                                'bg-[color:var(--color-prussian-blue)] dark:bg-[color:var(--color-prussian-blue)]/30': activity
                                                                     .type === 'staff',
-                                                                'bg-green-100 dark:bg-green-900/30': activity
+                                                                'bg-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]/30': activity
                                                                     .type === 'announcement',
-                                                                'bg-yellow-100 dark:bg-yellow-900/30': activity
+                                                                'bg-[color:var(--color-gunmetal)] dark:bg-[color:var(--color-gunmetal)]/30': activity
                                                                     .type === 'class',
-                                                                'bg-indigo-100 dark:bg-indigo-900/30': activity
+                                                                'bg-[color:var(--color-dark-green)] dark:bg-[color:var(--color-dark-green)]/30': activity
                                                                     .type === 'attendance'
                                                             }"
-                                                                class="flex h-6 w-6 items-center justify-center rounded-full">
+                                                                class="flex h-6 w-6 items-center justify-center rounded-full transition-colors duration-200">
                                                                 <!-- Icon based on type -->
                                                                 <svg class="h-3 w-3"
                                                                     :class="{
-                                                                        'text-blue-600 dark:text-blue-400': activity
+                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
                                                                             .type === 'enrollment',
-                                                                        'text-purple-600 dark:text-purple-400': activity
+                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
                                                                             .type === 'staff',
-                                                                        'text-green-600 dark:text-green-400': activity
+                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
                                                                             .type === 'announcement',
-                                                                        'text-yellow-600 dark:text-yellow-400': activity
+                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
                                                                             .type === 'class',
-                                                                        'text-indigo-600 dark:text-indigo-400': activity
+                                                                        'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
                                                                             .type === 'attendance'
                                                                     }"
                                                                     fill="none" stroke="currentColor"
@@ -681,10 +699,11 @@
                                                         <!-- Activity content -->
                                                         <div class="min-w-0 flex-1">
                                                             <p x-text="activity.activity"
-                                                                class="truncate text-xs font-medium text-gray-900 dark:text-white">
+                                                                class="truncate text-xs font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                                             </p>
                                                             <p x-text="activity.time"
-                                                                class="text-xs text-gray-500 dark:text-gray-400"></p>
+                                                                class="text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -692,9 +711,10 @@
                                         </div>
 
                                         <!-- Dropdown footer -->
-                                        <div class="border-t border-gray-200 px-4 py-3 dark:border-gray-700">
+                                        <div
+                                            class="border-t border-[color:var(--color-light-brunswick-green)] px-4 py-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
                                             <button @click="modalOpen = true; notificationOpen = false"
-                                                class="w-full text-center text-xs font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                                class="w-full text-center text-xs font-medium text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-brunswick-green)] dark:hover:text-[color:var(--color-castleton-green)]">
                                                 View all activities →
                                             </button>
                                         </div>
@@ -709,9 +729,10 @@
                                         x-transition:leave="transition ease-in duration-150"
                                         x-transition:leave-start="opacity-100 scale-100"
                                         x-transition:leave-end="opacity-0 scale-95"
-                                        class="absolute right-0 top-full z-9999 mt-2 w-80 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                                        class="z-9999 absolute right-0 top-full mt-2 w-80 rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-lg transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
                                         <div class="px-4 py-8 text-center">
-                                            <div class="mb-2 text-gray-400">
+                                            <div
+                                                class="mb-2 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                                 <svg class="mx-auto h-8 w-8" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -720,7 +741,9 @@
                                                     </path>
                                                 </svg>
                                             </div>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400">No new activities</p>
+                                            <p
+                                                class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                No new activities</p>
                                         </div>
                                     </div>
 
@@ -731,10 +754,10 @@
                                         x-transition:leave="transition ease-in duration-200"
                                         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                         @keydown.escape.window="modalOpen = false"
-                                        class="fixed inset-0 z-9999 flex items-center justify-center overflow-y-auto p-4">
+                                        class="z-9999 fixed inset-0 flex items-center justify-center overflow-y-auto p-4">
                                         <!-- Backdrop -->
                                         <div @click="modalOpen = false"
-                                            class="fixed inset-0 z-9998 bg-black bg-opacity-50"></div>
+                                            class="z-9998 modal-backdrop fixed inset-0 bg-black bg-opacity-50"></div>
 
                                         <!-- Modal -->
                                         <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300"
@@ -743,22 +766,25 @@
                                             x-transition:leave="transition ease-in duration-200"
                                             x-transition:leave-start="opacity-100 scale-100"
                                             x-transition:leave-end="opacity-0 scale-95"
-                                            class="relative z-10000 max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-xl dark:bg-gray-800">
+                                            class="z-10000 relative max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-lg bg-[color:var(--color-light-castleton-green)] shadow-xl transition-colors duration-200 dark:bg-[color:var(--color-castleton-green)]">
 
                                             <!-- Modal header -->
                                             <div
-                                                class="flex items-center justify-between border-b border-gray-200 p-6 dark:border-gray-700">
+                                                class="flex items-center justify-between border-b border-[color:var(--color-light-brunswick-green)] p-6 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)]">
                                                 <div>
-                                                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    <h2
+                                                        class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                                         Recent Activities</h2>
-                                                    <p class="text-sm text-gray-500 dark:text-gray-400">Manage your
+                                                    <p
+                                                        class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                        Manage your
                                                         system activities</p>
                                                 </div>
                                                 <div class="flex items-center space-x-2">
                                                     <button @click="clearAllActivities()"
                                                         x-show="activities.length > 0" :disabled="loading"
                                                         :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
-                                                        class="rounded-md border border-red-300 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:border-red-400 hover:bg-red-50 hover:text-red-800 disabled:hover:border-red-300 disabled:hover:bg-transparent dark:border-red-600 dark:text-red-400 dark:hover:border-red-500 dark:hover:bg-red-900/20 dark:hover:text-red-300">
+                                                        class="rounded-md border border-red-300 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors duration-200 hover:border-red-400 hover:bg-red-50 hover:text-red-800 disabled:hover:border-red-300 disabled:hover:bg-transparent dark:border-red-600 dark:text-red-400 dark:hover:border-red-500 dark:hover:bg-red-900/20 dark:hover:text-red-300 dark:disabled:hover:border-red-600 dark:disabled:hover:bg-transparent">
                                                         <span x-show="!loading">Clear All</span>
                                                         <span x-show="loading" class="flex items-center">
                                                             <svg class="-ml-1 mr-1 h-3 w-3 animate-spin"
@@ -775,7 +801,7 @@
                                                         </span>
                                                     </button>
                                                     <button @click="modalOpen = false"
-                                                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                                                        class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                                         <svg class="h-6 w-6" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -791,23 +817,37 @@
                                                     <template x-for="(activity, index) in activities"
                                                         :key="index">
                                                         <div
-                                                            class="group flex items-start space-x-4 rounded-lg border border-gray-200 p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700/50">
+                                                            class="dark:hover:bg-[color:var(--color-brunswick-green)]/50 group flex items-start space-x-4 rounded-lg border border-[color:var(--color-light-brunswick-green)] p-4 transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:border-[color:var(--color-castleton-green)]">
                                                             <!-- Activity icon -->
                                                             <div class="shrink-0">
                                                                 <div :class="{
-                                                                    'bg-blue-100 dark:bg-blue-900/30': activity
+                                                                    'bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]/30': activity
                                                                         .type === 'enrollment',
-                                                                    'bg-purple-100 dark:bg-purple-900/30': activity
+                                                                    'bg-[color:var(--color-prussian-blue)] dark:bg-[color:var(--color-prussian-blue)]/30': activity
                                                                         .type === 'staff',
-                                                                    'bg-green-100 dark:bg-green-900/30': activity
+                                                                    'bg-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]/30': activity
                                                                         .type === 'announcement',
-                                                                    'bg-yellow-100 dark:bg-yellow-900/30': activity
+                                                                    'bg-[color:var(--color-gunmetal)] dark:bg-[color:var(--color-gunmetal)]/30': activity
                                                                         .type === 'class',
-                                                                    'bg-indigo-100 dark:bg-indigo-900/30': activity
+                                                                    'bg-[color:var(--color-dark-green)] dark:bg-[color:var(--color-dark-green)]/30': activity
                                                                         .type === 'attendance'
                                                                 }"
-                                                                    class="flex h-10 w-10 items-center justify-center rounded-full">
+                                                                    class="flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200">
                                                                     <svg class="h-5 w-5"
+                                                                        :class="{
+                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'enrollment',
+                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'staff',
+                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'announcement',
+                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'class',
+                                                                            'text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'attendance'
+                                                                        }"
+                                                                        fill="none" stroke="currentColor"
+                                                                        viewBox="0 0 24 24">
                                                                         :class="{
                                                                             'text-blue-600 dark:text-blue-400': activity
                                                                                 .type === 'enrollment',
@@ -859,26 +899,26 @@
                                                             <!-- Activity content -->
                                                             <div class="min-w-0 flex-1">
                                                                 <p x-text="activity.activity"
-                                                                    class="text-sm font-medium text-gray-900 dark:text-white">
+                                                                    class="text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                                                 </p>
                                                                 <div class="mt-1 flex items-center space-x-2">
                                                                     <p x-text="activity.time"
-                                                                        class="text-xs text-gray-500 dark:text-gray-400">
+                                                                        class="text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                                                     </p>
                                                                     <span
                                                                         :class="{
-                                                                            'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300': activity
+                                                                            'bg-[color:var(--color-castleton-green)] text-[color:var(--color-light-dark-green)] dark:bg-[color:var(--color-brunswick-green)]/30 dark:text-[color:var(--color-light-castleton-green)]': activity
                                                                                 .type === 'enrollment',
-                                                                            'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300': activity
+                                                                            'bg-[color:var(--color-prussian-blue)] text-[color:var(--color-light-dark-green)] dark:bg-[color:var(--color-prussian-blue)]/30 dark:text-[color:var(--color-light-prussian-blue)]': activity
                                                                                 .type === 'staff',
-                                                                            'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300': activity
+                                                                            'bg-[color:var(--color-brunswick-green)] text-[color:var(--color-light-dark-green)] dark:bg-[color:var(--color-brunswick-green)]/30 dark:text-[color:var(--color-light-brunswick-green)]': activity
                                                                                 .type === 'announcement',
-                                                                            'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300': activity
+                                                                            'bg-[color:var(--color-gunmetal)] text-[color:var(--color-light-dark-green)] dark:bg-[color:var(--color-gunmetal)]/30 dark:text-[color:var(--color-light-gunmetal)]': activity
                                                                                 .type === 'class',
-                                                                            'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300': activity
+                                                                            'bg-[color:var(--color-dark-green)] text-[color:var(--color-light-dark-green)] dark:bg-[color:var(--color-dark-green)]/30 dark:text-[color:var(--color-light-dark-green)]': activity
                                                                                 .type === 'attendance'
                                                                         }"
-                                                                        class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium capitalize"
+                                                                        class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium capitalize transition-colors duration-200"
                                                                         x-text="activity.type"></span>
                                                                 </div>
                                                             </div>
@@ -888,7 +928,7 @@
                                                                 :disabled="loading" title="Clear this activity"
                                                                 :class="loading ? 'opacity-50 cursor-not-allowed' :
                                                                     'opacity-0 group-hover:opacity-100'"
-                                                                class="rounded-xs p-1 text-gray-400 transition-all hover:text-red-600 focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:hover:text-red-400 dark:focus:ring-offset-gray-800">
+                                                                class="rounded-xs focus:outline-hidden p-1 text-[color:var(--color-gunmetal)] transition-all duration-200 hover:text-red-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-red-400 dark:focus:ring-offset-[color:var(--color-castleton-green)]">
                                                                 <svg class="h-4 w-4" fill="none"
                                                                     stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round"
@@ -902,7 +942,8 @@
 
                                                 <!-- Empty state -->
                                                 <div x-show="activities.length === 0" class="py-12 text-center">
-                                                    <div class="mb-4 text-gray-400">
+                                                    <div
+                                                        class="mb-4 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                                         <svg class="mx-auto h-12 w-12" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -911,9 +952,12 @@
                                                             </path>
                                                         </svg>
                                                     </div>
-                                                    <h3 class="mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                    <h3
+                                                        class="mb-1 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                                         No activities</h3>
-                                                    <p class="text-sm text-gray-500 dark:text-gray-400">All activities
+                                                    <p
+                                                        class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                        All activities
                                                         have been cleared or there are no recent activities to show.</p>
                                                 </div>
                                             </div>
@@ -925,23 +969,26 @@
                     </header>
 
                     <!-- Page Content -->
-                    <main class="flex-1 overflow-y-auto bg-gray-100 dark:bg-gray-900">
+                    <main
+                        class="flex-1 overflow-y-auto bg-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-dark-green)]">
                         {{ $slot }}
                     </main>
 
                     <!-- Footer -->
                     <footer
-                        class="shrink-0 border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+                        class="shrink-0 border-t border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
                         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                             <div class="flex items-center justify-between">
-                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                <div
+                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     © {{ date('Y') }} {{ tenant('name') ?? config('app.name') }}. All rights
                                     reserved.
                                 </div>
-                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                <div
+                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     @if (tenant('website'))
                                         <a href="{{ tenant('website') }}" target="_blank"
-                                            class="hover:text-gray-900 dark:hover:text-gray-100">
+                                            class="transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                             {{ tenant('website') }}
                                         </a>
                                     @endif

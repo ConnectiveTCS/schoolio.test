@@ -1,3 +1,15 @@
+/*
+  Tailwind CSS v4 Configuration File
+  
+  This file uses Tailwind CSS v4 syntax with @theme, @apply, @layer, etc.
+  IDE warnings about unknown at-rules are expected and can be ignored.
+  The build process will handle these directives correctly.
+  
+  Color Palette:
+  - Light mode: Uses --color-light-* tokens
+  - Dark mode: Uses --color-* tokens for proper contrast
+*/
+
 @import "tailwindcss";
 
 @plugin '@tailwindcss/forms';
@@ -13,28 +25,33 @@
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
 
+    /* Light mode color palette */
     --color-light-dark-green: #e8f2f0;
     --color-light-brunswick-green: #d2e6e2;
     --color-light-castleton-green: #cee8df;
     --color-light-gunmetal: #d8dfe5;
     --color-light-prussian-blue: #d4dce5;
+
+    /* Dark mode color palette */
+    --color-dark-green: #0d3a32;
+    --color-brunswick-green: #224942;
+    --color-castleton-green: #245b47;
+    --color-gunmetal: #223546;
+    --color-prussian-blue: #192a3c;
 }
 
-/* Dark mode overrides: when .dark class OR [theme="dark"] is present, remap the "light" tokens
-   so utilities like bg-light-... adapt automatically without changing markup. */
+/* Dark mode overrides: when .dark class OR [theme="dark"] is present, remap colors */
 .dark {
-    /* In dark mode we override the *light* tokens so existing classes like
-       bg-light-dark-green automatically switch without needing dark: prefixes.
-       We also keep the explicit dark-* tokens for any direct dark:bg-dark-green usage. */
+    /* Override theme colors for dark mode */
     @theme {
-        /* Remap light token names to dark palette values */
+        /* Keep light tokens for consistency but with adapted contrast */
         --color-light-dark-green: #e8f2f0;
         --color-light-brunswick-green: #d2e6e2;
         --color-light-castleton-green: #cee8df;
         --color-light-gunmetal: #d8dfe5;
         --color-light-prussian-blue: #d4dce5;
 
-        /* Maintain separate dark-* tokens (if referenced via dark: utilities) */
+        /* Dark mode specific tokens */
         --color-dark-green: #0d3a32;
         --color-brunswick-green: #224942;
         --color-castleton-green: #245b47;
@@ -61,18 +78,30 @@
     }
 }
 
-/* Custom sidebar styles */
-@utility sidebar-nav-item {
-    @apply flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-150;
-}
-@utility sidebar-nav-item-active {
-    @apply bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-100;
-}
-@utility sidebar-nav-item-inactive {
-    @apply text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700;
-}
-@utility sidebar-submenu-item {
-    @apply block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150;
+/* Enhanced sidebar navigation styles with theme support */
+@layer components {
+    .sidebar-nav-item {
+        @apply flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200;
+    }
+
+    .sidebar-nav-item-active {
+        @apply bg-[var(--color-castleton-green)] dark:bg-[var(--color-brunswick-green)] 
+               text-[var(--color-light-dark-green)] dark:text-[var(--color-light-castleton-green)] 
+               shadow-sm;
+    }
+
+    .sidebar-nav-item-inactive {
+        @apply text-[var(--color-dark-green)] dark:text-[var(--color-light-dark-green)] 
+               hover:bg-[var(--color-dark-green)] dark:hover:bg-[var(--color-dark-green)] 
+               hover:text-[var(--color-light-dark-green)] dark:hover:text-[var(--color-light-dark-green)];
+    }
+
+    .sidebar-submenu-item {
+        @apply block px-3 py-2 text-sm rounded-md transition-colors duration-200
+               text-[var(--color-gunmetal)] dark:text-[var(--color-light-gunmetal)]
+               hover:bg-[var(--color-dark-green)] dark:hover:bg-[var(--color-dark-green)]
+               hover:text-[var(--color-light-dark-green)] dark:hover:text-[var(--color-light-dark-green)];
+    }
 }
 
 /* Smooth animations for sidebar */
@@ -80,7 +109,7 @@
     transition: transform 0.3s ease-in-out;
 }
 
-/* Custom scrollbar for sidebar */
+/* Enhanced scrollbar styling with theme support */
 .sidebar-scrollbar::-webkit-scrollbar {
     width: 4px;
 }
@@ -90,10 +119,234 @@
 }
 
 .sidebar-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(156, 163, 175, 0.5);
+    background: var(--color-light-brunswick-green);
     border-radius: 2px;
+    transition: background-color 0.2s ease;
 }
 
 .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(156, 163, 175, 0.7);
+    background: var(--color-brunswick-green);
+}
+
+.dark .sidebar-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-castleton-green);
+}
+
+.dark .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brunswick-green);
+}
+
+/* Enhanced notification and modal scrollbars */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-light-brunswick-green);
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brunswick-green);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-castleton-green);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brunswick-green);
+}
+
+/* Additional theme utilities */
+@layer utilities {
+    /* Theme transition utility */
+    .theme-transition {
+        transition: background-color 0.2s ease, color 0.2s ease,
+            border-color 0.2s ease;
+    }
+
+    /* Focus ring with theme colors */
+    .focus-ring-theme:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-castleton-green),
+            0 0 0 4px rgba(var(--color-castleton-green), 0.1);
+    }
+
+    .dark .focus-ring-theme:focus {
+        box-shadow: 0 0 0 2px var(--color-brunswick-green),
+            0 0 0 4px rgba(var(--color-brunswick-green), 0.1);
+    }
+
+    /* Button theme variants */
+    .btn-theme-primary {
+        background-color: var(--color-castleton-green);
+        color: var(--color-light-dark-green);
+        border: 1px solid var(--color-castleton-green);
+        transition: all 0.2s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+    }
+
+    .btn-theme-primary:hover {
+        background-color: var(--color-dark-green);
+        border-color: var(--color-dark-green);
+        color: var(--color-light-dark-green);
+    }
+
+    .dark .btn-theme-primary {
+        background-color: var(--color-brunswick-green);
+        color: var(--color-light-castleton-green);
+        border-color: var(--color-brunswick-green);
+    }
+
+    .dark .btn-theme-primary:hover {
+        background-color: var(--color-dark-green);
+        border-color: var(--color-dark-green);
+        color: var(--color-light-dark-green);
+    }
+
+    /* Card theme variants */
+    .card-theme {
+        background-color: var(--color-light-castleton-green);
+        border: 1px solid var(--color-light-brunswick-green);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        transition: all 0.2s ease;
+    }
+
+    .dark .card-theme {
+        background-color: var(--color-castleton-green);
+        border-color: var(--color-castleton-green);
+    }
+
+    /* Text theme variants */
+    .text-theme-primary {
+        color: var(--color-dark-green);
+    }
+
+    .dark .text-theme-primary {
+        color: var(--color-light-dark-green);
+    }
+
+    .text-theme-secondary {
+        color: var(--color-gunmetal);
+    }
+
+    .dark .text-theme-secondary {
+        color: var(--color-light-gunmetal);
+    }
+}
+
+/* Animation utilities for enhanced UX */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse-theme {
+    0%,
+    100% {
+        background-color: var(--color-light-brunswick-green);
+    }
+    50% {
+        background-color: var(--color-brunswick-green);
+    }
+}
+
+.dark {
+    @keyframes pulse-theme-dark {
+        0%,
+        100% {
+            background-color: var(--color-castleton-green);
+        }
+        50% {
+            background-color: var(--color-brunswick-green);
+        }
+    }
+}
+
+/* Animation classes */
+.animate-slide-in-left {
+    animation: slideInFromLeft 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slideInFromRight 0.3s ease-out;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.animate-pulse-theme {
+    animation: pulse-theme 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.dark .animate-pulse-theme {
+    animation: pulse-theme-dark 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Enhanced focus styles for better accessibility */
+.focus-visible:focus {
+    outline: 2px solid var(--color-castleton-green);
+    outline-offset: 2px;
+}
+
+.dark .focus-visible:focus {
+    outline-color: var(--color-brunswick-green);
+}
+
+/* Enhanced backdrop blur for modals */
+.backdrop-blur-theme {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Print styles to maintain theme in print mode */
+@media print {
+    * {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .sidebar-nav-item-active {
+        background-color: #f3f4f6 !important;
+        color: #1f2937 !important;
+    }
 }
