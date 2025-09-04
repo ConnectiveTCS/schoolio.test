@@ -179,12 +179,41 @@
             }
 
             /* Font Awesome icon sizing with Tailwind classes */
-            .fas.h-3, .far.h-3, .fab.h-3 { font-size: 0.75rem; }
-            .fas.h-4, .far.h-4, .fab.h-4 { font-size: 1rem; }
-            .fas.h-5, .far.h-5, .fab.h-5 { font-size: 1.25rem; }
-            .fas.h-6, .far.h-6, .fab.h-6 { font-size: 1.5rem; }
-            .fas.h-8, .far.h-8, .fab.h-8 { font-size: 2rem; }
-            .fas.h-12, .far.h-12, .fab.h-12 { font-size: 3rem; }
+            .fas.h-3,
+            .far.h-3,
+            .fab.h-3 {
+                font-size: 0.75rem;
+            }
+
+            .fas.h-4,
+            .far.h-4,
+            .fab.h-4 {
+                font-size: 1rem;
+            }
+
+            .fas.h-5,
+            .far.h-5,
+            .fab.h-5 {
+                font-size: 1.25rem;
+            }
+
+            .fas.h-6,
+            .far.h-6,
+            .fab.h-6 {
+                font-size: 1.5rem;
+            }
+
+            .fas.h-8,
+            .far.h-8,
+            .fab.h-8 {
+                font-size: 2rem;
+            }
+
+            .fas.h-12,
+            .far.h-12,
+            .fab.h-12 {
+                font-size: 3rem;
+            }
         </style>
     </head>
 
@@ -269,7 +298,8 @@
                                             <i class="fas fa-user-graduate mr-3 h-5 w-5"></i>
                                             Students
                                         </div>
-                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150" :class="{ 'rotate-90': open }"></i>
+                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150"
+                                            :class="{ 'rotate-90': open }"></i>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
                                         <a href="{{ route('tenant.students') }}"
@@ -289,7 +319,8 @@
                                             <i class="fas fa-chalkboard-teacher mr-3 h-5 w-5"></i>
                                             Teachers
                                         </div>
-                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150" :class="{ 'rotate-90': open }"></i>
+                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150"
+                                            :class="{ 'rotate-90': open }"></i>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
                                         <a href="{{ route('tenant.teachers') }}"
@@ -309,7 +340,8 @@
                                             <i class="fas fa-school mr-3 h-5 w-5"></i>
                                             Classes
                                         </div>
-                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150" :class="{ 'rotate-90': open }"></i>
+                                        <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-150"
+                                            :class="{ 'rotate-90': open }"></i>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
                                         <a href="{{ route('tenant.classes') }}"
@@ -338,7 +370,8 @@
                                                 <i class="fas fa-bullhorn mr-3 h-5 w-5"></i>
                                                 Announcements
                                             </div>
-                                            <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-200" :class="{ 'rotate-90': open }"></i>
+                                            <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-200"
+                                                :class="{ 'rotate-90': open }"></i>
                                         </button>
                                         <div x-show="open" x-transition class="ml-6 space-y-1">
                                             <a href="{{ route('tenant.announcements.my') }}"
@@ -367,7 +400,8 @@
                                                 <i class="fas fa-calendar-alt mr-3 h-5 w-5"></i>
                                                 Calendar
                                             </div>
-                                            <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-200" :class="{ 'rotate-90': open }"></i>
+                                            <i class="fas fa-chevron-right h-4 w-4 transition-transform duration-200"
+                                                :class="{ 'rotate-90': open }"></i>
                                         </button>
                                         <div x-show="open" x-transition class="ml-6 space-y-1">
                                             <a href="{{ route('tenant.calendar-events.user') }}"
@@ -508,7 +542,7 @@
                                         @mouseleave="setTimeout(() => { if (!$refs.dropdown.matches(':hover') && !$el.matches(':hover')) notificationOpen = false }, 100)"
                                         @click="modalOpen = true" title="View recent activities"
                                         class="focus:outline-hidden relative rounded-md p-1 text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-brunswick-green)] dark:focus:ring-offset-[color:var(--color-castleton-green)]">
-                                        <i class="fas fa-bell h-6 w-6 ml-2 hover:text-red-500"></i>
+                                        <i class="fas fa-bell ml-2 h-6 w-6 hover:text-red-500"></i>
                                         <!-- Notification dot -->
                                         <span x-show="activities.length > 0"
                                             class="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-red-500"></span>
@@ -566,11 +600,16 @@
                                                                 <!-- Icon based on type -->
                                                                 <i class="h-3 w-3"
                                                                     :class="{
-                                                                        'fas fa-user-graduate text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'enrollment',
-                                                                        'fas fa-chalkboard-teacher text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'staff',
-                                                                        'fas fa-bullhorn text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'announcement',
-                                                                        'fas fa-school text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'class',
-                                                                        'fas fa-clipboard-check text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'attendance'
+                                                                        'fas fa-user-graduate text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                            .type === 'enrollment',
+                                                                        'fas fa-chalkboard-teacher text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                            .type === 'staff',
+                                                                        'fas fa-bullhorn text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                            .type === 'announcement',
+                                                                        'fas fa-school text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                            .type === 'class',
+                                                                        'fas fa-clipboard-check text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                            .type === 'attendance'
                                                                     }"></i>
                                                             </div>
                                                         </div>
@@ -694,11 +733,16 @@
                                                                     class="flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200">
                                                                     <i class="h-5 w-5"
                                                                         :class="{
-                                                                            'fas fa-user-graduate text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'enrollment',
-                                                                            'fas fa-chalkboard-teacher text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'staff',
-                                                                            'fas fa-bullhorn text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'announcement',
-                                                                            'fas fa-school text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'class',
-                                                                            'fas fa-clipboard-check text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity.type === 'attendance'
+                                                                            'fas fa-user-graduate text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'enrollment',
+                                                                            'fas fa-chalkboard-teacher text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'staff',
+                                                                            'fas fa-bullhorn text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'announcement',
+                                                                            'fas fa-school text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'class',
+                                                                            'fas fa-clipboard-check text-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-light-castleton-green)]': activity
+                                                                                .type === 'attendance'
                                                                         }"></i>
                                                                 </div>
                                                             </div>
