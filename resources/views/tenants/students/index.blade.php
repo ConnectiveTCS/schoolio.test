@@ -1,114 +1,128 @@
 <x-tenant-dash-component>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            <h2
+                class="text-xl font-semibold leading-tight text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                 {{ __('Students') }}
             </h2>
         </div>
     </x-slot>
 
-    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-4 py-8 transition-colors duration-200 sm:px-6 lg:px-8">
         <!-- Session Status -->
         <x-auth-session-status class="mb-6" :status="session('status')" />
 
         <!-- Header Actions -->
         <div class="mb-8 flex items-center justify-between">
             <div>
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">All Students</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">
+                <h3
+                    class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                    All Students</h3>
+                <p
+                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                     {{ isset($students) ? $students->count() : 0 }} total students
                 </p>
             </div>
             <a href="{{ route('tenant.students.create') }}"
-                class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                </svg>
+                class="shadow-xs focus:outline-hidden inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)] dark:focus:ring-offset-[color:var(--color-dark-green)]">
+                <i class="fas fa-user-plus h-4 w-4"></i>
                 {{ __('Add Student') }}
             </a>
         </div>
 
         <!-- Table Container -->
         <div
-            class="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-700">
+            class="overflow-hidden rounded-lg bg-[color:var(--color-light-dark-green)] shadow-sm ring-1 ring-[color:var(--color-light-brunswick-green)] transition-colors duration-200 dark:bg-[color:var(--color-dark-green)] dark:ring-[color:var(--color-castleton-green)]">
+            <table
+                class="min-w-full divide-y divide-[color:var(--color-light-brunswick-green)] transition-colors duration-200 dark:divide-[color:var(--color-castleton-green)]">
+                <thead
+                    class="bg-[color:var(--color-light-brunswick-green)] transition-colors duration-200 dark:bg-[color:var(--color-gunmetal)]">
                     <tr>
                         <th
-                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                            Name
+                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                            <i class="fas fa-user mr-2"></i>Name
                         </th>
                         <th
-                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                            Email
+                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                            <i class="fas fa-envelope mr-2"></i>Email
                         </th>
                         <th
-                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                            Class
+                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                            <i class="fas fa-chalkboard-teacher mr-2"></i>Class
                         </th>
                         <th
-                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                            Enrollment Date
+                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                            <i class="fas fa-calendar-alt mr-2"></i>Enrollment Date
                         </th>
                         <th
-                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                            Status
+                            class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                            <i class="fas fa-check-circle mr-2"></i>Status
                         </th>
                         <th class="relative px-6 py-4">
                             <span class="sr-only">Actions</span>
                         </th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                <tbody
+                    class="divide-y divide-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:divide-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
                     @if (isset($students) && $students->count() > 0)
                         @foreach ($students as $student)
-                            <tr class="transition-colors hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <tr
+                                class="transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:hover:bg-[color:var(--color-gunmetal)]">
                                 <td class="whitespace-nowrap px-6 py-4">
-                                    <div class="text-sm font-medium text-gray-900 dark:text-white">
+                                    <div
+                                        class="text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                         {{ $student->name }}
                                     </div>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4">
-                                    <div class="text-sm text-gray-700 dark:text-gray-300">
+                                    <div
+                                        class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         {{ $student->email }}
                                     </div>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4">
-                                    <div class="text-sm text-gray-700 dark:text-gray-300">
+                                    <div
+                                        class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         @if ($student->classes && $student->classes->count() > 0)
                                             <div class="space-y-1">
                                                 @foreach ($student->classes as $class)
                                                     <a href="{{ route('tenant.classes.show', $class) }}"
-                                                        class="inline-block rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-800 transition-colors hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800">
+                                                        class="inline-block rounded-full bg-[color:var(--color-castleton-green)] px-2 py-1 text-xs text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
                                                         {{ $class->name }}
                                                     </a>
                                                 @endforeach
                                             </div>
                                         @else
-                                            <span class="text-gray-500 dark:text-gray-400">Not enrolled</span>
+                                            <span
+                                                class="text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">Not
+                                                enrolled</span>
                                         @endif
                                     </div>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4">
-                                    <div class="text-sm text-gray-700 dark:text-gray-300">
+                                    <div
+                                        class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         {{ $student->enrollment_date ? \Carbon\Carbon::parse($student->enrollment_date)->format('M j, Y') : 'Not set' }}
                                     </div>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <span
-                                        class="{{ $student->is_active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }} inline-flex rounded-full px-2 py-1 text-xs font-semibold">
+                                        class="{{ $student->is_active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold transition-colors duration-200">
+                                        <i
+                                            class="fas {{ $student->is_active ? 'fa-check-circle' : 'fa-times-circle' }} mr-1"></i>
                                         {{ $student->is_active ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
                                     <div class="flex items-center justify-end space-x-2">
                                         <a href="{{ route('tenant.students.show', $student) }}"
-                                            class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
-                                            View
+                                            class="inline-flex items-center text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
+                                            <i class="fas fa-eye mr-1"></i>View
                                         </a>
                                         <a href="{{ route('tenant.students.edit', $student) }}"
-                                            class="text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300">
-                                            Edit
+                                            class="inline-flex items-center text-[color:var(--color-prussian-blue)] transition-colors duration-200 hover:text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-prussian-blue)] dark:hover:text-[color:var(--color-light-gunmetal)]">
+                                            <i class="fas fa-edit mr-1"></i>Edit
                                         </a>
                                     </div>
                                 </td>
@@ -118,26 +132,22 @@
                         <tr>
                             <td colspan="6" class="px-6 py-12 text-center">
                                 <div
-                                    class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
-                                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
+                                    class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--color-light-brunswick-green)] transition-colors duration-200 dark:bg-[color:var(--color-gunmetal)]">
+                                    <i
+                                        class="fas fa-users text-xl text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]"></i>
                                 </div>
-                                <h3 class="mt-4 text-sm font-medium text-gray-900 dark:text-white">No students found
+                                <h3
+                                    class="mt-4 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    No students found
                                 </h3>
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by adding your
+                                <p
+                                    class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Get started by adding your
                                     first student.</p>
                                 <div class="mt-4">
                                     <a href="{{ route('tenant.students.create') }}"
-                                        class="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-                                        <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z">
-                                            </path>
-                                        </svg>
+                                        class="shadow-xs focus-visible:outline-solid inline-flex items-center rounded-md bg-[color:var(--color-castleton-green)] px-3 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
+                                        <i class="fas fa-user-plus -ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true"></i>
                                         New Student
                                     </a>
                                 </div>

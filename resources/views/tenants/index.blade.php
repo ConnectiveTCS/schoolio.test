@@ -26,6 +26,25 @@
             * {
                 transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
             }
+
+            /* Enhanced transitions for interactive elements */
+            input,
+            button,
+            a {
+                transition: all 0.2s ease;
+            }
+
+            /* Focus states for better accessibility */
+            input:focus,
+            button:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(36, 91, 71, 0.1);
+            }
+
+            .dark input:focus,
+            .dark button:focus {
+                box-shadow: 0 0 0 3px rgba(206, 232, 223, 0.1);
+            }
         </style>
         <script>
             // Check for saved theme preference or default to 'light'
@@ -59,20 +78,26 @@
         </script>
     </head>
 
-    <body class=" bg-gray-50 dark:bg-gray-900">
+    <body
+        class="bg-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-dark-green)]">
         <!-- Header -->
-        <header class="border-b border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
+        <header
+            class="border-b border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-lg transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between py-4">
                     <!-- Logo and Brand -->
                     <div class="flex items-center space-x-4">
                         <div class="shrink-0">
-                            <img src="{{ asset($tenant->logo) }}"
-                            alt="{{ $tenant->name ?? 'School' }}" class="h-12 w-12 rounded-full object-cover">
+                            <img src="{{ asset($tenant->logo) }}" alt="{{ $tenant->name ?? 'School' }}"
+                                class="h-12 w-12 object-cover ring-[color:var(--color-brunswick-green)] dark:ring-[color:var(--color-light-brunswick-green)]">
                         </div>
                         <div>
-                            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $tenant->name }}</h1>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">School Management System</p>
+                            <h1
+                                class="text-2xl font-bold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                {{ $tenant->name }}</h1>
+                            <p
+                                class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                School Management System</p>
                         </div>
                     </div>
 
@@ -80,26 +105,26 @@
                     <div class="flex items-center space-x-6">
                         <nav class="hidden items-center space-x-8 md:flex">
                             <a href="#features"
-                                class="font-medium text-gray-700 transition-colors duration-200 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">
+                                class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                 Features
                             </a>
                             <a href="#pricing"
-                                class="font-medium text-gray-700 transition-colors duration-200 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">
+                                class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                 Pricing
                             </a>
                             <a href="#support"
-                                class="font-medium text-gray-700 transition-colors duration-200 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">
+                                class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                 Support
                             </a>
                             <a href="#contact"
-                                class="font-medium text-gray-700 transition-colors duration-200 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">
+                                class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                 Contact
                             </a>
                         </nav>
 
                         <!-- Theme Toggle Button -->
                         <button onclick="toggleTheme()"
-                            class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
+                            class="focus:outline-hidden rounded-lg p-2 text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] hover:text-[color:var(--color-dark-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:text-[color:var(--color-light-gunmetal)] dark:hover:bg-[color:var(--color-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-light-castleton-green)] dark:focus:ring-offset-[color:var(--color-dark-green)]"
                             title="Toggle theme">
                             <!-- Sun icon (visible in dark mode) -->
                             <svg class="hidden h-6 w-6 dark:block" fill="none" viewBox="0 0 24 24"
@@ -118,7 +143,7 @@
                         <!-- Mobile menu button -->
                         <div class="md:hidden">
                             <button type="button"
-                                class="text-gray-700 transition-colors duration-200 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">
+                                class="text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 6h16M4 12h16M4 18h16" />
@@ -130,17 +155,21 @@
             </div>
         </header>
         <!-- Main Content -->
-        <main class=" bg-gray-50 dark:bg-gray-900">
+        <main
+            class="bg-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-dark-green)]">
             <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
 
                     <!-- Welcome Section -->
                     <div class="space-y-8">
                         <div class="space-y-6">
-                            <h2 class="text-4xl font-bold leading-tight text-gray-900 dark:text-white">
-                                Welcome to <span class="text-indigo-600 dark:text-indigo-400">Schoolio</span>
+                            <h2
+                                class="text-4xl font-bold leading-tight text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                Welcome to <span
+                                    class="text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]">Schoolio</span>
                             </h2>
-                            <p class="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
+                            <p
+                                class="text-xl leading-relaxed text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                 A comprehensive multi-communications SaaS platform designed specifically for educational
                                 institutions.
                             </p>
@@ -150,50 +179,59 @@
                         <div class="space-y-4">
                             <div class="flex items-center space-x-3">
                                 <div class="shrink-0">
-                                    <svg class="h-6 w-6 text-green-500 dark:text-green-400" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="h-6 w-6 text-[color:var(--color-castleton-green)] transition-colors duration-200 dark:text-[color:var(--color-light-castleton-green)]"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-gray-700 dark:text-gray-300">Student & Teacher Management</p>
+                                <p
+                                    class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Student & Teacher Management</p>
                             </div>
                             <div class="flex items-center space-x-3">
                                 <div class="shrink-0">
-                                    <svg class="h-6 w-6 text-green-500 dark:text-green-400" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="h-6 w-6 text-[color:var(--color-castleton-green)] transition-colors duration-200 dark:text-[color:var(--color-light-castleton-green)]"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-gray-700 dark:text-gray-300">Real-time Communication Tools
+                                <p
+                                    class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Real-time Communication Tools
                                 </p>
                             </div>
                             <div class="flex items-center space-x-3">
                                 <div class="shrink-0">
-                                    <svg class="h-6 w-6 text-green-500 dark:text-green-400" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="h-6 w-6 text-[color:var(--color-castleton-green)] transition-colors duration-200 dark:text-[color:var(--color-light-castleton-green)]"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-gray-700 dark:text-gray-300">Grade & Assignment Tracking</p>
+                                <p
+                                    class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Grade & Assignment Tracking</p>
                             </div>
                             <div class="flex items-center space-x-3">
                                 <div class="shrink-0">
-                                    <svg class="h-6 w-6 text-green-500 dark:text-green-400" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="h-6 w-6 text-[color:var(--color-castleton-green)] transition-colors duration-200 dark:text-[color:var(--color-light-castleton-green)]"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-gray-700 dark:text-gray-300">Attendance & Analytics</p>
+                                <p
+                                    class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Attendance & Analytics</p>
                             </div>
                         </div>
 
                         <!-- Call to Action -->
                         <div class="pt-4">
-                            <p class="text-lg text-gray-600 dark:text-gray-400">
+                            <p
+                                class="text-lg text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                 Ready to transform your school's communication? Log in to get started.
                             </p>
                         </div>
@@ -202,10 +240,14 @@
                     <!-- Login Form Section -->
                     <div class="mx-auto w-full max-w-md">
                         <div
-                            class="rounded-2xl border border-gray-100 bg-white p-8 shadow-xl dark:border-gray-700 dark:bg-gray-800">
+                            class="rounded-2xl border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] p-8 shadow-xl transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
                             <div class="mb-8 text-center">
-                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sign In</h3>
-                                <p class="mt-2 text-gray-600 dark:text-gray-400">Access your {{ $tenant->name }}
+                                <h3
+                                    class="text-2xl font-bold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    Sign In</h3>
+                                <p
+                                    class="mt-2 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                    Access your {{ $tenant->name }}
                                     account</p>
                             </div>
 
@@ -218,9 +260,9 @@
                                 <!-- Email Address -->
                                 <div>
                                     <x-input-label for="email" :value="__('Email')"
-                                        class="font-medium text-gray-700 dark:text-gray-300" />
+                                        class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]" />
                                     <x-text-input id="email"
-                                        class="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors duration-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                                        class="mt-2 block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] px-4 py-3 text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                         type="email" name="email" :value="old('email')" required autofocus
                                         autocomplete="username" placeholder="Enter your email address" />
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -229,9 +271,9 @@
                                 <!-- Password -->
                                 <div>
                                     <x-input-label for="password" :value="__('Password')"
-                                        class="font-medium text-gray-700 dark:text-gray-300" />
+                                        class="font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]" />
                                     <x-text-input id="password"
-                                        class="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors duration-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                                        class="mt-2 block w-full rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] px-4 py-3 text-[color:var(--color-dark-green)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-dark-green)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
                                         type="password" name="password" required autocomplete="current-password"
                                         placeholder="Enter your password" />
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -241,14 +283,14 @@
                                 <div class="flex items-center justify-between">
                                     <label for="remember_me" class="flex items-center">
                                         <input id="remember_me" type="checkbox"
-                                            class="rounded-sm border-gray-300 text-indigo-600 shadow-xs transition-colors duration-200 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-indigo-400 dark:focus:ring-indigo-400 dark:focus:ring-offset-gray-800"
+                                            class="shadow-xs rounded-sm border-[color:var(--color-light-brunswick-green)] text-[color:var(--color-castleton-green)] transition-colors duration-200 focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)] dark:focus:ring-offset-[color:var(--color-brunswick-green)]"
                                             name="remember">
                                         <span
-                                            class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                                            class="ml-2 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">{{ __('Remember me') }}</span>
                                     </label>
 
                                     @if (Route::has('password.request'))
-                                        <a class="text-sm font-medium text-indigo-600 transition-colors duration-200 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                        <a class="text-sm font-medium text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]"
                                             href="{{ route('password.request') }}">
                                             {{ __('Forgot password?') }}
                                         </a>
@@ -258,7 +300,7 @@
                                 <!-- Submit Button -->
                                 <div class="pt-2">
                                     <x-primary-button
-                                        class="w-full rounded-lg bg-indigo-600 px-4 py-3 font-semibold text-white transition-colors duration-200 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:ring-indigo-400 dark:focus:ring-offset-gray-800">
+                                        class="w-full rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-3 font-semibold text-[color:var(--color-light-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)] dark:focus:ring-[color:var(--color-light-castleton-green)] dark:focus:ring-offset-[color:var(--color-brunswick-green)]">
                                         {{ __('Sign In') }}
                                     </x-primary-button>
                                 </div>
@@ -266,10 +308,11 @@
 
                             <!-- Additional Links -->
                             <div class="mt-6 text-center">
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                <p
+                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Need help?
                                     <a href="#support"
-                                        class="font-medium text-indigo-600 transition-colors duration-200 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+                                        class="font-medium text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
                                         Contact Support
                                     </a>
                                 </p>
