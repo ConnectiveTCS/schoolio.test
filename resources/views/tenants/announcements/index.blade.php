@@ -1,7 +1,10 @@
 <x-tenant-dash-component>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            <h2
+                class="flex items-center text-xl font-semibold leading-tight text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                <i
+                    class="fas fa-bullhorn mr-3 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
                 {{ __('Manage Announcements') }}
             </h2>
         </div>
@@ -13,25 +16,36 @@
 
         <!-- Success Message -->
         @if (session('success'))
-            <div class="mb-6 rounded-lg bg-green-50 p-4 text-green-800 dark:bg-green-900 dark:text-green-200">
-                {{ session('success') }}
+            <div
+                class="mb-6 rounded-lg border border-[color:var(--color-castleton-green)] bg-[color:var(--color-light-castleton-green)] p-4 text-[color:var(--color-dark-green)] transition-colors duration-200 dark:border-[color:var(--color-light-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)]">
+                <div class="flex items-center">
+                    <i
+                        class="fas fa-check-circle mr-2 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
+                    {{ session('success') }}
+                </div>
             </div>
         @endif
 
         <!-- Header Actions -->
         <div class="mb-8 flex items-center justify-between">
             <div>
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">All Announcements</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">
+                <h3
+                    class="flex items-center text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                    <i
+                        class="fas fa-list mr-2 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
+                    All Announcements
+                </h3>
+                <p
+                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                    <i
+                        class="fas fa-info-circle mr-1 text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
                     {{ $announcements->total() }} total announcements
                 </p>
             </div>
             @can('create announcements')
                 <a href="{{ route('tenant.announcements.create') }}"
-                    class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
+                    class="shadow-xs inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[color:var(--color-dark-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-prussian-blue)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:hover:bg-[color:var(--color-light-dark-green)]">
+                    <i class="fas fa-plus h-4 w-4"></i>
                     {{ __('Create Announcement') }}
                 </a>
             @endcan
@@ -39,73 +53,77 @@
 
         <!-- Table Container -->
         <div
-            class="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
+            class="overflow-hidden rounded-lg bg-[color:var(--color-light-castleton-green)] shadow-sm ring-1 ring-[color:var(--color-brunswick-green)] transition-colors duration-200 dark:bg-[color:var(--color-castleton-green)] dark:ring-[color:var(--color-light-brunswick-green)]">
             @if ($announcements->count() > 0)
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
+                <table
+                    class="min-w-full divide-y divide-[color:var(--color-brunswick-green)] dark:divide-[color:var(--color-light-brunswick-green)]">
+                    <thead
+                        class="bg-[color:var(--color-light-brunswick-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)]">
                         <tr>
                             <th
-                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                                Title
+                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                <i class="fas fa-heading mr-2"></i>Title
                             </th>
                             <th
-                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                                Target Roles
+                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                <i class="fas fa-users mr-2"></i>Target Roles
                             </th>
                             <th
-                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                                Created By
+                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                <i class="fas fa-user mr-2"></i>Created By
                             </th>
                             <th
-                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                                Status
+                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                <i class="fas fa-toggle-on mr-2"></i>Status
                             </th>
                             <th
-                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                                Created
+                                class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                <i class="fas fa-calendar mr-2"></i>Created
                             </th>
                             <th class="relative px-6 py-4">
                                 <span class="sr-only">Actions</span>
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                    <tbody
+                        class="divide-y divide-[color:var(--color-brunswick-green)] bg-[color:var(--color-light-castleton-green)] transition-colors duration-200 dark:divide-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
                         @foreach ($announcements as $announcement)
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <tr
+                                class="transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                 <td class="px-6 py-4">
                                     <div class="flex flex-col">
                                         <div class="flex items-center gap-2">
-                                            <div class="text-sm font-medium text-gray-900 dark:text-white">
+                                            <div
+                                                class="text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                                 {{ $announcement->title }}
                                             </div>
                                             @if ($announcement->hasAttachments())
                                                 <div class="flex items-center">
-                                                    <svg class="h-4 w-4 text-gray-500" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
-                                                        </path>
-                                                    </svg>
+                                                    <i
+                                                        class="fas fa-paperclip h-4 w-4 text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]"></i>
                                                     <span
-                                                        class="ml-1 text-xs text-gray-500">{{ $announcement->attachment_count }}</span>
+                                                        class="ml-1 text-xs text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">{{ $announcement->attachment_count }}</span>
                                                 </div>
                                             @endif
                                         </div>
                                         @if ($announcement->expires_at)
-                                            <div class="text-xs text-gray-500 dark:text-gray-400">
+                                            <div
+                                                class="flex items-center text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                <i class="fas fa-clock mr-1"></i>
                                                 Expires: {{ $announcement->expires_at->format('M d, Y g:i A') }}
                                             </div>
                                         @endif
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="text-sm text-gray-900 dark:text-white">
+                                    <span
+                                        class="text-sm text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                         {{ $announcement->formatted_target_roles }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="text-sm text-gray-900 dark:text-white">
+                                    <span
+                                        class="text-sm text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                         {{ $announcement->creator->name }}
                                     </span>
                                 </td>
@@ -116,28 +134,29 @@
                                         @method('PATCH')
                                         <button type="submit"
                                             class="{{ $announcement->is_active
-                                                ? 'bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900 dark:text-green-200'
-                                                : 'bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900 dark:text-red-200' }} inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium transition-colors">
+                                                ? 'bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-dark-green)] hover:bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-light-castleton-green)]'
+                                                : 'bg-[color:var(--color-light-brunswick-green)] text-[color:var(--color-gunmetal)] hover:bg-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:bg-[color:var(--color-light-brunswick-green)]' }} inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium transition-all duration-200">
                                             <div
-                                                class="{{ $announcement->is_active ? 'bg-green-500' : 'bg-red-500' }} h-1.5 w-1.5 rounded-full">
+                                                class="{{ $announcement->is_active ? 'bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)]' : 'bg-[color:var(--color-gunmetal)] dark:bg-[color:var(--color-light-gunmetal)]' }} h-1.5 w-1.5 rounded-full">
                                             </div>
                                             {{ $announcement->is_active ? 'Active' : 'Inactive' }}
                                         </button>
                                     </form>
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                <td
+                                    class="px-6 py-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     {{ $announcement->created_at->format('M d, Y') }}
                                 </td>
                                 <td class="relative px-6 py-4 text-right text-sm font-medium">
                                     <div class="flex items-center justify-end gap-2">
                                         <a href="{{ route('tenant.announcements.show', $announcement) }}"
-                                            class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
-                                            View
+                                            class="inline-flex items-center text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)]">
+                                            <i class="fas fa-eye mr-1"></i>View
                                         </a>
                                         @can('edit announcements')
                                             <a href="{{ route('tenant.announcements.edit', $announcement) }}"
-                                                class="text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300">
-                                                Edit
+                                                class="inline-flex items-center text-[color:var(--color-brunswick-green)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-brunswick-green)] dark:hover:text-[color:var(--color-light-dark-green)]">
+                                                <i class="fas fa-edit mr-1"></i>Edit
                                             </a>
                                         @endcan
                                         @can('delete announcements')
@@ -147,8 +166,8 @@
                                                 @method('DELETE')
                                                 <button type="submit"
                                                     onclick="return confirm('Are you sure you want to delete this announcement?')"
-                                                    class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                    Delete
+                                                    class="inline-flex items-center text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]">
+                                                    <i class="fas fa-trash mr-1"></i>Delete
                                                 </button>
                                             </form>
                                         @endcan
@@ -160,20 +179,22 @@
                 </table>
             @else
                 <div class="p-8 text-center">
-                    <div class="mx-auto h-12 w-12 text-gray-400">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M7 8h10m0 0V6a2 2 0 00-2-2H9a2 2 0 00-2 2v2m0 0v8a2 2 0 002 2h6a2 2 0 002-2V8m-9 4h4">
-                            </path>
-                        </svg>
+                    <div
+                        class="mx-auto h-12 w-12 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                        <i class="fas fa-bullhorn text-4xl"></i>
                     </div>
-                    <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No announcements</h3>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by creating a new announcement.
+                    <h3
+                        class="mt-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        No announcements</h3>
+                    <p
+                        class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                        Get started by creating a new announcement.
                     </p>
                     @can('create announcements')
                         <div class="mt-6">
                             <a href="{{ route('tenant.announcements.create') }}"
-                                class="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500">
+                                class="shadow-xs inline-flex items-center rounded-md bg-[color:var(--color-castleton-green)] px-3 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-[color:var(--color-dark-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:hover:bg-[color:var(--color-light-dark-green)]">
+                                <i class="fas fa-plus mr-2"></i>
                                 Create Announcement
                             </a>
                         </div>

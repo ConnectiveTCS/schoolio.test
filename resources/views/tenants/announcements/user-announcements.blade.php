@@ -1,7 +1,10 @@
 <x-tenant-dash-component>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            <h2
+                class="flex items-center text-xl font-semibold leading-tight text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                <i
+                    class="fas fa-bullhorn mr-3 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
                 {{ __('Announcements') }}
             </h2>
         </div>
@@ -12,22 +15,33 @@
             <div class="space-y-6">
                 @foreach ($announcements as $announcement)
                     <div
-                        class="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black ring-opacity-5 dark:bg-gray-800 dark:ring-gray-700">
+                        class="overflow-hidden rounded-lg bg-[color:var(--color-light-castleton-green)] shadow-sm ring-1 ring-[color:var(--color-brunswick-green)] transition-colors duration-200 dark:bg-[color:var(--color-castleton-green)] dark:ring-[color:var(--color-light-brunswick-green)]">
                         <div class="px-6 py-6">
                             <!-- Header -->
                             <div class="mb-4 flex items-start justify-between">
                                 <div class="flex-1">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                    <h3
+                                        class="flex items-center text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                        <i
+                                            class="fas fa-newspaper mr-2 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
                                         {{ $announcement->title }}
                                     </h3>
                                     <div
-                                        class="mt-1 flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-                                        <span>By {{ $announcement->creator->name }}</span>
+                                        class="mt-1 flex flex-wrap items-center gap-3 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-user mr-1"></i>
+                                            By {{ $announcement->creator->name }}
+                                        </span>
                                         <span>•</span>
-                                        <span>{{ $announcement->created_at->format('M d, Y g:i A') }}</span>
+                                        <span class="flex items-center">
+                                            <i class="fas fa-calendar mr-1"></i>
+                                            {{ $announcement->created_at->format('M d, Y g:i A') }}
+                                        </span>
                                         @if ($announcement->expires_at && !$announcement->expires_at->isPast())
                                             <span>•</span>
-                                            <span class="text-amber-600 dark:text-amber-400">
+                                            <span
+                                                class="flex items-center text-[color:var(--color-brunswick-green)] transition-colors duration-200 dark:text-[color:var(--color-light-brunswick-green)]">
+                                                <i class="fas fa-clock mr-1"></i>
                                                 Expires: {{ $announcement->expires_at->format('M d, Y') }}
                                             </span>
                                         @endif
@@ -36,12 +50,14 @@
                                 <div class="flex items-center gap-2">
                                     @if ($announcement->expires_at && $announcement->expires_at->isPast())
                                         <span
-                                            class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-200">
+                                            class="inline-flex items-center rounded-full bg-[color:var(--color-light-brunswick-green)] px-2.5 py-0.5 text-xs font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-gunmetal)]">
+                                            <i class="fas fa-clock mr-1"></i>
                                             Expired
                                         </span>
                                     @endif
                                     <span
-                                        class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        class="inline-flex items-center rounded-full bg-[color:var(--color-light-castleton-green)] px-2.5 py-0.5 text-xs font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                        <i class="fas fa-star mr-1"></i>
                                         New
                                     </span>
                                 </div>
@@ -61,9 +77,20 @@
                                                 'multi_admin' => 'Multi Admin',
                                             ];
                                             $roleLabel = $roleLabels[$role] ?? ucfirst(str_replace('_', ' ', $role));
+
+                                            $roleIcons = [
+                                                'tenant_admin' => 'fa-crown',
+                                                'teacher' => 'fa-chalkboard-teacher',
+                                                'student' => 'fa-graduation-cap',
+                                                'parent' => 'fa-users',
+                                                'admin' => 'fa-user-shield',
+                                                'multi_admin' => 'fa-user-cog',
+                                            ];
+                                            $roleIcon = $roleIcons[$role] ?? 'fa-user';
                                         @endphp
                                         <span
-                                            class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                            class="inline-flex items-center rounded-full bg-[color:var(--color-light-brunswick-green)] px-2 py-0.5 text-xs font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-gunmetal)]">
+                                            <i class="fas {{ $roleIcon }} mr-1"></i>
                                             {{ $roleLabel }}
                                         </span>
                                     @endforeach
@@ -72,20 +99,23 @@
 
                             <!-- Content -->
                             <div class="mb-4">
-                                <div class="leading-relaxed text-gray-700 dark:text-gray-300">
+                                <div
+                                    class="leading-relaxed text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     @if (strlen($announcement->content) > 300)
                                         <div class="announcement-content-{{ $announcement->id }}">
                                             <div class="preview">
                                                 {{ Str::limit($announcement->content, 300) }}
                                                 <button type="button" onclick="toggleContent({{ $announcement->id }})"
-                                                    class="ml-2 text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                                    class="ml-2 inline-flex items-center text-sm font-medium text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)]">
+                                                    <i class="fas fa-chevron-down mr-1"></i>
                                                     Read more
                                                 </button>
                                             </div>
                                             <div class="full-content hidden">
                                                 <div class="whitespace-pre-wrap">{{ $announcement->content }}</div>
                                                 <button type="button" onclick="toggleContent({{ $announcement->id }})"
-                                                    class="mt-2 text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                                    class="mt-2 inline-flex items-center text-sm font-medium text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)]">
+                                                    <i class="fas fa-chevron-up mr-1"></i>
                                                     Show less
                                                 </button>
                                             </div>
@@ -99,18 +129,16 @@
                             <!-- Attachments -->
                             @if ($announcement->hasAttachments())
                                 <div class="mb-4">
-                                    <h4 class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Attachments</h4>
+                                    <h4
+                                        class="mb-2 flex items-center text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                        <i class="fas fa-paperclip mr-2"></i>
+                                        Attachments
+                                    </h4>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach ($announcement->attachments as $attachment)
                                             <a href="{{ route('tenant.announcements.download', [$announcement, $attachment['filename']]) }}"
-                                                class="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800">
-                                                <svg class="mr-1 h-3 w-3" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
-                                                    </path>
-                                                </svg>
+                                                class="inline-flex items-center rounded-full bg-[color:var(--color-light-castleton-green)] px-3 py-1 text-xs font-medium text-[color:var(--color-dark-green)] transition-all duration-200 hover:bg-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-light-castleton-green)]">
+                                                <i class="fas fa-download mr-1 h-3 w-3"></i>
                                                 {{ $attachment['original_name'] }}
                                             </a>
                                         @endforeach
@@ -121,8 +149,10 @@
                             <!-- Actions -->
                             <div class="flex items-center justify-end">
                                 <a href="{{ route('tenant.announcements.show', $announcement) }}"
-                                    class="text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                                    View Full Announcement →
+                                    class="inline-flex items-center text-sm font-medium text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)]">
+                                    <i class="fas fa-eye mr-1"></i>
+                                    View Full Announcement
+                                    <i class="fas fa-arrow-right ml-1"></i>
                                 </a>
                             </div>
                         </div>
@@ -131,15 +161,16 @@
             </div>
         @else
             <div class="py-12 text-center">
-                <div class="mx-auto h-12 w-12 text-gray-400">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M7 8h10m0 0V6a2 2 0 00-2-2H9a2 2 0 00-2 2v2m0 0v8a2 2 0 002 2h6a2 2 0 002-2V8m-9 4h4">
-                        </path>
-                    </svg>
+                <div
+                    class="mx-auto h-12 w-12 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                    <i class="fas fa-bullhorn text-4xl"></i>
                 </div>
-                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No announcements</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">There are no announcements for your role at
+                <h3
+                    class="mt-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                    No announcements</h3>
+                <p
+                    class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                    There are no announcements for your role at
                     this time.</p>
             </div>
         @endif
