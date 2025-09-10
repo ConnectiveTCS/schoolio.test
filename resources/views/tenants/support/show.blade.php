@@ -1,58 +1,72 @@
 <x-tenant-dash-component>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                {{ __('Support') }}
-            </h2>
-            <div class="flex items-center gap-x-4 text-sm text-gray-600 dark:text-gray-400">
+        <div
+            class="flex items-center justify-between rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+            <div class="flex items-center space-x-3">
+                <i
+                    class="fas fa-headset text-2xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                <h2
+                    class="text-xl font-semibold leading-tight text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                    {{ __('Support Ticket Details') }}
+                </h2>
+            </div>
+            <div
+                class="flex items-center gap-x-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                 <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()"
-                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
+                    class="focus:outline-hidden rounded-lg p-2 text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] hover:text-[color:var(--color-dark-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:text-[color:var(--color-light-gunmetal)] dark:hover:bg-[color:var(--color-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)] dark:focus:ring-offset-[color:var(--color-dark-green)]"
                     title="Toggle theme">
                     <!-- Sun icon (visible in dark mode) -->
-                    <svg class="hidden h-6 w-6 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
+                    <i class="fas fa-sun hidden h-6 w-6 dark:block"></i>
                     <!-- Moon icon (visible in light mode) -->
-                    <svg class="block h-6 w-6 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
+                    <i class="fas fa-moon block h-6 w-6 dark:hidden"></i>
                 </button>
             </div>
         </div>
     </x-slot>
-    <div class="py-12">
+    <div
+        class="min-h-screen bg-[color:var(--color-light-dark-green)] py-12 transition-colors duration-200 dark:bg-[color:var(--color-dark-green)]">
         <div class="mx-auto max-w-6xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div
+                class="overflow-hidden border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-xl transition-colors duration-200 sm:rounded-lg dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
+                <div
+                    class="p-6 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                     <!-- Header -->
-                    <div class="mb-8">
+                    <div
+                        class="mb-8 rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-6 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
                         <div class="flex items-center justify-between">
-                            <div>
-                                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
-                                    {{ $ticket->ticket_number }}</h1>
-                                <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $ticket->title }}</p>
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="rounded-full bg-[color:var(--color-light-castleton-green)] p-3 transition-colors duration-200 dark:bg-[color:var(--color-castleton-green)]">
+                                    <i
+                                        class="fas fa-ticket-alt text-2xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                </div>
+                                <div>
+                                    <h1
+                                        class="text-3xl font-bold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                        {{ $ticket->ticket_number }}</h1>
+                                    <p
+                                        class="mt-2 text-lg text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                        {{ $ticket->title }}</p>
+                                </div>
                             </div>
                             <div class="flex items-center space-x-3">
                                 <span
-                                    class="bg-{{ $ticket->priority_color }}-100 dark:bg-{{ $ticket->priority_color }}-900/30 text-{{ $ticket->priority_color }}-800 dark:text-{{ $ticket->priority_color }}-200 inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
+                                    class="bg-{{ $ticket->priority_color }}-100 dark:bg-{{ $ticket->priority_color }}-900/30 text-{{ $ticket->priority_color }}-800 dark:text-{{ $ticket->priority_color }}-200 border-{{ $ticket->priority_color }}-200 dark:border-{{ $ticket->priority_color }}-700 inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">
+                                    <i class="fas fa-exclamation-triangle mr-2"></i>
                                     {{ ucfirst($ticket->priority) }} Priority
                                 </span>
                                 <span
-                                    class="bg-{{ $ticket->status_color }}-100 dark:bg-{{ $ticket->status_color }}-900/30 text-{{ $ticket->status_color }}-800 dark:text-{{ $ticket->status_color }}-200 inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
+                                    class="bg-{{ $ticket->status_color }}-100 dark:bg-{{ $ticket->status_color }}-900/30 text-{{ $ticket->status_color }}-800 dark:text-{{ $ticket->status_color }}-200 border-{{ $ticket->status_color }}-200 dark:border-{{ $ticket->status_color }}-700 inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">
+                                    <i class="fas fa-info-circle mr-2"></i>
                                     {{ ucfirst(str_replace('_', ' ', $ticket->status)) }}
                                 </span>
                             </div>
                         </div>
                         <div class="mt-4">
                             <a href="{{ route('tenant.support.index') }}"
-                                class="flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                                <svg class="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 19l-7-7 7-7"></path>
-                                </svg>
+                                class="inline-flex items-center rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] px-4 py-2 text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
+                                <i class="fas fa-arrow-left mr-2"></i>
                                 Back to Support Tickets
                             </a>
                         </div>
@@ -62,35 +76,68 @@
                         <!-- Main Content -->
                         <div class="space-y-6 lg:col-span-2">
                             <!-- Original Description -->
-                            <div class="rounded-lg bg-gray-50 p-6 dark:bg-gray-700">
-                                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Original Request
-                                </h2>
+                            <div
+                                class="rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                <div class="mb-4 flex items-center">
+                                    <i
+                                        class="fas fa-file-alt mr-3 text-xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                    <h2
+                                        class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                        Original Request</h2>
+                                </div>
                                 <div class="prose max-w-none">
-                                    <p class="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
+                                    <p
+                                        class="whitespace-pre-wrap leading-relaxed text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                         {{ $ticket->description }}</p>
                                 </div>
 
                                 @if ($ticket->attachments && count($ticket->attachments) > 0)
-                                    <div class="mt-4">
-                                        <h3 class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Attachments:
-                                        </h3>
+                                    <div
+                                        class="mt-6 border-t border-[color:var(--color-light-castleton-green)] pt-4 dark:border-[color:var(--color-castleton-green)]">
+                                        <div class="mb-3 flex items-center">
+                                            <i
+                                                class="fas fa-paperclip mr-2 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                            <h3
+                                                class="text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                                Attachments:</h3>
+                                        </div>
                                         <div class="space-y-2">
                                             @foreach ($ticket->attachments as $attachment)
                                                 <div
-                                                    class="flex items-center space-x-2 rounded-md bg-white p-2 dark:bg-gray-800">
-                                                    <svg class="h-4 w-4 text-gray-500" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
-                                                        </path>
-                                                    </svg>
+                                                    class="flex items-center space-x-3 rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] p-3 transition-colors duration-200 hover:bg-[color:var(--color-light-dark-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:hover:bg-[color:var(--color-dark-green)]">
+                                                    @php
+                                                        $extension = strtolower(
+                                                            pathinfo($attachment['original_name'], PATHINFO_EXTENSION),
+                                                        );
+                                                        $isImage = in_array($extension, ['jpg', 'jpeg', 'png', 'gif']);
+                                                        $isPdf = $extension === 'pdf';
+                                                        $isDoc = in_array($extension, ['doc', 'docx']);
+                                                        $isExcel = in_array($extension, ['xls', 'xlsx']);
+                                                        $isArchive = in_array($extension, ['zip', 'rar']);
+                                                    @endphp
+                                                    @if ($isImage)
+                                                        <i class="fas fa-image text-green-600 dark:text-green-400"></i>
+                                                    @elseif($isPdf)
+                                                        <i class="fas fa-file-pdf text-red-600 dark:text-red-400"></i>
+                                                    @elseif($isDoc)
+                                                        <i
+                                                            class="fas fa-file-word text-blue-600 dark:text-blue-400"></i>
+                                                    @elseif($isExcel)
+                                                        <i
+                                                            class="fas fa-file-excel text-green-600 dark:text-green-400"></i>
+                                                    @elseif($isArchive)
+                                                        <i
+                                                            class="fas fa-file-archive text-yellow-600 dark:text-yellow-400"></i>
+                                                    @else
+                                                        <i
+                                                            class="fas fa-file text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]"></i>
+                                                    @endif
                                                     <a href="{{ route('tenant.support.download', [$ticket, $attachment['filename']]) }}"
-                                                        class="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                                        class="text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-dark-green)] dark:hover:text-[color:var(--color-light-gunmetal)]">
                                                         {{ $attachment['original_name'] }}
                                                     </a>
                                                     <span
-                                                        class="text-xs text-gray-500">({{ number_format($attachment['size'] / 1024, 1) }}
+                                                        class="text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">({{ number_format($attachment['size'] / 1024, 1) }}
                                                         KB)</span>
                                                     @php
                                                         $orig = strtolower($attachment['original_name']);
@@ -99,11 +146,11 @@
                                                     @endphp
                                                     @if ($isImage || $isPdf)
                                                         <button type="button"
-                                                            class="preview-attachment text-xs text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                                            class="preview-attachment rounded bg-[color:var(--color-light-dark-green)] px-2 py-1 text-xs text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]"
                                                             data-type="{{ $isImage ? 'image' : 'pdf' }}"
                                                             data-src="{{ route('tenant.support.download', [$ticket, $attachment['filename']]) }}"
                                                             data-name="{{ $attachment['original_name'] }}">
-                                                            Preview
+                                                            <i class="fas fa-eye mr-1"></i>Preview
                                                         </button>
                                                     @endif
                                                 </div>
@@ -115,9 +162,16 @@
 
                             <!-- Conversation -->
                             <div
-                                class="rounded-lg border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-800">
-                                <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-600">
-                                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Conversation</h2>
+                                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                <div
+                                    class="rounded-t-lg border-b border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                    <div class="flex items-center">
+                                        <i
+                                            class="fas fa-comments mr-3 text-xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                        <h2
+                                            class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                            Conversation</h2>
+                                    </div>
                                 </div>
                                 <div class="max-h-96 space-y-4 overflow-y-auto px-6 py-4">
                                     @forelse($replies as $reply)
@@ -126,54 +180,99 @@
                                             @if ($reply->sender_type === 'central_admin')
                                                 <div class="shrink-0">
                                                     <div
-                                                        class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-                                                        <svg class="h-4 w-4 text-blue-600 dark:text-blue-400"
-                                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                                            </path>
-                                                        </svg>
+                                                        class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-dark-green)]">
+                                                        <i
+                                                            class="fas fa-user-tie text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
                                                     </div>
                                                 </div>
                                             @endif
                                             <div class="min-w-0 max-w-xs flex-1">
                                                 <div
-                                                    class="bg-{{ $reply->sender_type === 'central_admin' ? 'blue' : 'gray' }}-50 dark:bg-{{ $reply->sender_type === 'central_admin' ? 'blue' : 'gray' }}-900/30 rounded-lg p-3">
+                                                    class="bg-{{ $reply->sender_type === 'central_admin' ? '[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]' : '[color:var(--color-light-castleton-green)] dark:bg-[color:var(--color-castleton-green)]' }} border-{{ $reply->sender_type === 'central_admin' ? '[color:var(--color-light-castleton-green)] dark:border-[color:var(--color-castleton-green)]' : '[color:var(--color-light-brunswick-green)] dark:border-[color:var(--color-brunswick-green)]' }} rounded-lg border p-4 shadow-sm transition-colors duration-200">
                                                     <div class="mb-2 flex items-center justify-between">
-                                                        <p class="text-sm font-medium text-gray-900 dark:text-white">
-                                                            {{ $reply->sender_details['name'] }}
+                                                        <div class="flex items-center">
                                                             @if ($reply->sender_type === 'central_admin')
-                                                                <span
-                                                                    class="text-blue-600 dark:text-blue-400">(Support)</span>
+                                                                <i
+                                                                    class="fas fa-user-shield mr-2 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                                            @else
+                                                                <i
+                                                                    class="fas fa-user mr-2 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
                                                             @endif
-                                                        </p>
-                                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                            <p
+                                                                class="text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                                                {{ $reply->sender_details['name'] }}
+                                                                @if ($reply->sender_type === 'central_admin')
+                                                                    <span
+                                                                        class="text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">(Support)</span>
+                                                                @endif
+                                                            </p>
+                                                        </div>
+                                                        <p
+                                                            class="text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                                             {{ $reply->created_at->format('M j, g:i A') }}</p>
                                                     </div>
                                                     <p
-                                                        class="whitespace-pre-wrap text-sm text-gray-700 dark:text-gray-300">
+                                                        class="whitespace-pre-wrap text-sm leading-relaxed text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                                         {{ $reply->message }}</p>
 
                                                     @if ($reply->attachments && count($reply->attachments) > 0)
-                                                        <div class="mt-3">
+                                                        <div
+                                                            class="mt-3 border-t border-[color:var(--color-light-castleton-green)] pt-3 dark:border-[color:var(--color-castleton-green)]">
                                                             <div class="space-y-1">
                                                                 @foreach ($reply->attachments as $attachment)
                                                                     <div class="flex items-center space-x-2 text-xs">
-                                                                        <svg class="h-3 w-3 text-gray-500"
-                                                                            fill="none" stroke="currentColor"
-                                                                            viewBox="0 0 24 24">
-                                                                            <path stroke-linecap="round"
-                                                                                stroke-linejoin="round" stroke-width="2"
-                                                                                d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
-                                                                            </path>
-                                                                        </svg>
+                                                                        @php
+                                                                            $extension = strtolower(
+                                                                                pathinfo(
+                                                                                    $attachment['original_name'],
+                                                                                    PATHINFO_EXTENSION,
+                                                                                ),
+                                                                            );
+                                                                            $isImage = in_array($extension, [
+                                                                                'jpg',
+                                                                                'jpeg',
+                                                                                'png',
+                                                                                'gif',
+                                                                            ]);
+                                                                            $isPdf = $extension === 'pdf';
+                                                                            $isDoc = in_array($extension, [
+                                                                                'doc',
+                                                                                'docx',
+                                                                            ]);
+                                                                            $isExcel = in_array($extension, [
+                                                                                'xls',
+                                                                                'xlsx',
+                                                                            ]);
+                                                                            $isArchive = in_array($extension, [
+                                                                                'zip',
+                                                                                'rar',
+                                                                            ]);
+                                                                        @endphp
+                                                                        @if ($isImage)
+                                                                            <i
+                                                                                class="fas fa-image text-green-600 dark:text-green-400"></i>
+                                                                        @elseif($isPdf)
+                                                                            <i
+                                                                                class="fas fa-file-pdf text-red-600 dark:text-red-400"></i>
+                                                                        @elseif($isDoc)
+                                                                            <i
+                                                                                class="fas fa-file-word text-blue-600 dark:text-blue-400"></i>
+                                                                        @elseif($isExcel)
+                                                                            <i
+                                                                                class="fas fa-file-excel text-green-600 dark:text-green-400"></i>
+                                                                        @elseif($isArchive)
+                                                                            <i
+                                                                                class="fas fa-file-archive text-yellow-600 dark:text-yellow-400"></i>
+                                                                        @else
+                                                                            <i
+                                                                                class="fas fa-file text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]"></i>
+                                                                        @endif
                                                                         <a href="{{ route('tenant.support.download', [$ticket, $attachment['filename']]) }}"
-                                                                            class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                                                            class="text-[color:var(--color-dark-green)] transition-colors duration-200 hover:text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-dark-green)] dark:hover:text-[color:var(--color-light-gunmetal)]">
                                                                             {{ $attachment['original_name'] }}
                                                                         </a>
                                                                         <span
-                                                                            class="text-gray-500">({{ number_format($attachment['size'] / 1024, 1) }}
+                                                                            class="text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">({{ number_format($attachment['size'] / 1024, 1) }}
                                                                             KB)</span>
                                                                         @php
                                                                             $orig = strtolower(
@@ -187,11 +286,11 @@
                                                                         @endphp
                                                                         @if ($isImage || $isPdf)
                                                                             <button type="button"
-                                                                                class="preview-attachment text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                                                                class="preview-attachment rounded bg-[color:var(--color-light-dark-green)] px-2 py-1 text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]"
                                                                                 data-type="{{ $isImage ? 'image' : 'pdf' }}"
                                                                                 data-src="{{ route('tenant.support.download', [$ticket, $attachment['filename']]) }}"
                                                                                 data-name="{{ $attachment['original_name'] }}">
-                                                                                Preview
+                                                                                <i class="fas fa-eye mr-1"></i>Preview
                                                                             </button>
                                                                         @endif
                                                                     </div>
@@ -204,67 +303,85 @@
                                             @if ($reply->sender_type === 'tenant_user')
                                                 <div class="shrink-0">
                                                     <div
-                                                        class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-600">
-                                                        <svg class="h-4 w-4 text-gray-600 dark:text-gray-300"
-                                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                                            </path>
-                                                        </svg>
+                                                        class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                                        <i
+                                                            class="fas fa-user text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
                                                     </div>
                                                 </div>
                                             @endif
                                         </div>
                                     @empty
-                                        <p class="py-8 text-center text-gray-500 dark:text-gray-400">No replies yet.
-                                            Our
-                                            support team will
-                                            respond soon.</p>
+                                        <div class="py-12 text-center">
+                                            <i
+                                                class="fas fa-comments mb-4 text-4xl text-[color:var(--color-gunmetal)] opacity-50 dark:text-[color:var(--color-light-gunmetal)]"></i>
+                                            <p
+                                                class="text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                No replies yet. Our support team will respond soon.
+                                            </p>
+                                        </div>
                                     @endforelse
                                 </div>
 
                                 <!-- Reply Form -->
                                 @if (!in_array($ticket->status, ['resolved', 'closed']))
-                                    <div class="border-t border-gray-200 px-6 py-4 dark:border-gray-600">
+                                    <div
+                                        class="rounded-b-lg border-t border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-6 py-6 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                        <div class="mb-4 flex items-center">
+                                            <i
+                                                class="fas fa-reply mr-3 text-lg text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                            <h3
+                                                class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                                Add Reply</h3>
+                                        </div>
                                         <form action="{{ route('tenant.support.reply', $ticket) }}" method="POST"
-                                            enctype="multipart/form-data">
+                                            enctype="multipart/form-data" class="space-y-4">
                                             @csrf
-                                            <div class="mb-4">
+                                            <div>
                                                 <label for="message"
-                                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Add
-                                                    Reply</label>
-                                                <textarea name="message" id="message" rows="3" required
-                                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
-                                                    placeholder="Type your message..."></textarea>
+                                                    class="mb-2 block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">Message</label>
+                                                <textarea name="message" id="message" rows="4" required
+                                                    class="block w-full rounded-lg border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-gunmetal)] placeholder-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-dark-green)] focus:ring-[color:var(--color-dark-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-gunmetal)] dark:placeholder-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-light-dark-green)]"
+                                                    placeholder="Type your message here..."></textarea>
                                             </div>
 
-                                            <div class="mb-4">
+                                            <div>
                                                 <label for="reply_attachments"
-                                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Attachments</label>
+                                                    class="mb-2 block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                                    <i class="fas fa-paperclip mr-2"></i>Attachments
+                                                </label>
                                                 <input type="file" name="attachments[]" id="reply_attachments"
                                                     multiple
-                                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm"
+                                                    class="block w-full rounded-lg border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-dark-green)] focus:ring-[color:var(--color-dark-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-light-dark-green)]"
                                                     accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar">
-                                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                                    Max 5 files, 10MB each. Supported: PDF, DOC, DOCX, XLS, XLSX, PPT,
-                                                    PPTX, TXT, JPG, JPEG, PNG, GIF, ZIP, RAR.
+                                                <p
+                                                    class="mt-2 text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                    <i class="fas fa-info-circle mr-1"></i>
+                                                    Max 5 files, 10MB each. Supported formats: PDF, DOC, DOCX, XLS,
+                                                    XLSX, PPT, PPTX, TXT, JPG, JPEG, PNG, GIF, ZIP, RAR.
                                                 </p>
                                             </div>
 
                                             <div class="flex justify-end">
                                                 <button type="submit"
-                                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                                    class="focus:outline-hidden inline-flex items-center rounded-lg border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-dark-green)] px-6 py-3 font-medium text-[color:var(--color-light-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-castleton-green)] dark:focus:ring-[color:var(--color-brunswick-green)]">
+                                                    <i class="fas fa-paper-plane mr-2"></i>
                                                     Send Reply
                                                 </button>
                                             </div>
                                         </form>
                                     </div>
                                 @else
-                                    <div class="border-t border-gray-200 px-6 py-4 dark:border-gray-600">
-                                        <p class="text-center text-gray-500 dark:text-gray-400">This ticket has been
-                                            {{ $ticket->status }}. If you need further assistance, please create a new
-                                            ticket.</p>
+                                    <div
+                                        class="rounded-b-lg border-t border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-6 py-6 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                        <div class="text-center">
+                                            <i
+                                                class="fas fa-lock mb-2 text-2xl text-[color:var(--color-gunmetal)] opacity-60 dark:text-[color:var(--color-light-gunmetal)]"></i>
+                                            <p
+                                                class="text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                This ticket has been {{ $ticket->status }}. If you need further
+                                                assistance, please create a new ticket.
+                                            </p>
+                                        </div>
                                     </div>
                                 @endif
                             </div>
@@ -274,45 +391,77 @@
                         <div class="space-y-6">
                             <!-- Ticket Info -->
                             <div
-                                class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-600 dark:bg-gray-800">
-                                <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Ticket Details
-                                </h3>
-                                <dl class="space-y-3">
-                                    <div>
-                                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Category</dt>
-                                        <dd class="text-sm text-gray-900 dark:text-white">
+                                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                <div class="mb-4 flex items-center">
+                                    <i
+                                        class="fas fa-info-circle mr-3 text-xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                    <h3
+                                        class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                        Ticket Details</h3>
+                                </div>
+                                <dl class="space-y-4">
+                                    <div
+                                        class="flex items-center justify-between rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                        <dt
+                                            class="flex items-center text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                            <i class="fas fa-tag mr-2"></i>Category
+                                        </dt>
+                                        <dd
+                                            class="text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                             {{ ucfirst(str_replace('_', ' ', $ticket->category)) }}</dd>
                                     </div>
-                                    <div>
-                                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Priority</dt>
-                                        <dd class="text-sm text-gray-900 dark:text-white">
+                                    <div
+                                        class="flex items-center justify-between rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                        <dt
+                                            class="flex items-center text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                            <i class="fas fa-exclamation-triangle mr-2"></i>Priority
+                                        </dt>
+                                        <dd
+                                            class="text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                             {{ ucfirst($ticket->priority) }}</dd>
                                     </div>
                                     @if ($centralTicket && $centralTicket->assignedAdmin)
-                                        <div>
-                                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Assigned
-                                                to</dt>
-                                            <dd class="text-sm text-gray-900 dark:text-white">
+                                        <div
+                                            class="flex items-center justify-between rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                            <dt
+                                                class="flex items-center text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                                <i class="fas fa-user-tie mr-2"></i>Assigned to
+                                            </dt>
+                                            <dd
+                                                class="text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                                 {{ $centralTicket->assignedAdmin->name }}
                                             </dd>
                                         </div>
                                     @endif
-                                    <div>
-                                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created by
+                                    <div
+                                        class="flex items-center justify-between rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                        <dt
+                                            class="flex items-center text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                            <i class="fas fa-user mr-2"></i>Created by
                                         </dt>
-                                        <dd class="text-sm text-gray-900 dark:text-white">
+                                        <dd
+                                            class="text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                             {{ $ticket->createdBy->name }}</dd>
                                     </div>
-                                    <div>
-                                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created</dt>
-                                        <dd class="text-sm text-gray-900 dark:text-white">
+                                    <div
+                                        class="flex items-center justify-between rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                        <dt
+                                            class="flex items-center text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                            <i class="fas fa-calendar-plus mr-2"></i>Created
+                                        </dt>
+                                        <dd
+                                            class="text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                             {{ $ticket->created_at->format('M j, Y g:i A') }}</dd>
                                     </div>
                                     @if ($ticket->resolved_at)
-                                        <div>
-                                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Resolved
+                                        <div
+                                            class="flex items-center justify-between rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-3 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                            <dt
+                                                class="flex items-center text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                                <i class="fas fa-check-circle mr-2"></i>Resolved
                                             </dt>
-                                            <dd class="text-sm text-gray-900 dark:text-white">
+                                            <dd
+                                                class="text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                                 {{ $ticket->resolved_at->format('M j, Y g:i A') }}</dd>
                                         </div>
                                     @endif
@@ -321,76 +470,129 @@
 
                             <!-- Status Info -->
                             <div
-                                class="rounded-lg border border-blue-200 bg-blue-50 p-6 dark:border-blue-600 dark:bg-blue-900/30">
-                                <h3 class="mb-2 text-lg font-semibold text-blue-900 dark:text-blue-200">What's Next?
-                                </h3>
+                                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                <div class="mb-4 flex items-center">
+                                    <i
+                                        class="fas fa-route mr-3 text-xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                    <h3
+                                        class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                        What's Next?</h3>
+                                </div>
 
                                 @if ($centralTicket && $centralTicket->assignedAdmin)
-                                    <div class="mb-3 rounded-md bg-white/50 p-3 dark:bg-gray-800/50">
-                                        <p class="text-sm font-medium text-blue-900 dark:text-blue-200">Assigned to:
-                                        </p>
-                                        <p class="text-sm text-blue-800 dark:text-blue-300">
+                                    <div
+                                        class="mb-4 rounded-lg border border-[color:var(--color-light-dark-green)] bg-[color:var(--color-light-castleton-green)] p-4 transition-colors duration-200 dark:border-[color:var(--color-dark-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                        <div class="mb-2 flex items-center">
+                                            <i
+                                                class="fas fa-user-shield mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                            <p
+                                                class="text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                                Assigned to:</p>
+                                        </div>
+                                        <p
+                                            class="text-sm font-medium text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                             {{ $centralTicket->assignedAdmin->name }}
                                         </p>
                                         @if ($centralTicket->assignedAdmin->email)
-                                            <p class="text-xs text-blue-700 dark:text-blue-400">
-                                                {{ $centralTicket->assignedAdmin->email }}
+                                            <p
+                                                class="text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                <i
+                                                    class="fas fa-envelope mr-1"></i>{{ $centralTicket->assignedAdmin->email }}
                                             </p>
                                         @endif
                                     </div>
                                 @endif
 
-                                @switch($ticket->status)
-                                    @case('open')
-                                        <p class="text-sm text-blue-800 dark:text-blue-300">
-                                            @if ($centralTicket && $centralTicket->assignedAdmin)
-                                                Your ticket has been assigned to {{ $centralTicket->assignedAdmin->name }} and
-                                                they will respond soon.
-                                            @else
-                                                Your ticket has been submitted and is waiting to be assigned to a support agent.
-                                            @endif
-                                        </p>
-                                    @break
+                                <div
+                                    class="rounded-lg border border-[color:var(--color-light-dark-green)] bg-[color:var(--color-light-castleton-green)] p-4 transition-colors duration-200 dark:border-[color:var(--color-dark-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                    @switch($ticket->status)
+                                        @case('open')
+                                            <div class="flex items-start">
+                                                <i
+                                                    class="fas fa-clock mr-3 mt-1 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                                <p
+                                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                    @if ($centralTicket && $centralTicket->assignedAdmin)
+                                                        Your ticket has been assigned to
+                                                        {{ $centralTicket->assignedAdmin->name }} and they will respond soon.
+                                                    @else
+                                                        Your ticket has been submitted and is waiting to be assigned to a
+                                                        support agent.
+                                                    @endif
+                                                </p>
+                                            </div>
+                                        @break
 
-                                    @case('in_progress')
-                                        <p class="text-sm text-blue-800 dark:text-blue-300">
-                                            @if ($centralTicket && $centralTicket->assignedAdmin)
-                                                {{ $centralTicket->assignedAdmin->name }} is actively working on your request.
-                                            @else
-                                                Our support team is actively working on your request.
-                                            @endif
-                                            You'll receive updates as we progress.
-                                        </p>
-                                    @break
+                                        @case('in_progress')
+                                            <div class="flex items-start">
+                                                <i
+                                                    class="fas fa-cogs mr-3 mt-1 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                                <p
+                                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                    @if ($centralTicket && $centralTicket->assignedAdmin)
+                                                        {{ $centralTicket->assignedAdmin->name }} is actively working on your
+                                                        request.
+                                                    @else
+                                                        Our support team is actively working on your request.
+                                                    @endif
+                                                    You'll receive updates as we progress.
+                                                </p>
+                                            </div>
+                                        @break
 
-                                    @case('resolved')
-                                        <p class="text-sm text-blue-800 dark:text-blue-300">Your ticket has been resolved. If
-                                            the issue persists,
-                                            you can reply to reopen it or create a new ticket.</p>
-                                    @break
+                                        @case('resolved')
+                                            <div class="flex items-start">
+                                                <i
+                                                    class="fas fa-check-circle mr-3 mt-1 text-green-600 dark:text-green-400"></i>
+                                                <p
+                                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                    Your ticket has been resolved. If the issue persists, you can reply to
+                                                    reopen it or create a new ticket.
+                                                </p>
+                                            </div>
+                                        @break
 
-                                    @case('closed')
-                                        <p class="text-sm text-blue-800 dark:text-blue-300">This ticket has been closed. If you
-                                            need further
-                                            assistance, please create a new support ticket.</p>
-                                    @break
+                                        @case('closed')
+                                            <div class="flex items-start">
+                                                <i class="fas fa-lock mr-3 mt-1 text-red-600 dark:text-red-400"></i>
+                                                <p
+                                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                    This ticket has been closed. If you need further assistance, please create a
+                                                    new support ticket.
+                                                </p>
+                                            </div>
+                                        @break
 
-                                    @default
-                                        <p class="text-sm text-blue-800 dark:text-blue-300">We'll keep you updated on the
-                                            progress of your support
-                                            request.</p>
-                                @endswitch
+                                        @default
+                                            <div class="flex items-start">
+                                                <i
+                                                    class="fas fa-info-circle mr-3 mt-1 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                                <p
+                                                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                    We'll keep you updated on the progress of your support request.
+                                                </p>
+                                            </div>
+                                    @endswitch
+                                </div>
                             </div> <!-- Actions -->
                             <div
-                                class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-600 dark:bg-gray-800">
-                                <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Actions</h3>
+                                class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                <div class="mb-4 flex items-center">
+                                    <i
+                                        class="fas fa-tools mr-3 text-xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                    <h3
+                                        class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                        Actions</h3>
+                                </div>
                                 <div class="space-y-3">
                                     <a href="{{ route('tenant.support.create') }}"
-                                        class="block w-full rounded-md bg-blue-600 px-4 py-2 text-center text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                        class="focus:outline-hidden flex w-full items-center justify-center rounded-lg border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-dark-green)] px-4 py-3 text-center font-medium text-[color:var(--color-light-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-castleton-green)] dark:focus:ring-[color:var(--color-brunswick-green)]">
+                                        <i class="fas fa-plus mr-2"></i>
                                         Create New Ticket
                                     </a>
                                     <a href="{{ route('tenant.support.index') }}"
-                                        class="block w-full rounded-md bg-gray-200 px-4 py-2 text-center text-gray-800 hover:bg-gray-300 focus:outline-hidden focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
+                                        class="focus:outline-hidden flex w-full items-center justify-center rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] px-4 py-3 text-center font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-dark-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-brunswick-green)]">
+                                        <i class="fas fa-list mr-2"></i>
                                         View All Tickets
                                     </a>
                                 </div>
@@ -405,33 +607,54 @@
 
 <!-- Attachment Preview Modal (Tenant) -->
 <div id="attachmentPreviewModal" class="fixed inset-0 z-50 hidden items-center justify-center">
-    <div class="absolute inset-0 bg-black/50" data-preview-close></div>
+    <div class="absolute inset-0 bg-black/60" data-preview-close></div>
     <div
-        class="relative max-h-[90vh] w-11/12 max-w-3xl overflow-hidden rounded-lg bg-white shadow-xl dark:bg-gray-800">
-        <div class="flex items-center justify-between border-b px-4 py-2 dark:border-gray-700">
-            <h3 id="previewTitle" class="text-sm font-semibold text-gray-800 dark:text-gray-100">Attachment Preview
-            </h3>
-            <button class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
-                data-preview-close>&times;</button>
-        </div>
-        <div class="preview-body relative max-h-[80vh] overflow-auto bg-gray-50 dark:bg-gray-900/40">
-            <div id="previewImageWrapper" class="hidden">
-                <img id="previewImage" src="" alt="Preview" class="mx-auto block max-h-[78vh] w-auto">
+        class="relative max-h-[90vh] w-11/12 max-w-4xl overflow-hidden rounded-xl border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-2xl transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
+        <div
+            class="flex items-center justify-between border-b border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]">
+            <div class="flex items-center">
+                <i
+                    class="fas fa-eye mr-3 text-lg text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                <h3 id="previewTitle"
+                    class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                    Attachment Preview</h3>
             </div>
-            <div id="previewPdfWrapper" class="hidden h-[78vh]">
+            <button
+                class="text-2xl text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:text-[color:var(--color-light-dark-green)]"
+                data-preview-close>
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div
+            class="preview-body relative max-h-[80vh] overflow-auto bg-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-dark-green)]">
+            <div id="previewImageWrapper" class="hidden p-4">
+                <img id="previewImage" src="" alt="Preview"
+                    class="mx-auto block max-h-[76vh] w-auto rounded-lg shadow-lg">
+            </div>
+            <div id="previewPdfWrapper" class="hidden h-[76vh]">
                 <iframe id="previewPdf" src="" class="h-full w-full" frameborder="0"></iframe>
             </div>
-            <div id="previewUnsupported" class="hidden p-6 text-center text-sm text-gray-600 dark:text-gray-300">
-                Preview not available. Please download the file to view it.
+            <div id="previewUnsupported" class="hidden p-8 text-center">
+                <i
+                    class="fas fa-file-times mb-4 text-4xl text-[color:var(--color-gunmetal)] opacity-50 dark:text-[color:var(--color-light-gunmetal)]"></i>
+                <p
+                    class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                    Preview not available. Please download the file to view it.
+                </p>
             </div>
         </div>
-        <div class="flex justify-end gap-2 border-t px-4 py-2 dark:border-gray-700">
+        <div
+            class="flex justify-end gap-3 border-t border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]">
             <a id="downloadOriginal" href="#"
-                class="rounded-sm bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
-                target="_blank" rel="noopener">Download</a>
+                class="inline-flex items-center rounded-lg border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-dark-green)] px-4 py-2 text-sm text-[color:var(--color-light-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-castleton-green)]"
+                target="_blank" rel="noopener">
+                <i class="fas fa-download mr-2"></i>Download
+            </a>
             <button
-                class="rounded-sm bg-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
-                data-preview-close>Close</button>
+                class="inline-flex items-center rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] px-4 py-2 text-sm text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-dark-green)] dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-dark-green)]"
+                data-preview-close>
+                <i class="fas fa-times mr-2"></i>Close
+            </button>
         </div>
     </div>
 </div>
@@ -473,7 +696,7 @@
             pdfEl.src = '';
         }
         modal.querySelectorAll('[data-preview-close]').forEach(btn => btn.addEventListener('click',
-        closeModal));
+            closeModal));
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeModal();
         });

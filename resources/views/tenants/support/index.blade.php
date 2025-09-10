@@ -1,55 +1,81 @@
 <x-tenant-dash-component>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                {{ __('Support') }}
-            </h2>
-            <div class="flex items-center gap-x-4 text-sm text-gray-600 dark:text-gray-400">
+        <div
+            class="flex items-center justify-between rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] px-6 py-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
+            <div class="flex items-center space-x-3">
+                <i
+                    class="fas fa-headset text-2xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                <h2
+                    class="text-xl font-semibold leading-tight text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                    {{ __('Support Center') }}
+                </h2>
+            </div>
+            <div
+                class="flex items-center gap-x-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                 <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()"
-                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:focus:ring-offset-gray-800"
+                    class="focus:outline-hidden rounded-lg p-2 text-[color:var(--color-gunmetal)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] hover:text-[color:var(--color-dark-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:text-[color:var(--color-light-gunmetal)] dark:hover:bg-[color:var(--color-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)] dark:focus:ring-offset-[color:var(--color-dark-green)]"
                     title="Toggle theme">
                     <!-- Sun icon (visible in dark mode) -->
-                    <svg class="hidden h-6 w-6 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
+                    <i class="fas fa-sun hidden h-6 w-6 dark:block"></i>
                     <!-- Moon icon (visible in light mode) -->
-                    <svg class="block h-6 w-6 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
+                    <i class="fas fa-moon block h-6 w-6 dark:hidden"></i>
                 </button>
             </div>
         </div>
     </x-slot>
-    <div class="py-12">
+    <div
+        class="min-h-screen bg-[color:var(--color-light-dark-green)] py-12 transition-colors duration-200 dark:bg-[color:var(--color-dark-green)]">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-xs dark:bg-gray-800 sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="mb-8">
+            <div
+                class="overflow-hidden border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] shadow-xl transition-colors duration-200 sm:rounded-lg dark:border-[color:var(--color-brunswick-green)] dark:bg-[color:var(--color-castleton-green)]">
+                <div
+                    class="p-6 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                    <div
+                        class="mb-8 rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-6 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
                         <div class="flex items-center justify-between">
-                            <div>
-                                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Support Tickets</h1>
-                                <p class="mt-2 text-gray-600 dark:text-gray-400">Submit and track your support requests
-                                </p>
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="rounded-full bg-[color:var(--color-light-castleton-green)] p-3 transition-colors duration-200 dark:bg-[color:var(--color-castleton-green)]">
+                                    <i
+                                        class="fas fa-ticket-alt text-2xl text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                </div>
+                                <div>
+                                    <h1
+                                        class="text-3xl font-bold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                        Support Tickets</h1>
+                                    <p
+                                        class="mt-2 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                        Submit and track your support requests</p>
+                                </div>
                             </div>
                             <a href="{{ route('tenant.support.create') }}"
-                                class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                class="focus:outline-hidden inline-flex items-center rounded-lg border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-dark-green)] px-6 py-3 font-medium text-[color:var(--color-light-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-castleton-green)] dark:focus:ring-[color:var(--color-brunswick-green)]">
+                                <i class="fas fa-plus mr-2"></i>
                                 New Ticket
                             </a>
                         </div>
                     </div>
 
                     <!-- Filters -->
-                    <div class="mb-6 rounded-lg bg-gray-50 p-4 dark:bg-gray-700">
+                    <div
+                        class="mb-6 rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-6 shadow-md transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                        <div class="mb-4 flex items-center">
+                            <i
+                                class="fas fa-filter mr-3 text-lg text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            <h3
+                                class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                Filter Tickets</h3>
+                        </div>
                         <form method="GET" action="{{ route('tenant.support.index') }}"
                             class="grid grid-cols-1 gap-4 md:grid-cols-4">
                             <div>
                                 <label for="status"
-                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
+                                    class="mb-2 block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    <i class="fas fa-info-circle mr-1"></i>Status
+                                </label>
                                 <select name="status" id="status"
-                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
+                                    class="block w-full rounded-lg border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-dark-green)] focus:ring-[color:var(--color-dark-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-light-dark-green)]">
                                     <option value="">All Statuses</option>
                                     <option value="open" {{ request('status') == 'open' ? 'selected' : '' }}>Open
                                     </option>
@@ -64,9 +90,11 @@
 
                             <div>
                                 <label for="priority"
-                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Priority</label>
+                                    class="mb-2 block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    <i class="fas fa-exclamation-triangle mr-1"></i>Priority
+                                </label>
                                 <select name="priority" id="priority"
-                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
+                                    class="block w-full rounded-lg border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-dark-green)] focus:ring-[color:var(--color-dark-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-light-dark-green)]">
                                     <option value="">All Priorities</option>
                                     <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>Low
                                     </option>
@@ -81,9 +109,11 @@
 
                             <div>
                                 <label for="category"
-                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
+                                    class="mb-2 block text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                    <i class="fas fa-tag mr-1"></i>Category
+                                </label>
                                 <select name="category" id="category"
-                                    class="mt-1 block w-full rounded-md border-gray-300 bg-white text-gray-900 shadow-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:text-sm">
+                                    class="block w-full rounded-lg border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-dark-green)] focus:ring-[color:var(--color-dark-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-dark-green)] dark:focus:ring-[color:var(--color-light-dark-green)]">
                                     <option value="">All Categories</option>
                                     <option value="technical"
                                         {{ request('category') == 'technical' ? 'selected' : '' }}>Technical</option>
@@ -99,11 +129,13 @@
 
                             <div class="flex items-end space-x-2">
                                 <button type="submit"
-                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                    class="focus:outline-hidden inline-flex items-center rounded-lg border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-dark-green)] px-4 py-2 font-medium text-[color:var(--color-light-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-castleton-green)] dark:focus:ring-[color:var(--color-brunswick-green)]">
+                                    <i class="fas fa-search mr-2"></i>
                                     Filter
                                 </button>
                                 <a href="{{ route('tenant.support.index') }}"
-                                    class="rounded-md bg-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-400 focus:outline-hidden focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
+                                    class="focus:outline-hidden inline-flex items-center rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] px-4 py-2 font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-dark-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-dark-green)] dark:focus:ring-[color:var(--color-brunswick-green)]">
+                                    <i class="fas fa-times mr-2"></i>
                                     Clear
                                 </a>
                             </div>
@@ -115,49 +147,42 @@
                         <div class="space-y-4">
                             @foreach ($tickets as $ticket)
                                 <div
-                                    class="rounded-lg border border-gray-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-gray-600 dark:bg-gray-800 dark:hover:shadow-lg dark:hover:shadow-gray-900/20">
+                                    class="rounded-lg border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-castleton-green)] p-6 transition-all duration-200 hover:border-[color:var(--color-dark-green)] hover:bg-[color:var(--color-light-brunswick-green)] hover:shadow-lg dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:hover:border-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                     <div class="flex items-start justify-between">
                                         <div class="flex-1">
-                                            <div class="mb-2">
-                                                <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                                                    {{ $ticket->title }}
-                                                </h3>
-                                                <div class="flex flex-wrap items-center gap-2">
+                                            <div class="mb-3">
+                                                <div class="mb-3 flex items-center">
+                                                    <i
+                                                        class="fas fa-ticket-alt mr-3 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                                    <h3
+                                                        class="text-lg font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                                        {{ $ticket->title }}
+                                                    </h3>
+                                                </div>
+                                                <div class="flex flex-wrap items-center gap-3">
                                                     <!-- Priority Badge -->
                                                     @if ($ticket->priority === 'low')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 8 8">
-                                                                <circle cx="4" cy="4" r="3" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-green-200 bg-green-100 px-3 py-1 text-xs font-medium text-green-800 transition-colors duration-200 dark:border-green-700 dark:bg-green-900/30 dark:text-green-200">
+                                                            <i class="fas fa-arrow-down mr-1"></i>
                                                             Low Priority
                                                         </span>
                                                     @elseif ($ticket->priority === 'medium')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 8 8">
-                                                                <circle cx="4" cy="4" r="3" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-yellow-200 bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800 transition-colors duration-200 dark:border-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-200">
+                                                            <i class="fas fa-minus mr-1"></i>
                                                             Medium Priority
                                                         </span>
                                                     @elseif ($ticket->priority === 'high')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-900/30 dark:text-orange-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 8 8">
-                                                                <circle cx="4" cy="4" r="3" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-orange-200 bg-orange-100 px-3 py-1 text-xs font-medium text-orange-800 transition-colors duration-200 dark:border-orange-700 dark:bg-orange-900/30 dark:text-orange-200">
+                                                            <i class="fas fa-arrow-up mr-1"></i>
                                                             High Priority
                                                         </span>
                                                     @elseif ($ticket->priority === 'critical')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900/30 dark:text-red-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 8 8">
-                                                                <circle cx="4" cy="4" r="3" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-red-200 bg-red-100 px-3 py-1 text-xs font-medium text-red-800 transition-colors duration-200 dark:border-red-700 dark:bg-red-900/30 dark:text-red-200">
+                                                            <i class="fas fa-exclamation-triangle mr-1"></i>
                                                             Critical Priority
                                                         </span>
                                                     @endif
@@ -165,46 +190,26 @@
                                                     <!-- Status Badge -->
                                                     @if ($ticket->status === 'open')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-blue-200 bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 transition-colors duration-200 dark:border-blue-700 dark:bg-blue-900/30 dark:text-blue-200">
+                                                            <i class="fas fa-clock mr-1"></i>
                                                             Open
                                                         </span>
                                                     @elseif ($ticket->status === 'in_progress')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-yellow-200 bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800 transition-colors duration-200 dark:border-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-200">
+                                                            <i class="fas fa-cogs mr-1"></i>
                                                             In Progress
                                                         </span>
                                                     @elseif ($ticket->status === 'resolved')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-green-200 bg-green-100 px-3 py-1 text-xs font-medium text-green-800 transition-colors duration-200 dark:border-green-700 dark:bg-green-900/30 dark:text-green-200">
+                                                            <i class="fas fa-check-circle mr-1"></i>
                                                             Resolved
                                                         </span>
                                                     @elseif ($ticket->status === 'closed')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-900/30 dark:text-gray-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-xs font-medium text-gray-800 transition-colors duration-200 dark:border-gray-700 dark:bg-gray-900/30 dark:text-gray-200">
+                                                            <i class="fas fa-lock mr-1"></i>
                                                             Closed
                                                         </span>
                                                     @endif
@@ -212,68 +217,57 @@
                                                     <!-- Category Badge -->
                                                     @if ($ticket->category === 'technical')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-purple-200 bg-purple-100 px-3 py-1 text-xs font-medium text-purple-800 transition-colors duration-200 dark:border-purple-700 dark:bg-purple-900/30 dark:text-purple-200">
+                                                            <i class="fas fa-wrench mr-1"></i>
                                                             Technical
                                                         </span>
                                                     @elseif ($ticket->category === 'billing')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
-                                                                <path fill-rule="evenodd"
-                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-green-200 bg-green-100 px-3 py-1 text-xs font-medium text-green-800 transition-colors duration-200 dark:border-green-700 dark:bg-green-900/30 dark:text-green-200">
+                                                            <i class="fas fa-dollar-sign mr-1"></i>
                                                             Billing
                                                         </span>
                                                     @elseif ($ticket->category === 'feature_request')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-indigo-200 bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800 transition-colors duration-200 dark:border-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-200">
+                                                            <i class="fas fa-lightbulb mr-1"></i>
                                                             Feature Request
                                                         </span>
                                                     @elseif ($ticket->category === 'general')
                                                         <span
-                                                            class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-900/30 dark:text-gray-200">
-                                                            <svg class="mr-1 h-3 w-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
+                                                            class="inline-flex items-center rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-xs font-medium text-gray-800 transition-colors duration-200 dark:border-gray-700 dark:bg-gray-900/30 dark:text-gray-200">
+                                                            <i class="fas fa-question-circle mr-1"></i>
                                                             General
                                                         </span>
                                                     @endif
                                                 </div>
                                             </div>
-                                            <p class="mb-2 text-gray-600 dark:text-gray-400">
+                                            <p
+                                                class="mb-3 leading-relaxed text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                                 {{ Str::limit($ticket->description, 150) }}
                                             </p>
                                             <div
-                                                class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
-                                                <span>Ticket #{{ $ticket->ticket_number }}</span>
-                                                <span>Created {{ $ticket->created_at->format('M j, Y') }}</span>
+                                                class="flex items-center space-x-4 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                                <span class="flex items-center">
+                                                    <i class="fas fa-hashtag mr-1"></i>
+                                                    {{ $ticket->ticket_number }}
+                                                </span>
+                                                <span class="flex items-center">
+                                                    <i class="fas fa-calendar-plus mr-1"></i>
+                                                    {{ $ticket->created_at->format('M j, Y') }}
+                                                </span>
                                                 @if ($ticket->resolved_at)
-                                                    <span>Resolved {{ $ticket->resolved_at->format('M j, Y') }}</span>
+                                                    <span class="flex items-center text-green-600 dark:text-green-400">
+                                                        <i class="fas fa-check-circle mr-1"></i>
+                                                        Resolved {{ $ticket->resolved_at->format('M j, Y') }}
+                                                    </span>
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="ml-4">
+                                        <div class="ml-6">
                                             <a href="{{ route('tenant.support.show', $ticket) }}"
-                                                class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                                class="focus:outline-hidden inline-flex items-center rounded-lg border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-dark-green)] px-4 py-2 font-medium text-[color:var(--color-light-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-castleton-green)] dark:focus:ring-[color:var(--color-brunswick-green)]">
+                                                <i class="fas fa-eye mr-2"></i>
                                                 View Details
                                             </a>
                                         </div>
@@ -283,24 +277,28 @@
                         </div>
 
                         @if ($tickets->hasPages())
-                            <div class="mt-6">
+                            <div
+                                class="mt-8 rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] p-4 transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
                                 {{ $tickets->withQueryString()->links() }}
                             </div>
                         @endif
                     @else
-                        <div class="py-12 text-center">
-                            <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 8h10m0 0V6a2 2 0 00-2-2H9a2 2 0 00-2 2v2m10 0v10a2 2 0 01-2 2H9a2 2 0 01-2-2V8m0 0V6a2 2 0 012-2h2a2 2 0 012 2v2">
-                                </path>
-                            </svg>
-                            <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No support tickets</h3>
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by creating your first
-                                support ticket.</p>
-                            <div class="mt-6">
+                        <div
+                            class="rounded-lg border border-[color:var(--color-light-castleton-green)] bg-[color:var(--color-light-brunswick-green)] py-16 text-center transition-colors duration-200 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                            <div class="mb-6">
+                                <i
+                                    class="fas fa-ticket-alt text-6xl text-[color:var(--color-gunmetal)] opacity-50 dark:text-[color:var(--color-light-gunmetal)]"></i>
+                            </div>
+                            <h3
+                                class="mb-2 text-xl font-semibold text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                                No support tickets</h3>
+                            <p
+                                class="mb-6 text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                Get started by creating your first support ticket.</p>
+                            <div>
                                 <a href="{{ route('tenant.support.create') }}"
-                                    class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400">
+                                    class="focus:outline-hidden inline-flex items-center rounded-lg border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-dark-green)] px-6 py-3 font-medium text-[color:var(--color-light-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-dark-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-castleton-green)] dark:focus:ring-[color:var(--color-brunswick-green)]">
+                                    <i class="fas fa-plus mr-2"></i>
                                     Create Support Ticket
                                 </a>
                             </div>
