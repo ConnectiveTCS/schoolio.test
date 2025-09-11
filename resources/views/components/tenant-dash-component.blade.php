@@ -305,9 +305,11 @@
                                         <a href="{{ route('tenant.students') }}"
                                             class="sidebar-submenu-item {{ request()->routeIs('tenant.students.index') || request()->routeIs('tenant.students') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
                                             Students</a>
-                                        <a href="{{ route('tenant.students.create') }}"
-                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.students.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Add
-                                            Student</a>
+                                        @can('create students')
+                                            <a href="{{ route('tenant.students.create') }}"
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.students.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Add
+                                                Student</a>
+                                        @endcan
                                     </div>
                                 </div>
 
@@ -326,9 +328,11 @@
                                         <a href="{{ route('tenant.teachers') }}"
                                             class="sidebar-submenu-item {{ request()->routeIs('tenant.teachers.index') || request()->routeIs('tenant.teachers') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
                                             Teachers</a>
-                                        <a href="{{ route('tenant.teachers.create') }}"
-                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.teachers.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Add
-                                            Teacher</a>
+                                        @can('create teachers')
+                                            <a href="{{ route('tenant.teachers.create') }}"
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.teachers.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Add
+                                                Teacher</a>
+                                        @endcan
                                     </div>
                                 </div>
 
@@ -347,9 +351,11 @@
                                         <a href="{{ route('tenant.classes') }}"
                                             class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.index') || request()->routeIs('tenant.classes') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
                                             Classes</a>
-                                        <a href="{{ route('tenant.classes.create') }}"
-                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Create
-                                            Class</a>
+                                        @can('create classes')
+                                            <a href="{{ route('tenant.classes.create') }}"
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Create
+                                                Class</a>
+                                        @endcan
                                         @can('view attendance')
                                             <a href="{{ route('tenant.attendance.index') }}"
                                                 class="sidebar-submenu-item {{ request()->routeIs('tenant.attendance*') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Attendance</a>
@@ -357,13 +363,14 @@
                                         <a href="#" class="sidebar-submenu-item">Schedules</a>
                                     </div>
                                 </div>
-
+                                @can('manage users')
                                 <!-- Users -->
                                 <a href="{{ route('tenant.users') }}"
                                     class="sidebar-nav-item {{ request()->routeIs('tenant.users*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
                                     <i class="fas fa-users mr-3 h-5 w-5"></i>
                                     Users
-                                </a>
+                                </a>                                    
+                                @endcan
 
                                 <!-- Announcements Section -->
                                 @can('view announcements')
@@ -450,13 +457,14 @@
                                     <i class="fas fa-life-ring mr-3 h-5 w-5"></i>
                                     Support
                                 </a>
-
-                                <!-- Settings -->
-                                <a href="{{ route('settings') }}"
-                                    class="sidebar-nav-item {{ request()->routeIs('settings*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
-                                    <i class="fas fa-cog mr-3 h-5 w-5"></i>
-                                    Settings
-                                </a>
+                                @can('manage settings')
+                                    <!-- Settings -->
+                                    <a href="{{ route('settings') }}"
+                                        class="sidebar-nav-item {{ request()->routeIs('settings*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
+                                        <i class="fas fa-cog mr-3 h-5 w-5"></i>
+                                        Settings
+                                    </a>
+                                @endcan
                             </div>
 
                             <!-- User menu at bottom -->
@@ -466,7 +474,7 @@
                                     <button @click="userMenuOpen = !userMenuOpen"
                                         class="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                         <div
-                                            class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--color-castleton-green)] text-xs font-semibold text-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)]">
+                                            class="mr-3 flex h-8 w-8 aspect-square items-center justify-center rounded-full bg-[color:var(--color-castleton-green)] text-xs font-semibold text-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)]">
                                             @auth
                                                 {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
                                             @else
@@ -479,14 +487,6 @@
                                                     {{ Auth::user()->name ?? 'User' }}
                                                 @else
                                                     User
-                                                @endauth
-                                            </div>
-                                            <div
-                                                class="text-xs text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
-                                                @auth
-                                                    {{ Auth::user()->email ?? '' }}
-                                                @else
-                                                    guest@example.com
                                                 @endauth
                                             </div>
                                         </div>

@@ -129,6 +129,7 @@ class PermissionSeeder extends Seeder
             'delete permissions',
             'view permissions',
             'apply permissions to roles',
+            'manage settings'
         ]);
 
         // Give teacher permissions
