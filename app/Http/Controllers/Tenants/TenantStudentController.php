@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
@@ -152,7 +153,11 @@ class TenantStudentController extends Controller
         ]);
 
         // Send welcome email to student
-        Mail::to($user->email)->send(new WelcomeStudentMail($user, $password));
+        try {
+            Mail::to($user->email)->send(new WelcomeStudentMail($user, $password));
+        } catch (\Exception $e) {
+            Log::warning('Failed to send welcome email to student: ' . $e->getMessage());
+        }
 
         // Create parent 1 if provided
         if (!empty($validated['parent1_name']) && !empty($validated['parent1_email'])) {
@@ -174,7 +179,11 @@ class TenantStudentController extends Controller
             ]);
 
             // Send welcome email to parent 1
-            Mail::to($parent1User->email)->send(new WelcomeParentMail($parent1User, $parent1Password, $student));
+            try {
+                Mail::to($parent1User->email)->send(new WelcomeParentMail($parent1User, $parent1Password, $student));
+            } catch (\Exception $e) {
+                Log::warning('Failed to send welcome email to parent 1: ' . $e->getMessage());
+            }
         }
 
         // Create parent 2 if provided
@@ -197,10 +206,14 @@ class TenantStudentController extends Controller
             ]);
 
             // Send welcome email to parent 2
-            Mail::to($parent2User->email)->send(new WelcomeParentMail($parent2User, $parent2Password, $student));
+            try {
+                Mail::to($parent2User->email)->send(new WelcomeParentMail($parent2User, $parent2Password, $student));
+            } catch (\Exception $e) {
+                Log::warning('Failed to send welcome email to parent 2: ' . $e->getMessage());
+            }
         }
 
-        return redirect()->route('tenant.students')->with('status', 'Student and parent(s) created successfully with credentials emailed.');
+        return redirect()->route('tenant.students')->with('status', 'Student and parent(s) created successfully. Welcome emails have been queued for delivery (check logs if emails are not received).');
     }
 
     /**
@@ -304,6 +317,11 @@ class TenantStudentController extends Controller
 
         // Update student
         $student->update($validated);
+        // Update associated user
+        $student->user->update([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+        ]);
 
         // Handle Parent 1
         if ($request->parent1_id) {
@@ -446,5 +464,52 @@ class TenantStudentController extends Controller
         $student->classes()->detach($class->id);
 
         return back()->with('success', "Student unenrolled from {$class->name} successfully.");
+    }
+
+    /**
+     * Reset a student's password.
+     */
+    public function resetPassword(TenantStudents $student)
+    {
+        $user = Auth::user();
+
+        // Check if user has permission to reset passwords
+        if (!$user->hasRole(['tenant_admin', 'teacher'])) {
+            return back()->with('error', 'You do not have permission to reset student passwords.');
+        }
+
+        // For teachers, check if they have access to this student
+        if ($user->hasRole('teacher') && $user->teacher) {
+            $teacherClassIds = $user->teacher->classes->pluck('id')->toArray();
+            $studentClassIds = $student->classes->pluck('id')->toArray();
+
+            // Check if student is in any of the teacher's classes
+            if (empty($teacherClassIds) || empty(array_intersect($teacherClassIds, $studentClassIds))) {
+                return back()->with('error', 'You can only reset passwords for students in your classes.');
+            }
+        }
+
+        if (!$student->user) {
+            return back()->with('error', 'Student does not have an associated user account.');
+        }
+
+        // Generate a new random password
+        $newPassword = Str::random(8);
+
+        // Update the user's password
+        $student->user->update([
+            'password' => Hash::make($newPassword),
+        ]);
+
+        // Send email with new password to student
+        try {
+            Mail::to($student->user->email)->send(new WelcomeStudentMail($student->user, $newPassword));
+            $message = 'Password has been reset successfully. New password has been sent to the student\'s email address.';
+        } catch (\Exception $e) {
+            Log::warning('Failed to send password reset email to student: ' . $e->getMessage());
+            $message = 'Password has been reset successfully, but email could not be sent. New password is: ' . $newPassword;
+        }
+
+        return back()->with('status', $message);
     }
 }

@@ -124,6 +124,22 @@
                                             class="inline-flex items-center text-[color:var(--color-prussian-blue)] transition-colors duration-200 hover:text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-prussian-blue)] dark:hover:text-[color:var(--color-light-gunmetal)]">
                                             <i class="fas fa-edit mr-1"></i>Edit
                                         </a>
+                                        @if (
+                                            $student->user &&
+                                                (auth()->user()->hasRole('tenant_admin') ||
+                                                    (auth()->user()->hasRole('teacher') &&
+                                                        auth()->user()->teacher &&
+                                                        $student->classes->whereIn('id', auth()->user()->teacher->classes->pluck('id'))->count() > 0)))
+                                            <form action="{{ route('tenant.students.resetPassword', $student) }}"
+                                                method="POST" class="inline">
+                                                @csrf
+                                                <button type="submit"
+                                                    onclick="return confirm('Are you sure you want to reset {{ $student->name }}\'s password? A new password will be sent to their email address.')"
+                                                    class="inline-flex items-center text-yellow-600 transition-colors duration-200 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300">
+                                                    <i class="fas fa-key mr-1"></i>Reset Password
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

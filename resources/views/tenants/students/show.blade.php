@@ -369,6 +369,22 @@
                     class="focus:outline-hidden inline-flex items-center rounded-md border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] px-4 py-2 text-sm font-medium text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:bg-[color:var(--color-prussian-blue)]">
                     <i class="fas fa-arrow-left mr-2"></i>Back to Students
                 </a>
+                @if (
+                    $student->user &&
+                        (auth()->user()->hasRole('tenant_admin') ||
+                            (auth()->user()->hasRole('teacher') &&
+                                auth()->user()->teacher &&
+                                $student->classes->whereIn('id', auth()->user()->teacher->classes->pluck('id'))->count() > 0)))
+                    <form action="{{ route('tenant.students.resetPassword', $student) }}" method="POST"
+                        class="inline">
+                        @csrf
+                        <button type="submit"
+                            onclick="return confirm('Are you sure you want to reset {{ $student->name }}\'s password? A new password will be sent to their email address.')"
+                            class="focus:outline-hidden inline-flex items-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-700 dark:hover:bg-yellow-600">
+                            <i class="fas fa-key mr-2"></i>Reset Password
+                        </button>
+                    </form>
+                @endif
                 <a href="{{ route('tenant.students.edit', $student) }}"
                     class="focus:outline-hidden inline-flex items-center rounded-md border border-transparent bg-[color:var(--color-castleton-green)] px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
                     <i class="fas fa-edit mr-2"></i>Edit Student

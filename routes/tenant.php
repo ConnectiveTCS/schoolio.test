@@ -80,6 +80,7 @@ Route::middleware([
         Route::delete('/students/{student}', [TenantStudentController::class, 'destroy'])->name('tenant.students.destroy');
         Route::post('/students/{student}/enroll', [TenantStudentController::class, 'enrollInClass'])->name('tenant.students.enrollInClass');
         Route::delete('/students/{student}/classes/{class}', [TenantStudentController::class, 'unenrollFromClass'])->name('tenant.students.unenrollFromClass');
+        Route::post('/students/{student}/reset-password', [TenantStudentController::class, 'resetPassword'])->name('tenant.students.resetPassword');
         Route::get('/classes', [TenantClassesController::class, 'index'])->name('tenant.classes');
         Route::get('/classes/create', [TenantClassesController::class, 'create'])->name('tenant.classes.create');
         Route::post('/classes', [TenantClassesController::class, 'store'])->name('tenant.classes.store');
