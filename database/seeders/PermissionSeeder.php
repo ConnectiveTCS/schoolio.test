@@ -38,6 +38,29 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit calendar events']);
         Permission::create(['name' => 'delete calendar events']);
         Permission::create(['name' => 'view calendar events']);
+        Permission::create(['name' => 'create students']);
+        Permission::create(['name' => 'edit students']);
+        Permission::create(['name' => 'delete students']);
+        Permission::create(['name' => 'view students']);
+        Permission::create(['name' => 'enroll students']);
+        Permission::create(['name' => 'unenroll students']);
+        Permission::create(['name' => 'create teachers']);
+        Permission::create(['name' => 'edit teachers']);
+        Permission::create(['name' => 'delete teachers']);
+        Permission::create(['name' => 'view teachers']);
+        Permission::create(['name' => 'create parents']);
+        Permission::create(['name' => 'edit parents']);
+        Permission::create(['name' => 'delete parents']);
+        Permission::create(['name' => 'view parents']);
+        Permission::create(['name' => 'create attendance']);
+        Permission::create(['name' => 'edit attendance']);
+        Permission::create(['name' => 'delete attendance']);
+        Permission::create(['name' => 'view attendance']);
+        Permission::create(['name' => 'create permissions']);
+        Permission::create(['name' => 'edit permissions']);
+        Permission::create(['name' => 'delete permissions']);
+        Permission::create(['name' => 'view permissions']);
+        Permission::create(['name' => 'apply permissions to roles']);
 
         $support = $roles->where('name', 'support')->first();
         if ($support) {
@@ -71,6 +94,34 @@ class PermissionSeeder extends Seeder
             'edit calendar events',
             'delete calendar events',
             'view calendar events',
+            'create students',
+            'edit students',
+            'delete students',
+            'view students',
+            'enroll students',
+            'unenroll students',
+            'create teachers',
+            'edit teachers',
+            'delete teachers',
+            'view teachers',
+            'create parents',
+            'edit parents',
+            'delete parents',
+            'view parents',
+            'create attendance',
+            'edit attendance',
+            'delete attendance',
+            'view attendance',
+            'manage attendance',
+            'create reports',
+            'edit reports',
+            'delete reports',
+            'view reports',
+            'create permissions',
+            'edit permissions',
+            'delete permissions',
+            'view permissions',
+            'apply permissions to roles',
         ]);
 
         // Give teacher announcement permissions

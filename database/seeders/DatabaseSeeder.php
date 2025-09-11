@@ -5,11 +5,13 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Tenant;
+use App\Models\CentralAdmin;
 use App\Models\TenantTeacher;
 use App\Models\TenantStudents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RolesSeeder;
 use Database\Seeders\TenantSeeder;
+use Illuminate\Support\Facades\Hash;
 use Database\Seeders\PermissionSeeder;
 use Spatie\Permission\PermissionRegistrar;
 
@@ -99,5 +101,18 @@ class DatabaseSeeder extends Seeder
             ]);
             $tenantUser->assignRole('tenant_admin');
         });
+        CentralAdmin::create([
+            'name' => 'Kyle McPherson',
+            'email' => 'admin@acewebdesign.co.za',
+            'password' => Hash::make('Morgan146@'),
+            'role' => 'super_admin',
+            'permissions' => [
+                'manage_tenants',
+                'view_tenant_data',
+                'manage_admins',
+                'system_settings',
+            ],
+            'is_active' => true,
+        ]);
     }
 }

@@ -15,6 +15,8 @@ use App\Http\Controllers\Tenants\TenantStudentController;
 use App\Http\Controllers\Tenants\TenantTeacherController;
 use App\Http\Controllers\Tenants\AnnouncementController;
 use App\Http\Controllers\Tenants\CalendarEventController;
+use App\Http\Controllers\Tenants\AttendanceController;
+use App\Http\Controllers\Tenants\ReportsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -130,6 +132,27 @@ Route::middleware([
         Route::get('/api/activities', [TenantController::class, 'getActivities'])->name('tenant.activities.index');
         Route::delete('/api/activities/clear-all', [TenantController::class, 'clearAllActivities'])->name('tenant.activities.clear-all');
         Route::delete('/api/activities/{index}', [TenantController::class, 'clearActivity'])->name('tenant.activities.clear');
+
+        // Attendance routes
+        Route::prefix('attendance')->name('tenant.attendance.')->group(function () {
+            Route::get('/', [AttendanceController::class, 'index'])->name('index');
+            Route::get('/create', [AttendanceController::class, 'create'])->name('create');
+            Route::post('/', [AttendanceController::class, 'store'])->name('store');
+            Route::get('/class/{class}', [AttendanceController::class, 'show'])->name('show');
+            Route::get('/{attendance}/edit', [AttendanceController::class, 'edit'])->name('edit');
+            Route::put('/{attendance}', [AttendanceController::class, 'update'])->name('update');
+            Route::delete('/{attendance}', [AttendanceController::class, 'destroy'])->name('destroy');
+            Route::get('/api/data', [AttendanceController::class, 'getData'])->name('api.data');
+        });
+
+        // Reports routes
+        Route::prefix('reports')->name('tenant.reports.')->group(function () {
+            Route::get('/', [ReportsController::class, 'index'])->name('index');
+            Route::get('/attendance', [ReportsController::class, 'attendance'])->name('attendance');
+            Route::get('/enrollment', [ReportsController::class, 'enrollment'])->name('enrollment');
+            Route::get('/class-summary', [ReportsController::class, 'classSummary'])->name('class-summary');
+            Route::get('/activity', [ReportsController::class, 'activity'])->name('activity');
+        });
 
         // Impersonation end route
         Route::post('/end-impersonation', [ImpersonationController::class, 'endImpersonation'])->name('end-impersonation');

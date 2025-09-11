@@ -28,6 +28,7 @@ class TenantClasses extends Model
         'description',
         'room',
         'schedule',
+        'capacity',
         'is_active',
     ];
 
@@ -60,5 +61,13 @@ class TenantClasses extends Model
     public function activeStudents()
     {
         return $this->students()->wherePivot('is_active', true);
+    }
+
+    /**
+     * Get the attendance records for this class.
+     */
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'tenant_class_id');
     }
 }

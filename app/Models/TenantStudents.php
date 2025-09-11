@@ -70,4 +70,12 @@ class TenantStudents extends Model
     {
         return $this->classes()->wherePivot('is_active', true);
     }
+
+    /**
+     * Get the attendance records for this student.
+     */
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'tenant_student_id');
+    }
 }

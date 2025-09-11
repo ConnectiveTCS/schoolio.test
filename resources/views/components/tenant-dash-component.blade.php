@@ -333,9 +333,9 @@
                                 </div>
 
                                 <!-- Classes Section -->
-                                <div x-data="{ open: {{ request()->routeIs('tenant.classes*') ? 'true' : 'false' }} }" class="space-y-1">
+                                <div x-data="{ open: {{ request()->routeIs('tenant.classes*') || request()->routeIs('tenant.attendance*') ? 'true' : 'false' }} }" class="space-y-1">
                                     <button @click="open = !open"
-                                        class="sidebar-nav-item {{ request()->routeIs('tenant.classes*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
+                                        class="sidebar-nav-item {{ request()->routeIs('tenant.classes*') || request()->routeIs('tenant.attendance*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
                                         <div class="flex items-center">
                                             <i class="fas fa-school mr-3 h-5 w-5"></i>
                                             Classes
@@ -350,6 +350,10 @@
                                         <a href="{{ route('tenant.classes.create') }}"
                                             class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Create
                                             Class</a>
+                                        @can('view attendance')
+                                            <a href="{{ route('tenant.attendance.index') }}"
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.attendance*') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Attendance</a>
+                                        @endcan
                                         <a href="#" class="sidebar-submenu-item">Schedules</a>
                                     </div>
                                 </div>
