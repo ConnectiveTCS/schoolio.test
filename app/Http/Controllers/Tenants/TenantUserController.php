@@ -78,10 +78,15 @@ class TenantUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'role' => 'required|string|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
         $user->update($request->only('name', 'email'));
         $user->syncRoles($request->role);
+
+        if ($request->filled('password')) {
+            $user->update(['password' => bcrypt($request->password)]);
+        }
 
         return redirect()->route('tenant.users')->with('success', 'User updated successfully.');
     }

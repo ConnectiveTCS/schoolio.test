@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use Illuminate\Http\Request;
 use App\Models\TenantClasses;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TenantClassesController extends Controller
 {
@@ -14,9 +15,21 @@ class TenantClassesController extends Controller
      */
     public function index()
     {
-        // Load classes with their students count
-        $classes = TenantClasses::withCount('students')->get();
+        $user = Auth::user();
         $tenant = tenant();
+
+        // If user is tenant_admin, show all classes
+        if ($user->hasRole('tenant_admin')) {
+            $classes = TenantClasses::withCount('students')->get();
+        } else if ($user->hasRole('teacher') && $user->teacher) {
+            // For teachers, only show classes they are assigned to
+            $classes = TenantClasses::withCount('students')
+                ->where('teacher_id', $user->teacher->id)
+                ->get();
+        } else {
+            // For other roles, show no classes
+            $classes = collect();
+        }
 
         return view('tenants.classes.index', compact('tenant', 'classes'));
     }
@@ -26,9 +39,20 @@ class TenantClassesController extends Controller
      */
     public function create()
     {
-        //
-        $teachers = \App\Models\TenantTeacher::all();
+        $user = Auth::user();
         $tenant = tenant();
+
+        // If user is tenant_admin, show all teachers
+        if ($user->hasRole('tenant_admin')) {
+            $teachers = \App\Models\TenantTeacher::all();
+        } else if ($user->hasRole('teacher') && $user->teacher) {
+            // For teachers, only allow them to select themselves
+            $teachers = collect([$user->teacher]);
+        } else {
+            // For other roles, show no teachers
+            $teachers = collect();
+        }
+
         return view('tenants.classes.create', compact('tenant', 'teachers'));
     }
 
@@ -37,7 +61,8 @@ class TenantClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
         $validated = $request->validate([
             'teacher_id' => 'required|exists:tenant_teachers,id',
             'name' => 'required|string|max:255',
@@ -47,6 +72,12 @@ class TenantClassesController extends Controller
             'schedule' => 'nullable|json',
             'is_active' => 'sometimes|boolean',
         ]);
+
+        // If user is a teacher, ensure they can only assign the class to themselves
+        if ($user->hasRole('teacher') && !$user->hasRole('tenant_admin')) {
+            $validated['teacher_id'] = $user->teacher->id;
+        }
+
         TenantClasses::create([
             'teacher_id' => $validated['teacher_id'],
             'name' => $validated['name'],
@@ -65,6 +96,16 @@ class TenantClassesController extends Controller
      */
     public function show(TenantClasses $class)
     {
+        $user = Auth::user();
+
+        // Check if user has permission to view this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to view this class.');
+        }
+
         // Load the class with its students
         $class->load('students');
 
@@ -80,7 +121,26 @@ class TenantClassesController extends Controller
      */
     public function edit(TenantClasses $class)
     {
-        $teachers = \App\Models\TenantTeacher::all();
+        $user = Auth::user();
+
+        // Check if user has permission to edit this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to edit this class.');
+        }
+
+        // If user is tenant_admin, show all teachers
+        if ($user->hasRole('tenant_admin')) {
+            $teachers = \App\Models\TenantTeacher::all();
+        } else if ($user->hasRole('teacher') && $user->teacher) {
+            // For teachers, only allow them to select themselves
+            $teachers = collect([$user->teacher]);
+        } else {
+            $teachers = collect();
+        }
+
         return view('tenants.classes.edit', compact('class', 'teachers'));
     }
 
@@ -89,6 +149,16 @@ class TenantClassesController extends Controller
      */
     public function update(Request $request, TenantClasses $class)
     {
+        $user = Auth::user();
+
+        // Check if user has permission to update this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to update this class.');
+        }
+
         $validated = $request->validate([
             'teacher_id' => 'required|exists:tenant_teachers,id',
             'name' => 'required|string|max:255',
@@ -98,6 +168,11 @@ class TenantClassesController extends Controller
             'schedule' => 'nullable|json',
             'is_active' => 'sometimes|boolean',
         ]);
+
+        // If user is a teacher, ensure they can only assign the class to themselves
+        if ($user->hasRole('teacher') && !$user->hasRole('tenant_admin')) {
+            $validated['teacher_id'] = $user->teacher->id;
+        }
 
         $class->update($validated);
 
@@ -109,6 +184,16 @@ class TenantClassesController extends Controller
      */
     public function destroy(TenantClasses $class)
     {
+        $user = Auth::user();
+
+        // Check if user has permission to delete this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to delete this class.');
+        }
+
         $class->delete();
 
         return redirect()->route('tenant.classes')->with('success', 'Class deleted successfully.');
@@ -119,6 +204,16 @@ class TenantClassesController extends Controller
      */
     public function addStudent(Request $request, TenantClasses $class)
     {
+        $user = Auth::user();
+
+        // Check if user has permission to add students to this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to add students to this class.');
+        }
+
         $validated = $request->validate([
             'student_id' => 'required|exists:tenant_students,id',
         ]);
@@ -146,6 +241,16 @@ class TenantClassesController extends Controller
      */
     public function removeStudent(TenantClasses $class, \App\Models\TenantStudents $student)
     {
+        $user = Auth::user();
+
+        // Check if user has permission to remove students from this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to remove students from this class.');
+        }
+
         // Check if student is enrolled in this class
         if (!$student->classes()->where('tenant_class_id', $class->id)->exists()) {
             return back()->with('error', 'Student is not enrolled in this class.');

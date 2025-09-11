@@ -11,6 +11,7 @@ use App\Mail\WelcomeStudentMail;
 use App\Mail\WelcomeParentMail;
 use App\Http\Controllers\Controller;
 use App\Models\Tenant;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
@@ -22,17 +23,54 @@ class TenantStudentController extends Controller
      */
     public function index()
     {
-        //
-        $students = TenantStudents::with(['classes', 'parents'])->get();
+        $user = Auth::user();
         $tenant = tenant();
-        // Get users who have student role or have a student record
-        $users = \App\Models\User::with('student')
-            ->where(function ($query) {
-                $query->whereHas('roles', function ($q) {
-                    $q->where('name', 'student');
-                })->orWhereHas('student');
-            })
-            ->get();
+
+        // If user is tenant_admin, show all students
+        if ($user->hasRole('tenant_admin')) {
+            $students = TenantStudents::with(['classes', 'parents'])->get();
+            // Get users who have student role or have a student record
+            $users = \App\Models\User::with('student')
+                ->where(function ($query) {
+                    $query->whereHas('roles', function ($q) {
+                        $q->where('name', 'student');
+                    })->orWhereHas('student');
+                })
+                ->get();
+        } else if ($user->hasRole('teacher') && $user->teacher) {
+            // For teachers, only show students from their assigned classes
+            $teacherClassIds = $user->teacher->classes->pluck('id')->toArray();
+
+            if (empty($teacherClassIds)) {
+                // Teacher has no classes assigned, show empty results
+                $students = collect();
+                $users = collect();
+            } else {
+                // Get students enrolled in teacher's classes
+                $students = TenantStudents::with(['classes', 'parents'])
+                    ->whereHas('classes', function ($query) use ($teacherClassIds) {
+                        $query->whereIn('tenant_classes.id', $teacherClassIds);
+                    })
+                    ->get();
+
+                // Get users who have student role and are enrolled in teacher's classes
+                $users = \App\Models\User::with('student')
+                    ->where(function ($query) {
+                        $query->whereHas('roles', function ($q) {
+                            $q->where('name', 'student');
+                        })->orWhereHas('student');
+                    })
+                    ->whereHas('student.classes', function ($query) use ($teacherClassIds) {
+                        $query->whereIn('tenant_classes.id', $teacherClassIds);
+                    })
+                    ->get();
+            }
+        } else {
+            // For other roles or teachers without teacher record, show empty results
+            $students = collect();
+            $users = collect();
+        }
+
         return view('tenants.students.index', compact('tenant', 'users', 'students'));
     }
 

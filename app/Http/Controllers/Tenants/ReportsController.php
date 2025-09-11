@@ -23,7 +23,7 @@ class ReportsController extends Controller
      */
     public function index()
     {
-        $this->authorize('view reports');
+        $this->authorize('view attendance');
 
         $reportTypes = [
             'attendance' => [
@@ -60,7 +60,7 @@ class ReportsController extends Controller
      */
     public function attendance(Request $request)
     {
-        $this->authorize('view reports');
+        $this->authorize('view attendance');
 
         $startDate = $request->input('start_date', Carbon::now()->startOfMonth()->format('Y-m-d'));
         $endDate = $request->input('end_date', Carbon::now()->endOfMonth()->format('Y-m-d'));

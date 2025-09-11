@@ -56,6 +56,12 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit attendance']);
         Permission::create(['name' => 'delete attendance']);
         Permission::create(['name' => 'view attendance']);
+        Permission::create(['name' => 'manage attendance']);
+        Permission::create(['name' => 'create reports']);
+        Permission::create(['name' => 'edit reports']);
+        Permission::create(['name' => 'delete reports']);
+        Permission::create(['name' => 'view reports']);
+        Permission::create(['name' => 'view classes']);
         Permission::create(['name' => 'create permissions']);
         Permission::create(['name' => 'edit permissions']);
         Permission::create(['name' => 'delete permissions']);
@@ -117,6 +123,7 @@ class PermissionSeeder extends Seeder
             'edit reports',
             'delete reports',
             'view reports',
+            'view classes',
             'create permissions',
             'edit permissions',
             'delete permissions',
@@ -124,17 +131,29 @@ class PermissionSeeder extends Seeder
             'apply permissions to roles',
         ]);
 
-        // Give teacher announcement permissions
+        // Give teacher permissions
         $teacher = $roles->where('name', 'teacher')->first();
         if ($teacher) {
             $teacher->givePermissionTo([
                 'view dashboard',
+                // Announcement permissions
                 'create announcements',
                 'edit announcements',
                 'view announcements',
+                // Calendar event permissions
                 'create calendar events',
                 'edit calendar events',
                 'view calendar events',
+                // Attendance permissions
+                'create attendance',
+                'edit attendance',
+                'view attendance',
+                // Student permissions (view only for teachers)
+                'view students',
+                // Class permissions
+                'view classes',
+                // Reports permissions
+                'view reports',
             ]);
         }
 

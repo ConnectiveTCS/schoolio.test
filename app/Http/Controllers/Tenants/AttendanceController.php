@@ -49,7 +49,19 @@ class AttendanceController extends Controller
             ->orderBy('tenant_class_id')
             ->paginate(20);
 
-        $classes = TenantClasses::all();
+        // Filter classes based on user role
+        $user = Auth::user();
+        if ($user->hasRole('tenant_admin')) {
+            // Tenant admin can see all classes
+            $classes = TenantClasses::all();
+        } elseif ($user->hasRole('teacher') && $user->teacher) {
+            // Teachers can only see their assigned classes
+            $classes = TenantClasses::where('teacher_id', $user->teacher->id)->get();
+        } else {
+            // Other roles get empty collection
+            $classes = collect();
+        }
+
         $statusOptions = Attendance::getStatusOptions();
 
         return view('tenants.attendance.index', compact('attendances', 'classes', 'statusOptions'));
@@ -77,7 +89,19 @@ class AttendanceController extends Controller
             $existingAttendance = collect();
         }
 
-        $classes = TenantClasses::all();
+        // Filter classes based on user role
+        $user = Auth::user();
+        if ($user->hasRole('tenant_admin')) {
+            // Tenant admin can see all classes
+            $classes = TenantClasses::all();
+        } elseif ($user->hasRole('teacher') && $user->teacher) {
+            // Teachers can only see their assigned classes
+            $classes = TenantClasses::where('teacher_id', $user->teacher->id)->get();
+        } else {
+            // Other roles get empty collection
+            $classes = collect();
+        }
+
         $statusOptions = Attendance::getStatusOptions();
 
         return view('tenants.attendance.create', compact('class', 'classes', 'date', 'existingAttendance', 'statusOptions'));
@@ -100,6 +124,16 @@ class AttendanceController extends Controller
         ]);
 
         $class = TenantClasses::findOrFail($request->class_id);
+        $user = Auth::user();
+
+        // Check if user has permission to create attendance for this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to create attendance for this class.');
+        }
+
         $date = $request->date;
 
         foreach ($request->attendance as $attendanceData) {
@@ -127,6 +161,16 @@ class AttendanceController extends Controller
     public function show(TenantClasses $class)
     {
         $this->authorize('view attendance');
+
+        $user = Auth::user();
+
+        // Check if user has permission to access this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to access this class.');
+        }
 
         $startDate = request('start_date', Carbon::now()->startOfMonth());
         $endDate = request('end_date', Carbon::now()->endOfMonth());
@@ -164,6 +208,16 @@ class AttendanceController extends Controller
     {
         $this->authorize('edit attendance');
 
+        $user = Auth::user();
+
+        // Check if user has permission to edit attendance for this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $attendance->tenantClass->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to edit attendance for this class.');
+        }
+
         $statusOptions = Attendance::getStatusOptions();
 
         return view('tenants.attendance.edit', compact('attendance', 'statusOptions'));
@@ -175,6 +229,16 @@ class AttendanceController extends Controller
     public function update(Request $request, Attendance $attendance)
     {
         $this->authorize('edit attendance');
+
+        $user = Auth::user();
+
+        // Check if user has permission to edit attendance for this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $attendance->tenantClass->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to edit attendance for this class.');
+        }
 
         $request->validate([
             'status' => 'required|in:present,absent,late,excused',
@@ -198,6 +262,16 @@ class AttendanceController extends Controller
     {
         $this->authorize('manage attendance');
 
+        $user = Auth::user();
+
+        // Check if user has permission to delete attendance for this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $attendance->tenantClass->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to delete attendance for this class.');
+        }
+
         $attendance->delete();
 
         return redirect()->route('tenant.attendance.index')
@@ -211,7 +285,17 @@ class AttendanceController extends Controller
     {
         $this->authorize('view attendance');
 
+        $user = Auth::user();
         $class = TenantClasses::with(['students.user'])->findOrFail($request->class_id);
+
+        // Check if user has permission to access this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to access this class.');
+        }
+
         $date = $request->input('date', Carbon::today()->format('Y-m-d'));
 
         $existingAttendance = Attendance::where('tenant_class_id', $class->id)

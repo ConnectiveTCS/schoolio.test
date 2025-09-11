@@ -46,7 +46,18 @@
                     </select>
                     <x-input-error class="mt-2" :messages="$errors->get('role')" />
                 </div>
-
+                {{-- reset password --}}
+                <div class="mb-4">
+                    <x-input-label for="password" :value="__('Password')" />
+                    <x-text-input id="password" class="mt-1 block w-full" type="password" name="password" autocomplete="new-password" />
+                    <x-input-error class="mt-2" :messages="$errors->get('password')" />
+                </div>
+                <div class="mb-4">
+                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                    <x-text-input id="password_confirmation" class="mt-1 block w-full" type="password"
+                        name="password_confirmation" autocomplete="new-password" />
+                    <x-input-error class="mt-2" :messages="$errors->get('password_confirmation')" />
+                </div>
                 <div class="flex items-center gap-4">
                     <x-primary-button>Update User</x-primary-button>
                     <a href="{{ route('tenant.users') }}"

@@ -88,7 +88,18 @@ class TenantController extends Controller
             'announcements' => $recentAnnouncements
         ];
 
-        return view('tenants.dashboard', compact('tenant', 'dashboardData'));
+        // teacher dashboard data
+        $dashboardTeacherData = [
+            'total_students' => $this->getMyStudents(),
+            'active_courses' => $this->getMyCourses(),
+            'attendance_rate' => $this->getAttendanceRate(),
+            'recent_activities' => $this->getRecentActivities(),
+            'upcoming_events' => $this->getUpcomingEvents(),
+            'announcements' => $recentAnnouncements,
+            'teacher_classes' => $this->getMyClassesDetails()
+        ];
+
+        return view('tenants.dashboard', compact('tenant', 'dashboardData', 'dashboardTeacherData'));
     }
 
     public function settings()
@@ -402,5 +413,66 @@ class TenantController extends Controller
             'status' => 'success',
             'message' => 'All activities cleared successfully'
         ]);
+    }
+
+    public function getMyStudents()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return 0;
+        }
+        $teacher = TenantTeacher::where('user_id', $user->id)->first();
+        if (!$teacher) {
+            return 0;
+        }
+        // Assuming a teacher can have multiple classes
+        $classIds = $teacher->classes->pluck('id')->toArray();
+
+        if (empty($classIds)) {
+            return 0;
+        }
+
+        // Count students through the pivot table relationship
+        $studentCount = TenantStudents::whereHas('classes', function ($query) use ($classIds) {
+            $query->whereIn('tenant_classes.id', $classIds);
+        })->count();
+
+        return $studentCount;
+    }
+    public function getMyCourses()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return 0;
+        }
+        $teacher = TenantTeacher::where('user_id', $user->id)->first();
+        if (!$teacher) {
+            return 0;
+        }
+        return $teacher->classes()->count();
+    }
+
+    public function getMyClassesDetails()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return [];
+        }
+        $teacher = TenantTeacher::where('user_id', $user->id)->first();
+        if (!$teacher) {
+            return [];
+        }
+
+        return $teacher->classes()->with('students')->get()->map(function ($class) {
+            return [
+                'id' => $class->id,
+                'name' => $class->name,
+                'student_count' => $class->students->count(),
+                'room' => $class->room,
+                'schedule' => $class->schedule,
+                'subject' => $class->subject,
+                'description' => $class->description,
+            ];
+        })->toArray();
     }
 }
