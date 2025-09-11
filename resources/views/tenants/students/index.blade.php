@@ -39,11 +39,11 @@
             </div>
 
             @hasrole('tenant_admin|teacher')
-            <a href="{{ route('tenant.students.create') }}"
-                class="shadow-xs focus:outline-hidden inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)] dark:focus:ring-offset-[color:var(--color-dark-green)]">
-                <i class="fas fa-user-plus h-4 w-4"></i>
-                {{ __('Add Student') }}
-            </a>
+                <a href="{{ route('tenant.students.create') }}"
+                    class="shadow-xs focus:outline-hidden inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)] dark:focus:ring-offset-[color:var(--color-dark-green)]">
+                    <i class="fas fa-user-plus h-4 w-4"></i>
+                    {{ __('Add Student') }}
+                </a>
             @endhasrole
         </div>
 
@@ -75,9 +75,11 @@
                             class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                             <i class="fas fa-check-circle mr-2"></i>Status
                         </th>
-                        <th class="relative px-6 py-4">
-                            <span class="sr-only">Actions</span>
-                        </th>
+                        @can('manage students')
+                            <th class="relative px-6 py-4">
+                                <span class="sr-only">Actions</span>
+                            </th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody
@@ -131,34 +133,36 @@
                                         {{ $student->is_active ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
-                                    <div class="flex items-center justify-end space-x-2">
-                                        <a href="{{ route('tenant.students.show', $student) }}"
-                                            class="inline-flex items-center text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
-                                            <i class="fas fa-eye mr-1"></i>View
-                                        </a>
-                                        <a href="{{ route('tenant.students.edit', $student) }}"
-                                            class="inline-flex items-center text-[color:var(--color-prussian-blue)] transition-colors duration-200 hover:text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-prussian-blue)] dark:hover:text-[color:var(--color-light-gunmetal)]">
-                                            <i class="fas fa-edit mr-1"></i>Edit
-                                        </a>
-                                        @if (
-                                            $student->user &&
-                                                (auth()->user()->hasRole('tenant_admin') ||
-                                                    (auth()->user()->hasRole('teacher') &&
-                                                        auth()->user()->teacher &&
-                                                        $student->classes->whereIn('id', auth()->user()->teacher->classes->pluck('id'))->count() > 0)))
-                                            <form action="{{ route('tenant.students.resetPassword', $student) }}"
-                                                method="POST" class="inline">
-                                                @csrf
-                                                <button type="submit"
-                                                    onclick="return confirm('Are you sure you want to reset {{ $student->name }}\'s password? A new password will be sent to their email address.')"
-                                                    class="inline-flex items-center text-yellow-600 transition-colors duration-200 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300">
-                                                    <i class="fas fa-key mr-1"></i>Reset Password
-                                                </button>
-                                            </form>
-                                        @endif
-                                    </div>
-                                </td>
+                                @can('manage students')
+                                    <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
+                                        <div class="flex items-center justify-end space-x-2">
+                                            <a href="{{ route('tenant.students.show', $student) }}"
+                                                class="inline-flex items-center text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-brunswick-green)]">
+                                                <i class="fas fa-eye mr-1"></i>View
+                                            </a>
+                                            <a href="{{ route('tenant.students.edit', $student) }}"
+                                                class="inline-flex items-center text-[color:var(--color-prussian-blue)] transition-colors duration-200 hover:text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-prussian-blue)] dark:hover:text-[color:var(--color-light-gunmetal)]">
+                                                <i class="fas fa-edit mr-1"></i>Edit
+                                            </a>
+                                            @if (
+                                                $student->user &&
+                                                    (auth()->user()->hasRole('tenant_admin') ||
+                                                        (auth()->user()->hasRole('teacher') &&
+                                                            auth()->user()->teacher &&
+                                                            $student->classes->whereIn('id', auth()->user()->teacher->classes->pluck('id'))->count() > 0)))
+                                                <form action="{{ route('tenant.students.resetPassword', $student) }}"
+                                                    method="POST" class="inline">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        onclick="return confirm('Are you sure you want to reset {{ $student->name }}\'s password? A new password will be sent to their email address.')"
+                                                        class="inline-flex items-center text-yellow-600 transition-colors duration-200 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300">
+                                                        <i class="fas fa-key mr-1"></i>Reset Password
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     @else
@@ -174,17 +178,17 @@
                                     No students found
                                 </h3>
                                 @hasrole('tenant_admin|teacher')
-                                <p
-                                    class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
-                                    Get started by adding your
-                                    first student.</p>
-                                <div class="mt-4">
-                                    <a href="{{ route('tenant.students.create') }}"
-                                        class="shadow-xs focus-visible:outline-solid inline-flex items-center rounded-md bg-[color:var(--color-castleton-green)] px-3 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
-                                        <i class="fas fa-user-plus -ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true"></i>
-                                        New Student
-                                    </a>
-                                </div>
+                                    <p
+                                        class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                                        Get started by adding your
+                                        first student.</p>
+                                    <div class="mt-4">
+                                        <a href="{{ route('tenant.students.create') }}"
+                                            class="shadow-xs focus-visible:outline-solid inline-flex items-center rounded-md bg-[color:var(--color-castleton-green)] px-3 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
+                                            <i class="fas fa-user-plus -ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true"></i>
+                                            New Student
+                                        </a>
+                                    </div>
                                 @endhasrole
                             </td>
                         </tr>
