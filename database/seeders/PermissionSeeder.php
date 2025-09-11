@@ -106,6 +106,7 @@ class PermissionSeeder extends Seeder
             'view students',
             'enroll students',
             'unenroll students',
+            'manage students',
             'create teachers',
             'edit teachers',
             'delete teachers',

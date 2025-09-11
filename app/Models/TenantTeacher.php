@@ -54,4 +54,11 @@ class TenantTeacher extends Model
     {
         return $this->hasMany(TenantClasses::class, 'teacher_id');
     }
-}
+    /**
+     * Get the review tickets associated with the teacher.
+     */
+    public function reviewTickets()
+    {
+        return $this->hasMany(ReviewTicket::class, 'teacher_id');
+    }
+};

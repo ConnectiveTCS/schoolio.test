@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Tenants\TenantController;
-use App\Http\Controllers\Tenants\TenantUserController;
-use App\Http\Controllers\Tenants\ImpersonationController;
-use App\Http\Controllers\Tenants\SupportController;
 use App\Http\Controllers\Tenants\MessageController;
+use App\Http\Controllers\Tenants\ReportsController;
+use App\Http\Controllers\Tenants\SupportController;
+use App\Http\Controllers\Tenants\AttendanceController;
+use App\Http\Controllers\Tenants\TenantUserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Tenants\AnnouncementController;
+use App\Http\Controllers\Tenants\ReviewTicketController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use App\Http\Controllers\Tenants\CalendarEventController;
+use App\Http\Controllers\Tenants\ImpersonationController;
 use App\Http\Controllers\Tenants\TenantClassesController;
 use App\Http\Controllers\Tenants\TenantStudentController;
 use App\Http\Controllers\Tenants\TenantTeacherController;
-use App\Http\Controllers\Tenants\AnnouncementController;
-use App\Http\Controllers\Tenants\CalendarEventController;
-use App\Http\Controllers\Tenants\AttendanceController;
-use App\Http\Controllers\Tenants\ReportsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -153,6 +154,18 @@ Route::middleware([
             Route::get('/enrollment', [ReportsController::class, 'enrollment'])->name('enrollment');
             Route::get('/class-summary', [ReportsController::class, 'classSummary'])->name('class-summary');
             Route::get('/activity', [ReportsController::class, 'activity'])->name('activity');
+        });
+
+        // Review Tickets routes
+        Route::prefix('review-tickets')->name('tenant.review-tickets.')->group(function () {
+            Route::get('/', [ReviewTicketController::class, 'index'])->name('index');
+            Route::get('/create', [ReviewTicketController::class, 'create'])->name('create');
+            Route::post('/', [ReviewTicketController::class, 'store'])->name('store');
+            Route::get('/{review_ticket}', [ReviewTicketController::class, 'show'])->name('show');
+            Route::get('/{review_ticket}/edit', [ReviewTicketController::class, 'edit'])->name('edit');
+            Route::put('/{review_ticket}', [ReviewTicketController::class, 'update'])->name('update');
+            Route::delete('/{review_ticket}', [ReviewTicketController::class, 'destroy'])->name('destroy');
+            Route::patch('/{review_ticket}/change-status', [ReviewTicketController::class, 'changeStatus'])->name('change-status');
         });
 
         // Impersonation end route

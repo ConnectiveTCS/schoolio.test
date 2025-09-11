@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use Illuminate\Http\Request;
 use App\Models\TenantClasses;
 use App\Http\Controllers\Controller;
+use App\Models\ReviewTicket;
 use Illuminate\Support\Facades\Auth;
 
 class TenantClassesController extends Controller
@@ -109,11 +110,16 @@ class TenantClassesController extends Controller
         // Load the class with its students
         $class->load('students');
 
+        // Get review tickets for this class
+        $reviewTickets = ReviewTicket::with('student', 'teacher')
+            ->where('class_id', $class->id)
+            ->get();
+
         // Get all students not enrolled in this specific class
         $enrolledStudentIds = $class->students->pluck('id')->toArray();
         $availableStudents = \App\Models\TenantStudents::whereNotIn('id', $enrolledStudentIds)->get();
 
-        return view('tenants.classes.show', compact('class', 'availableStudents'));
+        return view('tenants.classes.show', compact('class', 'availableStudents', 'reviewTickets'));
     }
 
     /**

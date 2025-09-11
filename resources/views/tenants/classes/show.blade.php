@@ -346,6 +346,106 @@
                     </div>
                 </div>
 
+                <div class="mt-8">
+                    <div class="mb-4 flex items-center justify-between">
+                        <h3
+                            class="flex items-center text-lg font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            <i
+                                class="fas fa-ticket-alt mr-2 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
+                            Review Tickets
+                        </h3>
+                    </div>
+                    <div
+                        class="overflow-hidden rounded-lg border border-[color:var(--color-brunswick-green)] shadow-lg dark:border-[color:var(--color-light-brunswick-green)]">
+                        <table
+                            class="min-w-full divide-y divide-[color:var(--color-brunswick-green)] dark:divide-[color:var(--color-light-brunswick-green)]">
+                            <thead
+                                class="bg-[color:var(--color-light-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                        <i class="fas fa-ticket-alt mr-2"></i>
+                                        Title
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                        <i class="fas fa-user mr-2"></i>
+                                        Pending
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                        <i class="fas fa-info-circle mr-2"></i>
+                                        Busy
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                        <i class="fas fa-calendar mr-2"></i>
+                                        Completed
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                        <i class="fas fa-cogs mr-2"></i>
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody
+                                class="divide-y divide-[color:var(--color-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] dark:divide-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)]">
+                                @forelse ($reviewTickets as $ticket)
+                                    <tr
+                                        class="transition-colors duration-200 hover:bg-[color:var(--color-light-castleton-green)] dark:hover:bg-[color:var(--color-castleton-green)]">
+                                        <td
+                                            class="whitespace-nowrap px-6 py-4 text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                            {{ $ticket->title }}
+                                        </td>
+                                        <td
+                                            class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                            {{-- Count all pending for each review ticket in the class --}}
+                                            {{ $ticket->where('status', 'pending')->count() }}
+                                        </td>
+                                        <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                            {{ $ticket->where('status', 'in_review')->count() }}
+                                        </td>
+                                        <td
+                                            class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                            {{ $ticket->where('status', 'completed')->count() }}
+                                        </td>
+                                        <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                            <a href="{{ route('tenant.review-tickets.show', $ticket) }}"
+                                                class="inline-flex items-center font-medium text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)]">
+                                                <i class="fas fa-eye mr-1"></i>
+                                                View
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-12 text-center">
+                                            <div class="flex flex-col items-center">
+                                                <i
+                                                    class="fas fa-ticket-alt mb-3 text-4xl text-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-brunswick-green)]"></i>
+                                                <h3
+                                                    class="mb-2 text-lg font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                                    No review tickets found</h3>
+                                                <p
+                                                    class="mb-4 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                                                    There are currently no review tickets for this class.
+                                                </p>
+                                                <a href="{{ route('tenant.review-tickets.create', ['class_id' => $class->id]) }}"
+                                                    class="inline-flex cursor-pointer items-center font-medium text-[color:var(--color-castleton-green)] transition-colors duration-200 hover:text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-castleton-green)] dark:hover:text-[color:var(--color-light-dark-green)]">
+                                                    <i class="fas fa-plus mr-2"></i>
+                                                    Create a review ticket
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
                 <div class="mt-6 flex flex-row justify-end space-x-4">
                     <a href="{{ route('tenant.classes') }}"
                         class="inline-flex items-center rounded-md border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-4 py-2 text-sm font-medium text-[color:var(--color-gunmetal)] transition-all duration-200 hover:bg-[color:var(--color-light-castleton-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-prussian-blue)] focus:ring-offset-2 dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:bg-[color:var(--color-castleton-green)]">

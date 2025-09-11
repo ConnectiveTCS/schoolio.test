@@ -78,4 +78,11 @@ class TenantStudents extends Model
     {
         return $this->hasMany(Attendance::class, 'tenant_student_id');
     }
+    /**
+     * Get the review tickets associated with the student.
+     */
+    public function reviewTickets()
+    {
+        return $this->hasMany(ReviewTicket::class, 'student_id');
+    }
 }
