@@ -15,19 +15,36 @@
         <!-- Header Actions -->
         <div class="mb-8 flex items-center justify-between">
             <div>
-                <h3
-                    class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
-                    All Students</h3>
+                @if (auth()->user()->hasRole('teacher') && auth()->user()->teacher)
+                    <h3
+                        class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        My Students</h3>
+                    <p
+                        class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
+                        {{ isset($students) ? $students->count() : 0 }} total students in your classes
+                    </p>
+                @elseif (auth()->user()->hasRole('tenant_admin'))
+                    <h3
+                        class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        All Students</h3>
+                @elseif (auth()->user()->hasRole('student'))
+                    <h3
+                        class="text-lg font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                        My Classmates</h3>
+                @endif
                 <p
                     class="text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                     {{ isset($students) ? $students->count() : 0 }} total students
                 </p>
             </div>
+
+            @hasrole('tenant_admin|teacher')
             <a href="{{ route('tenant.students.create') }}"
                 class="shadow-xs focus:outline-hidden inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)] dark:focus:ring-offset-[color:var(--color-dark-green)]">
                 <i class="fas fa-user-plus h-4 w-4"></i>
                 {{ __('Add Student') }}
             </a>
+            @endhasrole
         </div>
 
         <!-- Table Container -->
@@ -156,6 +173,7 @@
                                     class="mt-4 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
                                     No students found
                                 </h3>
+                                @hasrole('tenant_admin|teacher')
                                 <p
                                     class="mt-1 text-sm text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                                     Get started by adding your
@@ -167,6 +185,7 @@
                                         New Student
                                     </a>
                                 </div>
+                                @endhasrole
                             </td>
                         </tr>
                     @endif

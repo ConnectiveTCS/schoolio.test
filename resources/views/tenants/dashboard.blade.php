@@ -29,6 +29,12 @@
         @hasrole('teacher')
             @include('tenants.dashboard_partials.tenant-teacher-dash')
         @endhasrole
+        @hasrole('student')
+            @include('tenants.dashboard_partials.tenant-student-dash')
+        @endhasrole
+        @hasrole('parent')
+            @include('tenants.dashboard_partials.tenant-parent-dash')
+        @endhasrole
 
     </div>
 </x-tenant-dash-component>

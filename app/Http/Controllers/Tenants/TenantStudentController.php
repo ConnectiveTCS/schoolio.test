@@ -66,6 +66,34 @@ class TenantStudentController extends Controller
                     })
                     ->get();
             }
+        } else if($user->hasRole('student') && $user->student) {
+            // For students, only show other students from their classes
+            $studentClassIds = $user->student->classes->pluck('id')->toArray();
+            if (empty($studentClassIds)) {
+                // Student is not enrolled in any classes, show empty results
+                $students = collect();
+                $users = collect();
+            } else {
+                // Get students enrolled in the same classes as the logged-in student
+                $students = TenantStudents::with(['classes', 'parents'])
+                    ->whereHas('classes', function ($query) use ($studentClassIds) {
+                        $query->whereIn('tenant_classes.id', $studentClassIds);
+                    })
+                    ->get();
+
+                // Get users who have student role and are enrolled in the same classes
+                $users = \App\Models\User::with('student')
+                    ->where(function ($query) {
+                        $query->whereHas('roles', function ($q) {
+                            $q->where('name', 'student');
+                        })->orWhereHas('student');
+                    })
+                    ->whereHas('student.classes', function ($query) use ($studentClassIds) {
+                        $query->whereIn('tenant_classes.id', $studentClassIds);
+                    })
+                    ->get();
+            }
+
         } else {
             // For other roles or teachers without teacher record, show empty results
             $students = collect();
