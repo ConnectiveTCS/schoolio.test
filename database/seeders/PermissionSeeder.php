@@ -24,7 +24,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'manage roles']);
         Permission::create(['name' => 'view users']);
         Permission::create(['name' => 'multi admin']);
-        Permission::create(['name' => 'manage tenants']);
         Permission::create(['name' => 'create classes']);
         Permission::create(['name' => 'manage classes']);
         Permission::create(['name' => 'manage announcements']);
@@ -66,7 +65,15 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit permissions']);
         Permission::create(['name' => 'delete permissions']);
         Permission::create(['name' => 'view permissions']);
+        Permission::create(['name' => 'view_permissions']);
+        Permission::create(['name' => 'create_permissions']);
         Permission::create(['name' => 'apply permissions to roles']);
+        Permission::create(['name' => 'manage settings']);
+        Permission::create(['name' => 'manage students']);
+        Permission::create(['name' => 'view_tenant_data']);
+        Permission::create(['name' => 'manage_admins']);
+        Permission::create(['name' => 'system_settings']);
+        Permission::create(['name' => 'manage_tenants']);
 
         $support = $roles->where('name', 'support')->first();
         if ($support) {
@@ -78,60 +85,108 @@ class PermissionSeeder extends Seeder
             ]);
         }
 
+        // Give permissions to multi_admin role
+        $multiAdmin = $roles->where('name', 'multi_admin')->first();
+        if ($multiAdmin) {
+            $multiAdmin->givePermissionTo([
+                'multi admin',
+                'manage_tenants',
+                'view dashboard',
+                'view users',
+                'view announcements',
+                'view calendar events',
+                'view_tenant_data',
+                'manage_admins',
+                'system_settings',
+                'view_permissions',
+                'create_permissions',
+            ]);
+        }
+
         // Give permissions to roles
         $tenantAdmin = $roles->where('name', 'tenant_admin')->first();
-        $tenantAdmin->givePermissionTo([
-            'manage users',
-            'view dashboard',
-            'edit users',
-            'delete users',
-            'assign roles',
-            'manage roles',
-            'view users',
-            'create classes',
-            'manage classes',
-            'manage announcements',
-            'create announcements',
-            'edit announcements',
-            'delete announcements',
-            'view announcements',
-            'manage calendar events',
-            'create calendar events',
-            'edit calendar events',
-            'delete calendar events',
-            'view calendar events',
-            'create students',
-            'edit students',
-            'delete students',
-            'view students',
-            'enroll students',
-            'unenroll students',
-            'manage students',
-            'create teachers',
-            'edit teachers',
-            'delete teachers',
-            'view teachers',
-            'create parents',
-            'edit parents',
-            'delete parents',
-            'view parents',
-            'create attendance',
-            'edit attendance',
-            'delete attendance',
-            'view attendance',
-            'manage attendance',
-            'create reports',
-            'edit reports',
-            'delete reports',
-            'view reports',
-            'view classes',
-            'create permissions',
-            'edit permissions',
-            'delete permissions',
-            'view permissions',
-            'apply permissions to roles',
-            'manage settings'
-        ]);
+        if ($tenantAdmin) {
+            $tenantAdmin->givePermissionTo([
+                'manage users',
+                'view dashboard',
+                'edit users',
+                'delete users',
+                'assign roles',
+                'manage roles',
+                'view users',
+                'create classes',
+                'manage classes',
+                'manage announcements',
+                'create announcements',
+                'edit announcements',
+                'delete announcements',
+                'view announcements',
+                'manage calendar events',
+                'create calendar events',
+                'edit calendar events',
+                'delete calendar events',
+                'view calendar events',
+                'create students',
+                'edit students',
+                'delete students',
+                'view students',
+                'enroll students',
+                'unenroll students',
+                'manage students',
+                'create teachers',
+                'edit teachers',
+                'delete teachers',
+                'view teachers',
+                'create parents',
+                'edit parents',
+                'delete parents',
+                'view parents',
+                'create attendance',
+                'edit attendance',
+                'delete attendance',
+                'view attendance',
+                'manage attendance',
+                'create reports',
+                'edit reports',
+                'delete reports',
+                'view reports',
+                'view classes',
+                'create permissions',
+                'edit permissions',
+                'delete permissions',
+                'view permissions',
+                'apply permissions to roles',
+                'manage settings'
+            ]);
+        }
+
+        // Give permissions to admin role (for central admin operations)
+        $admin = $roles->where('name', 'admin')->first();
+        if ($admin) {
+            $admin->givePermissionTo([
+                'manage_tenants',
+                'view_tenant_data',
+                'manage_admins',
+                'system_settings',
+                'view_permissions',
+                'create_permissions',
+                'view dashboard',
+                'view users',
+                'manage users',
+                'edit users',
+                'delete users',
+                'assign roles',
+                'manage roles',
+                'view announcements',
+                'view calendar events',
+                'view students',
+                'view teachers',
+                'view parents',
+                'view classes',
+                'view reports',
+                'manage settings',
+            ]);
+        }
 
         // Give teacher permissions
         $teacher = $roles->where('name', 'teacher')->first();

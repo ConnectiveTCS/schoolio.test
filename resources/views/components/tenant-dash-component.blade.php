@@ -348,9 +348,15 @@
                                             :class="{ 'rotate-90': open }"></i>
                                     </button>
                                     <div x-show="open" x-transition class="ml-6 space-y-1">
-                                        <a href="{{ route('tenant.classes') }}"
-                                            class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.index') || request()->routeIs('tenant.classes') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
-                                            Classes</a>
+                                        @if (auth()->user()->hasrole('teacher'))
+                                            <a href="{{ route('tenant.classes') }}"
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.index') || request()->routeIs('tenant.classes') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">
+                                                My Classes</a>
+                                        @else
+                                            <a href="{{ route('tenant.classes') }}"
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.index') || request()->routeIs('tenant.classes') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
+                                                Classes</a>
+                                        @endif
                                         @can('create classes')
                                             <a href="{{ route('tenant.classes.create') }}"
                                                 class="sidebar-submenu-item {{ request()->routeIs('tenant.classes.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Create
@@ -364,12 +370,12 @@
                                     </div>
                                 </div>
                                 @can('manage users')
-                                <!-- Users -->
-                                <a href="{{ route('tenant.users') }}"
-                                    class="sidebar-nav-item {{ request()->routeIs('tenant.users*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
-                                    <i class="fas fa-users mr-3 h-5 w-5"></i>
-                                    Users
-                                </a>                                    
+                                    <!-- Users -->
+                                    <a href="{{ route('tenant.users') }}"
+                                        class="sidebar-nav-item {{ request()->routeIs('tenant.users*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }}">
+                                        <i class="fas fa-users mr-3 h-5 w-5"></i>
+                                        Users
+                                    </a>
                                 @endcan
 
                                 <!-- Announcements Section -->
@@ -474,7 +480,7 @@
                                     <button @click="userMenuOpen = !userMenuOpen"
                                         class="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-[color:var(--color-dark-green)] transition-colors duration-200 hover:bg-[color:var(--color-light-brunswick-green)] dark:text-[color:var(--color-light-dark-green)] dark:hover:bg-[color:var(--color-brunswick-green)]">
                                         <div
-                                            class="mr-3 flex h-8 w-8 aspect-square items-center justify-center rounded-full bg-[color:var(--color-castleton-green)] text-xs font-semibold text-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)]">
+                                            class="mr-3 flex aspect-square h-8 w-8 items-center justify-center rounded-full bg-[color:var(--color-castleton-green)] text-xs font-semibold text-[color:var(--color-light-dark-green)] transition-colors duration-200 dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)]">
                                             @auth
                                                 {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
                                             @else

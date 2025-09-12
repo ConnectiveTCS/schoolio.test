@@ -91,6 +91,7 @@ Route::middleware([
         Route::delete('/classes/{class}', [TenantClassesController::class, 'destroy'])->name('tenant.classes.destroy');
         Route::post('/classes/{class}/students', [TenantClassesController::class, 'addStudent'])->name('tenant.classes.addStudent');
         Route::delete('/classes/{class}/students/{student}', [TenantClassesController::class, 'removeStudent'])->name('tenant.classes.removeStudent');
+        Route::put('/classes/{class}/teacher', [TenantClassesController::class, 'updateTeacher'])->name('tenant.classes.updateTeacher');
 
         // Announcement routes
         Route::get('/announcements/my', [AnnouncementController::class, 'userAnnouncements'])->name('tenant.announcements.my');

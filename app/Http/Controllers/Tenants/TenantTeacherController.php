@@ -20,13 +20,9 @@ class TenantTeacherController extends Controller
         //
         $teachers = TenantTeacher::all();
         $tenant = tenant();
-        // Get users who have teacher role or have a teacher record
+        // Get users who have teacher records (this ensures they have the relationship)
         $users = \App\Models\User::with('teacher')
-            ->where(function ($query) {
-                $query->whereHas('roles', function ($q) {
-                    $q->where('name', 'teacher');
-                })->orWhereHas('teacher');
-            })
+            ->whereHas('teacher')
             ->get();
         return view('tenants.teachers.index', compact('tenant', 'users', 'teachers'));
     }

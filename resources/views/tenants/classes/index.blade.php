@@ -34,11 +34,13 @@
                         {{ isset($classes) ? $classes->count() : 0 }} total classes
                     </p>
                 </div>
-                <a href="{{ route('tenant.classes.create') }}"
-                    class="inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
-                    <i class="fas fa-plus h-4 w-4"></i>
-                    {{ __('Add Class') }}
-                </a>
+                @can('create classes')
+                    <a href="{{ route('tenant.classes.create') }}"
+                        class="inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
+                        <i class="fas fa-plus h-4 w-4"></i>
+                        {{ __('Add Class') }}
+                    </a>
+                @endcan
             </div>
 
             <!-- Table Container -->
@@ -126,10 +128,20 @@
                                         <div class="flex items-center">
                                             <i
                                                 class="fas fa-user-tie mr-2 text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]"></i>
-                                            <div
-                                                class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
-                                                {{ $class->teacher ? $class->teacher->name : 'No teacher assigned' }}
-                                            </div>
+                                            <form action="{{ route('tenant.classes.updateTeacher', $class) }}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <select name="teacher_id" id="teacher_id"
+                                                class="rounded border border-[color:var(--color-light-brunswick-green)] bg-[color:var(--color-light-dark-green)] px-2 py-1 text-sm text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 hover:border-[color:var(--color-castleton-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:border-[color:var(--color-light-castleton-green)]"
+                                                onchange="this.form.submit()">
+                                                    <option value="">Select Teacher</option>
+                                                    @foreach ($teachers as $teacher)
+                                                        <option value="{{ $teacher->id }}" {{ $class->teacher_id === $teacher->id ? 'selected' : '' }}>
+                                                            {{ $teacher->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </form>
                                         </div>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
@@ -198,16 +210,18 @@
                                     <h3
                                         class="mt-4 text-sm font-medium text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
                                         No classes found</h3>
-                                    <p
-                                        class="mt-1 text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
-                                        Get started by adding your first class.</p>
-                                    <div class="mt-6">
-                                        <a href="{{ route('tenant.classes.create') }}"
-                                            class="inline-flex items-center rounded-md bg-[color:var(--color-castleton-green)] px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
-                                            <i class="fas fa-plus mr-2 h-5 w-5"></i>
-                                            New Class
-                                        </a>
-                                    </div>
+                                    @can('create classes')
+                                        <p
+                                            class="mt-1 text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                            Get started by adding your first class.</p>
+                                        <div class="mt-6">
+                                            <a href="{{ route('tenant.classes.create') }}"
+                                                class="inline-flex items-center rounded-md bg-[color:var(--color-castleton-green)] px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
+                                                <i class="fas fa-plus mr-2 h-5 w-5"></i>
+                                                New Class
+                                            </a>
+                                        </div>
+                                    @endcan
                                 </td>
                             </tr>
                         @endif

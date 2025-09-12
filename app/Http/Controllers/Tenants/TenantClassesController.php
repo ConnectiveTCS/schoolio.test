@@ -18,6 +18,7 @@ class TenantClassesController extends Controller
     {
         $user = Auth::user();
         $tenant = tenant();
+        $teachers = \App\Models\TenantTeacher::all();
 
         // If user is tenant_admin, show all classes
         if ($user->hasRole('tenant_admin')) {
@@ -32,7 +33,7 @@ class TenantClassesController extends Controller
             $classes = collect();
         }
 
-        return view('tenants.classes.index', compact('tenant', 'classes'));
+        return view('tenants.classes.index', compact('tenant', 'classes', 'teachers'));
     }
 
     /**
@@ -266,5 +267,29 @@ class TenantClassesController extends Controller
         $student->classes()->detach($class->id);
 
         return back()->with('success', 'Student removed from class successfully.');
+    }
+
+    /**
+     * Update the teacher for the class.
+     */
+    public function updateTeacher(Request $request, TenantClasses $class)
+    {
+        $user = Auth::user();
+
+        // Check if user has permission to update the teacher for this class
+        if (
+            !$user->hasRole('tenant_admin') &&
+            (!$user->hasRole('teacher') || !$user->teacher || $class->teacher_id !== $user->teacher->id)
+        ) {
+            abort(403, 'You do not have permission to update the teacher for this class.');
+        }
+
+        $validated = $request->validate([
+            'teacher_id' => 'required|exists:tenant_teachers,id',
+        ]);
+
+        $class->update($validated);
+
+        return back()->with('success', 'Class teacher updated successfully.');
     }
 }

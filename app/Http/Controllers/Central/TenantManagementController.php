@@ -367,7 +367,6 @@ class TenantManagementController extends Controller
             // Sample users (first 15) with roles via Eloquent for convenience
             $users = User::with('roles')
                 ->orderBy('id')
-                ->limit(15)
                 ->get()
                 ->map(function ($u) {
                     return [
