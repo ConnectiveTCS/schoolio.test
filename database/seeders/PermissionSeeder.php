@@ -74,6 +74,12 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'manage_admins']);
         Permission::create(['name' => 'system_settings']);
         Permission::create(['name' => 'manage_tenants']);
+        // Asset permissions
+        Permission::create(['name' => 'create assets']);
+        Permission::create(['name' => 'edit assets']);
+        Permission::create(['name' => 'delete assets']);
+        Permission::create(['name' => 'view assets']);
+        Permission::create(['name' => 'manage assets']);
 
         $support = $roles->where('name', 'support')->first();
         if ($support) {
@@ -156,7 +162,8 @@ class PermissionSeeder extends Seeder
                 'delete permissions',
                 'view permissions',
                 'apply permissions to roles',
-                'manage settings'
+                'manage settings',
+                'manage assets'
             ]);
         }
 
@@ -185,6 +192,7 @@ class PermissionSeeder extends Seeder
                 'view classes',
                 'view reports',
                 'manage settings',
+                'manage assets'
             ]);
         }
 

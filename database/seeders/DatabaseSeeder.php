@@ -51,39 +51,7 @@ class DatabaseSeeder extends Seeder
 
             $this->call(TenantTeacherSeeder::class);
 
-            $user2 = User::factory()->create([
-                'name' => 'Steven Hyde',
-                'email' => 'steven@student.edu',
-                'password' => bcrypt('1'),
-            ]);
-            $user2->assignRole('student');
-
-            TenantStudents::factory()->create([
-                'user_id' => $user2->id,
-                'name' => $user2->name,
-                'email' => $user2->email,
-                'phone' => '123-456-7890',
-                'address' => '123 Main St, Anytown, USA',
-                'date_of_birth' => '2005-01-01',
-                'gender' => 'male',
-            ]);
-
-            $user3 = User::factory()->create([
-                'name' => 'Linda Smith',
-                'email' => 'linda@student.edu',
-                'password' => bcrypt('1'),
-            ]);
-            $user3->assignRole('student');
-
-            TenantStudents::factory()->create([
-                'user_id' => $user3->id,
-                'name' => $user3->name,
-                'email' => $user3->email,
-                'phone' => '123-456-7890',
-                'address' => '123 Main St, Anytown, USA',
-                'date_of_birth' => '2005-01-01',
-                'gender' => 'female',
-            ]);
+            $this->call(TenantStudentSeeder::class);
             $this->call(\Database\Seeders\TenantClassesSeeder::class);
         });
 

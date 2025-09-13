@@ -5,7 +5,7 @@
                 class="flex items-center text-xl font-semibold leading-tight text-[color:var(--color-gunmetal)] transition-colors duration-200 dark:text-[color:var(--color-light-gunmetal)]">
                 <i
                     class="fas fa-edit mr-3 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
-                Edit Class
+                Edit Asset: {{ $asset->asset_name }}
             </h2>
         </div>
     </x-slot>
@@ -20,9 +20,9 @@
                 class="mb-6 flex items-center text-lg font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                 <i
                     class="fas fa-chalkboard mr-3 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
-                Edit Class Information
+                Update Asset Information
             </h3>
-            <form method="POST" action="{{ route('tenant.classes.update', $class) }}">
+            <form method="POST" action="{{ route('tenant.assets.update', $asset) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -33,208 +33,283 @@
                         class="text-md mb-6 flex items-center font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                         <i
                             class="fas fa-info-circle mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                        Basic Information
+                        Asset Information
                     </h4>
 
                     <div class="mb-4">
-                        <x-input-label for="name"
+                        <x-input-label for="asset_name"
                             class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                             <i
-                                class="fas fa-chalkboard mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                            {{ __('Class Name') }}
+                                class="fas fa-tag mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Asset Name') }}
                         </x-input-label>
-                        <x-text-input id="name"
+                        <x-text-input id="asset_name"
                             class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
-                            type="text" name="name" :value="old('name', $class->name)" required autofocus maxlength="255" />
-                        <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                            type="text" name="asset_name" :value="old('asset_name', $asset->asset_name)" required autofocus maxlength="255" />
+                        <x-input-error class="mt-2" :messages="$errors->get('asset_name')" />
                     </div>
 
                     <div class="mb-4">
-                        <x-input-label for="subject"
+                        <x-input-label for="asset_model"
                             class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                             <i
-                                class="fas fa-book mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                            {{ __('Subject') }}
+                                class="fas fa-info-circle mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Asset Model') }}
                         </x-input-label>
-                        <x-text-input id="subject"
+                        <x-text-input id="asset_model"
                             class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
-                            type="text" name="subject" :value="old('subject', $class->subject)" maxlength="255" />
-                        <x-input-error class="mt-2" :messages="$errors->get('subject')" />
+                            type="text" name="asset_model" :value="old('asset_model', $asset->asset_model)" maxlength="255" />
+                        <x-input-error class="mt-2" :messages="$errors->get('asset_model')" />
                     </div>
 
                     <div class="mb-4">
-                        <x-input-label for="teacher_id"
+                        <x-input-label for="manufacturer"
                             class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                             <i
-                                class="fas fa-chalkboard-teacher mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                            {{ __('Teacher') }}
+                                class="fas fa-cog mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Manufacturer') }}
                         </x-input-label>
-                        <select id="teacher_id" name="teacher_id"
+                        <x-text-input id="manufacturer"
+                            class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
+                            type="text" name="manufacturer" :value="old('manufacturer', $asset->manufacturer)" maxlength="255" />
+                        <x-input-error class="mt-2" :messages="$errors->get('manufacturer')" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="vendor"
+                            class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            <i
+                                class="fas fa-store mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Vendor') }}
+                        </x-input-label>
+                        <x-text-input id="vendor"
+                            class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
+                            type="text" name="vendor" :value="old('vendor', $asset->vendor)" maxlength="255" />
+                        <x-input-error class="mt-2" :messages="$errors->get('vendor')" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="asset_type"
+                            class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            <i
+                                class="fas fa-layer-group mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Asset Type') }}
+                        </x-input-label>
+                        <select id="asset_type" name="asset_type"
                             class="mt-1 block w-full rounded-md border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
-                            <option value="">Select Teacher</option>
-                            @foreach ($teachers as $teacher)
-                                <option value="{{ $teacher->id }}"
-                                    {{ old('teacher_id', $class->teacher_id) == $teacher->id ? 'selected' : '' }}>
-                                    {{ $teacher->name }}
-                                </option>
-                            @endforeach
+                            <option value="">{{ __('Select Asset Type') }}</option>
+                            <option value="computer"
+                                {{ old('asset_type', $asset->asset_type) == 'computer' ? 'selected' : '' }}>Computer
+                            </option>
+                            <option value="printer"
+                                {{ old('asset_type', $asset->asset_type) == 'printer' ? 'selected' : '' }}>Printer
+                            </option>
+                            <option value="projector"
+                                {{ old('asset_type', $asset->asset_type) == 'projector' ? 'selected' : '' }}>Projector
+                            </option>
+                            <option value="furniture"
+                                {{ old('asset_type', $asset->asset_type) == 'furniture' ? 'selected' : '' }}>Furniture
+                            </option>
+                            <option value="vehicle"
+                                {{ old('asset_type', $asset->asset_type) == 'vehicle' ? 'selected' : '' }}>Vehicle
+                            </option>
+                            <option value="other"
+                                {{ old('asset_type', $asset->asset_type) == 'other' ? 'selected' : '' }}>Other</option>
                         </select>
-                        <x-input-error class="mt-2" :messages="$errors->get('teacher_id')" />
+                        <x-input-error class="mt-2" :messages="$errors->get('asset_type')" />
                     </div>
 
                     <div class="mb-4">
-                        <x-input-label for="room"
+                        <x-input-label for="serial_number"
                             class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                             <i
-                                class="fas fa-door-open mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                            {{ __('Room') }}
+                                class="fas fa-barcode mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Serial Number') }}
                         </x-input-label>
-                        <x-text-input id="room"
+                        <x-text-input id="serial_number"
                             class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
-                            type="text" name="room" :value="old('room', $class->room)" maxlength="50" />
-                        <x-input-error class="mt-2" :messages="$errors->get('room')" />
+                            type="text" name="serial_number" :value="old('serial_number', $asset->serial_number)" maxlength="255" />
+                        <x-input-error class="mt-2" :messages="$errors->get('serial_number')" />
                     </div>
 
                     <div class="mb-4">
-                        <x-input-label for="description"
+                        <x-input-label for="notes"
                             class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                             <i
-                                class="fas fa-file-alt mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                            {{ __('Description') }}
+                                class="fas fa-sticky-note mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Notes') }}
                         </x-input-label>
-                        <textarea id="description" name="description" rows="4"
-                            class="mt-1 block w-full rounded-md border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">{{ old('description', $class->description) }}</textarea>
-                        <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                        <textarea id="notes" name="notes" rows="4"
+                            class="mt-1 block w-full rounded-md border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">{{ old('notes', $asset->notes) }}</textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('notes')" />
                     </div>
                 </div>
 
-                <!-- Schedule Information -->
+                <!-- Asset Details -->
                 <div
                     class="mb-8 rounded-lg border border-[color:var(--color-castleton-green)] bg-[color:var(--color-light-castleton-green)] p-6 transition-colors duration-200 dark:border-[color:var(--color-light-castleton-green)] dark:bg-[color:var(--color-castleton-green)]">
                     <h4
                         class="text-md mb-6 flex items-center font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                         <i
-                            class="fas fa-calendar-alt mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                        Schedule Information
+                            class="fas fa-cogs mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                        Asset Details
                     </h4>
 
-                    <div class="mb-6">
-                        <x-input-label
-                            class="mb-4 flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
-                            <i
-                                class="fas fa-clock mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                            Class Schedule
-                        </x-input-label>
-
-                        <!-- Days of the week -->
-                        <div class="mb-4">
-                            <label
-                                class="mb-3 block text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                    <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <x-input-label for="purchase_date"
+                                class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                 <i
-                                    class="fas fa-calendar-week mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                                Days of the Week
-                            </label>
-                            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
-                                @php
-                                    $days = [
-                                        'Monday',
-                                        'Tuesday',
-                                        'Wednesday',
-                                        'Thursday',
-                                        'Friday',
-                                        'Saturday',
-                                        'Sunday',
-                                    ];
-                                    $existingSchedule = old('schedule', $class->schedule ? $class->schedule : []);
-                                    $selectedDays =
-                                        is_array($existingSchedule) && isset($existingSchedule['days'])
-                                            ? $existingSchedule['days']
-                                            : [];
-                                @endphp
-                                @foreach ($days as $day)
-                                    <div class="flex items-center">
-                                        <input type="checkbox" id="day_{{ strtolower($day) }}" name="schedule_days[]"
-                                            value="{{ $day }}"
-                                            {{ in_array($day, $selectedDays) ? 'checked' : '' }}
-                                            class="h-4 w-4 rounded border-[color:var(--color-brunswick-green)] text-[color:var(--color-castleton-green)] transition-colors duration-200 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
-                                        <label for="day_{{ strtolower($day) }}"
-                                            class="ml-2 cursor-pointer text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
-                                            {{ $day }}
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    class="fas fa-calendar mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                {{ __('Purchase Date') }}
+                            </x-input-label>
+                            <x-text-input id="purchase_date"
+                                class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
+                                type="date" name="purchase_date" :value="old('purchase_date', $asset->purchase_date?->format('Y-m-d'))" />
+                            <x-input-error class="mt-2" :messages="$errors->get('purchase_date')" />
                         </div>
 
-                        <!-- Time inputs -->
-                        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <div>
-                                <label for="start_time"
-                                    class="mb-2 block text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
-                                    <i
-                                        class="fas fa-play mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                                    Start Time
-                                </label>
-                                <input type="time" id="start_time" name="start_time"
-                                    value="{{ old('start_time', is_array($existingSchedule) && isset($existingSchedule['start_time']) ? $existingSchedule['start_time'] : '') }}"
-                                    class="block w-full rounded-md border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
-                            </div>
-                            <div>
-                                <label for="end_time"
-                                    class="mb-2 block text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
-                                    <i
-                                        class="fas fa-stop mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                                    End Time
-                                </label>
-                                <input type="time" id="end_time" name="end_time"
-                                    value="{{ old('end_time', is_array($existingSchedule) && isset($existingSchedule['end_time']) ? $existingSchedule['end_time'] : '') }}"
-                                    class="block w-full rounded-md border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
-                            </div>
-                        </div>
-
-                        <!-- Additional notes -->
-                        <div class="mb-4">
-                            <label for="schedule_notes"
-                                class="mb-2 block text-sm font-medium text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                        <div>
+                            <x-input-label for="purchase_price"
+                                class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
                                 <i
-                                    class="fas fa-sticky-note mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                                Additional Notes (Optional)
-                            </label>
-                            <textarea id="schedule_notes" name="schedule_notes" rows="2"
-                                placeholder="Any additional scheduling information..."
-                                class="block w-full rounded-md border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">{{ old('schedule_notes', is_array($existingSchedule) && isset($existingSchedule['notes']) ? $existingSchedule['notes'] : '') }}</textarea>
+                                    class="fas fa-dollar-sign mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                {{ __('Purchase Price') }}
+                            </x-input-label>
+                            <x-text-input id="purchase_price"
+                                class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
+                                type="number" name="purchase_price" :value="old('purchase_price', $asset->purchase_price)" step="0.01"
+                                min="0" />
+                            <x-input-error class="mt-2" :messages="$errors->get('purchase_price')" />
+                        </div>
+                    </div>
+
+                    <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <x-input-label for="warranty_period"
+                                class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                <i
+                                    class="fas fa-shield-alt mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                {{ __('Warranty Period (months)') }}
+                            </x-input-label>
+                            <x-text-input id="warranty_period"
+                                class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
+                                type="number" name="warranty_period" :value="old('warranty_period', $asset->warranty_period)" min="0" />
+                            <x-input-error class="mt-2" :messages="$errors->get('warranty_period')" />
                         </div>
 
-                        <!-- Hidden field for JSON format (for backend compatibility) -->
-                        <input type="hidden" id="schedule" name="schedule" value="">
+                        <div>
+                            <x-input-label for="warranty_expiry_date"
+                                class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                <i
+                                    class="fas fa-calendar-times mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                {{ __('Warranty Expiry Date') }}
+                            </x-input-label>
+                            <x-text-input id="warranty_expiry_date"
+                                class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
+                                type="date" name="warranty_expiry_date" :value="old('warranty_expiry_date', $asset->warranty_expiry_date?->format('Y-m-d'))" />
+                            <x-input-error class="mt-2" :messages="$errors->get('warranty_expiry_date')" />
+                        </div>
+                    </div>
 
-                        <x-input-error class="mt-2" :messages="$errors->get('schedule')" />
-                        <p
-                            class="mt-2 text-sm text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
-                            <i class="fas fa-info-circle mr-1"></i>
-                            Select the days and times when this class takes place
-                        </p>
+                    <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <x-input-label for="condition"
+                                class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                <i
+                                    class="fas fa-heart mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                {{ __('Condition') }}
+                            </x-input-label>
+                            <select id="condition" name="condition"
+                                class="mt-1 block w-full rounded-md border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] shadow-sm transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
+                                <option value="excellent"
+                                    {{ old('condition', $asset->condition) == 'excellent' ? 'selected' : '' }}>
+                                    Excellent</option>
+                                <option value="good"
+                                    {{ old('condition', $asset->condition) == 'good' ? 'selected' : '' }}>Good</option>
+                                <option value="fair"
+                                    {{ old('condition', $asset->condition) == 'fair' ? 'selected' : '' }}>Fair</option>
+                                <option value="poor"
+                                    {{ old('condition', $asset->condition) == 'poor' ? 'selected' : '' }}>Poor</option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('condition')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="location"
+                                class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                <i
+                                    class="fas fa-map-marker-alt mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                {{ __('Location') }}
+                            </x-input-label>
+                            <x-text-input id="location"
+                                class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]"
+                                type="text" name="location" :value="old('location', $asset->location)" maxlength="255" />
+                            <x-input-error class="mt-2" :messages="$errors->get('location')" />
+                        </div>
                     </div>
 
                     <div class="mb-4">
-                        <div class="flex items-center">
-                            <input id="is_active" type="checkbox" name="is_active" value="1"
-                                {{ old('is_active', $class->is_active) ? 'checked' : '' }}
-                                class="mr-3 h-4 w-4 rounded border-[color:var(--color-brunswick-green)] text-[color:var(--color-castleton-green)] transition-colors duration-200 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:text-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
-                            <x-input-label for="is_active"
-                                class="flex cursor-pointer items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
-                                <i
-                                    class="fas fa-toggle-on mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
-                                {{ __('Active Class') }}
-                            </x-input-label>
-                        </div>
-                        <x-input-error class="mt-2" :messages="$errors->get('is_active')" />
+                        <x-input-label for="asset_image"
+                            class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            <i
+                                class="fas fa-camera mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Asset Image') }}
+                        </x-input-label>
+                        <input id="asset_image" name="asset_image" type="file" accept="image/*"
+                            class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
+                        <x-input-error class="mt-2" :messages="$errors->get('asset_image')" />
+                        <p
+                            class="mt-1 text-xs text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            {{ __('Upload an image of the asset (optional). Accepted formats: JPG, PNG, GIF.') }}
+                        </p>
+                        @if ($asset->asset_image)
+                            <div class="mt-2">
+                                <p
+                                    class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                    Current image:
+                                </p>
+                                <img src="{{ asset('storage/' . $asset->asset_image) }}" alt="Current asset image"
+                                    class="mt-1 h-20 w-20 rounded-md border border-[color:var(--color-brunswick-green)] object-cover dark:border-[color:var(--color-light-brunswick-green)]">
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="additional_images"
+                            class="flex items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            <i
+                                class="fas fa-images mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                            {{ __('Additional Images') }}
+                        </x-input-label>
+                        <input id="additional_images" name="additional_images[]" type="file" accept="image/*"
+                            multiple
+                            class="mt-1 block w-full border-[color:var(--color-brunswick-green)] bg-white text-[color:var(--color-gunmetal)] transition-colors duration-200 focus:border-[color:var(--color-castleton-green)] focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)] dark:focus:border-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
+                        <x-input-error class="mt-2" :messages="$errors->get('additional_images')" />
+                        <p
+                            class="mt-1 text-xs text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                            {{ __('Upload additional images of the asset (optional). You can select multiple files.') }}
+                        </p>
+                        @if ($asset->additional_images && count($asset->additional_images) > 0)
+                            <div class="mt-2">
+                                <p
+                                    class="text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                    Current additional images:
+                                </p>
+                                <div class="mt-1 flex flex-wrap gap-2">
+                                    @foreach ($asset->additional_images as $image)
+                                        <img src="{{ asset('storage/' . $image) }}" alt="Additional asset image"
+                                            class="h-16 w-16 rounded-md border border-[color:var(--color-brunswick-green)] object-cover dark:border-[color:var(--color-light-brunswick-green)]">
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
                 <div
                     class="flex items-center justify-end space-x-4 border-t border-[color:var(--color-brunswick-green)] pt-6 dark:border-[color:var(--color-light-brunswick-green)]">
-                    <a href="{{ route('tenant.classes') }}"
+                    <a href="{{ route('tenant.assets.index') }}"
                         class="inline-flex items-center rounded-md border border-[color:var(--color-brunswick-green)] bg-[color:var(--color-light-brunswick-green)] px-4 py-2 text-sm font-medium text-[color:var(--color-gunmetal)] transition-all duration-200 hover:bg-[color:var(--color-light-castleton-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-prussian-blue)] focus:ring-offset-2 dark:border-[color:var(--color-light-brunswick-green)] dark:bg-[color:var(--color-brunswick-green)] dark:text-[color:var(--color-light-gunmetal)] dark:hover:bg-[color:var(--color-castleton-green)]">
                         <i class="fas fa-times mr-2"></i>
                         Cancel
@@ -242,72 +317,42 @@
                     <button type="submit"
                         class="inline-flex items-center rounded-md bg-[color:var(--color-castleton-green)] px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-[color:var(--color-dark-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-prussian-blue)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:hover:bg-[color:var(--color-light-dark-green)]">
                         <i class="fas fa-save mr-2"></i>
-                        Update Class
+                        Update Asset
                     </button>
                 </div>
             </form>
         </div>
-
     </div>
 
     <script>
+        // Asset form enhancement script
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const scheduleInput = document.getElementById('schedule');
-            const dayCheckboxes = document.querySelectorAll('input[name="schedule_days[]"]');
-            const startTimeInput = document.getElementById('start_time');
-            const endTimeInput = document.getElementById('end_time');
-            const notesInput = document.getElementById('schedule_notes');
+            // Auto-calculate warranty expiry date based on purchase date and warranty period
+            const purchaseDateInput = document.getElementById('purchase_date');
+            const warrantyPeriodInput = document.getElementById('warranty_period');
+            const warrantyExpiryInput = document.getElementById('warranty_expiry_date');
 
-            // Function to update the hidden JSON field
-            function updateScheduleJson() {
-                const selectedDays = Array.from(dayCheckboxes)
-                    .filter(checkbox => checkbox.checked)
-                    .map(checkbox => checkbox.value);
+            function calculateWarrantyExpiry() {
+                const purchaseDate = purchaseDateInput.value;
+                const warrantyPeriod = parseInt(warrantyPeriodInput.value);
 
-                const startTime = startTimeInput.value;
-                const endTime = endTimeInput.value;
-                const notes = notesInput.value;
+                if (purchaseDate && warrantyPeriod > 0) {
+                    const date = new Date(purchaseDate);
+                    date.setMonth(date.getMonth() + warrantyPeriod);
 
-                const scheduleData = {};
+                    const year = date.getFullYear();
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const day = String(date.getDate()).padStart(2, '0');
 
-                if (selectedDays.length > 0) {
-                    scheduleData.days = selectedDays;
+                    warrantyExpiryInput.value = `${year}-${month}-${day}`;
                 }
-
-                if (startTime && endTime) {
-                    scheduleData.start_time = startTime;
-                    scheduleData.end_time = endTime;
-                    scheduleData.time = `${startTime}-${endTime}`;
-                } else if (startTime) {
-                    scheduleData.start_time = startTime;
-                } else if (endTime) {
-                    scheduleData.end_time = endTime;
-                }
-
-                if (notes.trim()) {
-                    scheduleData.notes = notes.trim();
-                }
-
-                scheduleInput.value = Object.keys(scheduleData).length > 0 ? JSON.stringify(scheduleData) : '';
             }
 
-            // Add event listeners to all schedule-related inputs
-            dayCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updateScheduleJson);
-            });
-
-            startTimeInput.addEventListener('change', updateScheduleJson);
-            endTimeInput.addEventListener('change', updateScheduleJson);
-            notesInput.addEventListener('input', updateScheduleJson);
-
-            // Initialize the JSON field on page load
-            updateScheduleJson();
-
-            // Update JSON before form submission
-            form.addEventListener('submit', function(e) {
-                updateScheduleJson();
-            });
+            // Only calculate if warranty expiry is not already set
+            if (!warrantyExpiryInput.value) {
+                purchaseDateInput.addEventListener('change', calculateWarrantyExpiry);
+                warrantyPeriodInput.addEventListener('change', calculateWarrantyExpiry);
+            }
         });
     </script>
 </x-tenant-dash-component>

@@ -34,13 +34,13 @@
                         {{ isset($assets) ? $assets->count() : 0 }} total assets
                     </p>
                 </div>
-                {{-- @can('create assets') --}}
+                @can('create assets')
                     <a href="{{ route('tenant.assets.create') }}"
                         class="inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-castleton-green)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[color:var(--color-brunswick-green)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-castleton-green)] focus:ring-offset-2 dark:bg-[color:var(--color-light-castleton-green)] dark:text-[color:var(--color-dark-green)] dark:hover:bg-[color:var(--color-light-brunswick-green)]">
                         <i class="fas fa-plus h-4 w-4"></i>
                         {{ __('Add Asset') }}
                     </a>
-                {{-- @endcan --}}
+                @endcan
             </div>
 
             <!-- Table Container -->
@@ -121,11 +121,31 @@
                                 </td>
                                 <td
                                     class="whitespace-nowrap px-6 py-4 text-sm text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
-                                    <a href="{{ route('tenant.assets.show', $asset) }}"
-                                        class="text-[color:var(--color-castleton-green)] hover:underline dark:text-[color:var(--color-light-castleton-green)]">View</a>
-                                    |
-                                    <a href="{{ route('tenant.assets.edit', $asset) }}"
-                                        class="text-[color:var(--color-castleton-green)] hover:underline dark:text-[color:var(--color-light-castleton-green)]">Edit</a>
+                                    @can('delete assets')
+                                        <form action="{{ route('tenant.assets.destroy', $asset) }}" method="POST"
+                                            class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="text-red-600 hover:underline dark:text-red-400"
+                                                onclick="return confirm('Are you sure you want to delete this asset?');">
+                                                Delete
+                                            </button>
+                                        </form>
+                                        |
+                                        
+                                    @endcan
+                                    @can('view assets')
+                                        <a href="{{ route('tenant.assets.show', $asset) }}"
+                                            class="text-[color:var(--color-castleton-green)] hover:underline dark:text-[color:var(--color-light-castleton-green)]">Download</a>
+                                        |
+                                        
+                                    @endcan
+                                    @can('edit assets')
+                                        <a href="{{ route('tenant.assets.edit', $asset) }}"
+                                            class="text-[color:var(--color-castleton-green)] hover:underline dark:text-[color:var(--color-light-castleton-green)]">|</a>
+                                    </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

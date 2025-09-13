@@ -439,7 +439,7 @@
                                 @endcan
 
                                 <!-- Assets Section -->
-                                {{-- @can('view assets') --}}
+                                @can('view assets')
                                     <div x-data="{ open: {{ request()->routeIs('tenant.assets*') ? 'true' : 'false' }} }" class="space-y-1">
                                         <button @click="open = !open"
                                             class="sidebar-nav-item {{ request()->routeIs('tenant.assets*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
@@ -459,7 +459,7 @@
                                             @endcan
                                         </div>
                                     </div>
-                                {{-- @endcan --}}
+                                @endcan
 
                                 <!-- Reports -->
                                 <a href="#" class="sidebar-nav-item sidebar-nav-item-inactive">

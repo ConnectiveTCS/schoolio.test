@@ -67,8 +67,22 @@
                             Works</a>
                         <a href="#pricing"
                             class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Pricing</a>
-                        <a href="{{ route('central.login') }}"
-                            class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>
+                            @auth
+                            <a href="{{ route('central.dashboard') }}"
+                                class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Dashboard</a>
+                            <a href="{{ route('central.logout') }}"
+                                class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('central.logout') }}" method="POST" class="hidden">
+                                @csrf
+                            </form>
+                            @endauth
+                            @if (!auth()->check())
+                                <a href="{{ route('central.login') }}"
+                                    class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>
+                            @endif
 
                         <!-- Theme Toggle Button -->
                         <button @click="darkMode = !darkMode"
