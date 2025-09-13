@@ -94,6 +94,10 @@ Route::middleware([
         Route::delete('/classes/{class}/students/{student}', [TenantClassesController::class, 'removeStudent'])->name('tenant.classes.removeStudent');
         Route::put('/classes/{class}/teacher', [TenantClassesController::class, 'updateTeacher'])->name('tenant.classes.updateTeacher');
 
+        // Schedule routes
+        Route::get('/schedule', [\App\Http\Controllers\Tenants\ScheduleController::class, 'index'])->name('tenant.schedule');
+        Route::get('/api/schedule/week', [\App\Http\Controllers\Tenants\ScheduleController::class, 'getWeekSchedule'])->name('tenant.schedule.week');
+
         // Announcement routes
         Route::get('/announcements/my', [AnnouncementController::class, 'userAnnouncements'])->name('tenant.announcements.my');
         Route::resource('announcements', AnnouncementController::class, [
