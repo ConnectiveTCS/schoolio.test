@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Tenants\AssetController;
 use App\Http\Controllers\Tenants\TenantController;
 use App\Http\Controllers\Tenants\MessageController;
 use App\Http\Controllers\Tenants\ReportsController;
@@ -167,6 +168,17 @@ Route::middleware([
             Route::put('/{review_ticket}', [ReviewTicketController::class, 'update'])->name('update');
             Route::delete('/{review_ticket}', [ReviewTicketController::class, 'destroy'])->name('destroy');
             Route::patch('/{review_ticket}/change-status', [ReviewTicketController::class, 'changeStatus'])->name('change-status');
+        });
+
+        // Assets routes
+        Route::prefix('assets')->name('tenant.assets.')->group(function () {
+            Route::get('/', [AssetController::class, 'index'])->name('index');
+            Route::get('/create', [AssetController::class, 'create'])->name('create');
+            Route::post('/', [AssetController::class, 'store'])->name('store');
+            Route::get('/{asset}', [AssetController::class, 'show'])->name('show');
+            Route::get('/{asset}/edit', [AssetController::class, 'edit'])->name('edit');
+            Route::put('/{asset}', [AssetController::class, 'update'])->name('update');
+            Route::delete('/{asset}', [AssetController::class, 'destroy'])->name('destroy');
         });
 
         // Impersonation end route

@@ -438,6 +438,29 @@
                                     </div>
                                 @endcan
 
+                                <!-- Assets Section -->
+                                {{-- @can('view assets') --}}
+                                    <div x-data="{ open: {{ request()->routeIs('tenant.assets*') ? 'true' : 'false' }} }" class="space-y-1">
+                                        <button @click="open = !open"
+                                            class="sidebar-nav-item {{ request()->routeIs('tenant.assets*') ? 'sidebar-nav-item-active' : 'sidebar-nav-item-inactive' }} w-full justify-between">
+                                            <div class="flex items-center">
+                                                <i class="fas fa-boxes mr-3 h-5 w-5"></i>
+                                                <span>Assets</span>
+                                            </div>
+                                        </button>
+                                        <div x-show="open" x-transition class="ml-6 space-y-1">
+                                            <a href="{{ route('tenant.assets.index') }}"
+                                                class="sidebar-submenu-item {{ request()->routeIs('tenant.assets.index') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">All
+                                                Assets</a>
+                                            @can('manage assets')
+                                                <a href="{{ route('tenant.assets.create') }}"
+                                                    class="sidebar-submenu-item {{ request()->routeIs('tenant.assets.create') ? 'bg-[var(--color-dark-green)] text-[var(--color-light-dark-green)]' : '' }}">Create
+                                                    Asset</a>
+                                            @endcan
+                                        </div>
+                                    </div>
+                                {{-- @endcan --}}
+
                                 <!-- Reports -->
                                 <a href="#" class="sidebar-nav-item sidebar-nav-item-inactive">
                                     <i class="fas fa-chart-bar mr-3 h-5 w-5"></i>
