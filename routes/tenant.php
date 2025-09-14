@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\RedirectDemoController;
 use App\Http\Controllers\Tenants\AssetController;
 use App\Http\Controllers\Tenants\TenantController;
 use App\Http\Controllers\Tenants\MessageController;
@@ -39,6 +41,31 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+    // Redirect Pages - Available to all users
+    Route::prefix('redirect')->name('redirect.')->group(function () {
+        Route::get('access-denied', [RedirectController::class, 'accessDenied'])->name('access-denied');
+        Route::get('success', [RedirectController::class, 'success'])->name('success');
+        Route::get('error', [RedirectController::class, 'error'])->name('error');
+        Route::get('maintenance', [RedirectController::class, 'maintenance'])->name('maintenance');
+        Route::get('coming-soon', [RedirectController::class, 'comingSoon'])->name('coming-soon');
+        Route::get('logout-success', [RedirectController::class, 'logoutSuccess'])->name('logout-success');
+        Route::get('session-expired', [RedirectController::class, 'sessionExpired'])->name('session-expired');
+        Route::get('account-suspended', [RedirectController::class, 'accountSuspended'])->name('account-suspended');
+    });
+
+    // Demo Routes - Available to all users
+    Route::prefix('demo')->name('demo.')->group(function () {
+        Route::get('redirects', [RedirectDemoController::class, 'index'])->name('redirects');
+        Route::get('access-denied', [RedirectDemoController::class, 'demoAccessDenied'])->name('access-denied');
+        Route::get('success', [RedirectDemoController::class, 'demoSuccess'])->name('success');
+        Route::get('error', [RedirectDemoController::class, 'demoError'])->name('error');
+        Route::get('maintenance', [RedirectDemoController::class, 'demoMaintenance'])->name('maintenance');
+        Route::get('coming-soon', [RedirectDemoController::class, 'demoComingSoon'])->name('coming-soon');
+        Route::get('logout-success', [RedirectDemoController::class, 'demoLogoutSuccess'])->name('logout-success');
+        Route::get('session-expired', [RedirectDemoController::class, 'demoSessionExpired'])->name('session-expired');
+        Route::get('account-suspended', [RedirectDemoController::class, 'demoAccountSuspended'])->name('account-suspended');
+    });
+
     // Public tenant routes
     Route::get('/', [TenantController::class, 'index'])->name('tenant.index');
 

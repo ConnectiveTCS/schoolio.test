@@ -22,85 +22,184 @@ class TenantStudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $tenant = tenant();
 
-        // If user is tenant_admin, show all students
-        if ($user->hasRole('tenant_admin')) {
-            $students = TenantStudents::with(['classes', 'parents'])->get();
-            // Get users who have student role or have a student record
-            $users = \App\Models\User::with('student')
-                ->where(function ($query) {
-                    $query->whereHas('roles', function ($q) {
-                        $q->where('name', 'student');
-                    })->orWhereHas('student');
-                })
-                ->get();
-        } else if ($user->hasRole('teacher') && $user->teacher) {
-            // For teachers, only show students from their assigned classes
-            $teacherClassIds = $user->teacher->classes->pluck('id')->toArray();
-
-            if (empty($teacherClassIds)) {
-                // Teacher has no classes assigned, show empty results
-                $students = collect();
-                $users = collect();
-            } else {
-                // Get students enrolled in teacher's classes
-                $students = TenantStudents::with(['classes', 'parents'])
-                    ->whereHas('classes', function ($query) use ($teacherClassIds) {
-                        $query->whereIn('tenant_classes.id', $teacherClassIds);
-                    })
-                    ->get();
-
-                // Get users who have student role and are enrolled in teacher's classes
-                $users = \App\Models\User::with('student')
-                    ->where(function ($query) {
-                        $query->whereHas('roles', function ($q) {
-                            $q->where('name', 'student');
-                        })->orWhereHas('student');
-                    })
-                    ->whereHas('student.classes', function ($query) use ($teacherClassIds) {
-                        $query->whereIn('tenant_classes.id', $teacherClassIds);
-                    })
-                    ->get();
-            }
-        } else if($user->hasRole('student') && $user->student) {
-            // For students, only show other students from their classes
-            $studentClassIds = $user->student->classes->pluck('id')->toArray();
-            if (empty($studentClassIds)) {
-                // Student is not enrolled in any classes, show empty results
-                $students = collect();
-                $users = collect();
-            } else {
-                // Get students enrolled in the same classes as the logged-in student
-                $students = TenantStudents::with(['classes', 'parents'])
-                    ->whereHas('classes', function ($query) use ($studentClassIds) {
-                        $query->whereIn('tenant_classes.id', $studentClassIds);
-                    })
-                    ->get();
-
-                // Get users who have student role and are enrolled in the same classes
-                $users = \App\Models\User::with('student')
-                    ->where(function ($query) {
-                        $query->whereHas('roles', function ($q) {
-                            $q->where('name', 'student');
-                        })->orWhereHas('student');
-                    })
-                    ->whereHas('student.classes', function ($query) use ($studentClassIds) {
-                        $query->whereIn('tenant_classes.id', $studentClassIds);
-                    })
-                    ->get();
-            }
-
-        } else {
-            // For other roles or teachers without teacher record, show empty results
-            $students = collect();
-            $users = collect();
-        }
+        // Get students based on user role
+        [$students, $users] = $this->getStudentsByUserRole($user, $request->get('search'));
 
         return view('tenants.students.index', compact('tenant', 'users', 'students'));
+    }
+
+    /**
+     * Get students based on the authenticated user's role.
+     */
+    private function getStudentsByUserRole($user, $search = null)
+    {
+        if ($user->hasRole('tenant_admin')) {
+            return $this->getStudentsForTenantAdmin($search);
+        }
+
+        if ($user->hasRole('teacher') && $user->teacher) {
+            return $this->getStudentsForTeacher($user, $search);
+        }
+
+        if ($user->hasRole('student') && $user->student) {
+            return $this->getStudentsForStudent($user, $search);
+        }
+
+        // For other roles or users without proper records, show empty results
+        return [collect(), collect()];
+    }
+
+    /**
+     * Get all students for tenant admin.
+     */
+    private function getStudentsForTenantAdmin($search = null)
+    {
+        $query = TenantStudents::with(['classes', 'parents']);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        $students = $query->paginate(15);
+
+        // Get users who have student role or have a student record
+        $userQuery = \App\Models\User::with('student')
+            ->where(function ($query) {
+                $query->whereHas('roles', function ($q) {
+                    $q->where('name', 'student');
+                })->orWhereHas('student');
+            });
+
+        if ($search) {
+            $userQuery->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $users = $userQuery->paginate(15);
+
+        return [$students, $users];
+    }
+
+    /**
+     * Get students for teacher (only from their assigned classes).
+     */
+    private function getStudentsForTeacher($user, $search = null)
+    {
+        $teacherClassIds = $user->teacher->classes->pluck('id')->toArray();
+
+        if (empty($teacherClassIds)) {
+            // Teacher has no classes assigned, show empty results
+            return [collect(), collect()];
+        }
+
+        // Get students enrolled in teacher's classes
+        $query = TenantStudents::with(['classes', 'parents'])
+            ->whereHas('classes', function ($query) use ($teacherClassIds) {
+                $query->whereIn('tenant_classes.id', $teacherClassIds);
+            });
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        $students = $query->paginate(15);
+
+        // Get users who have student role and are enrolled in teacher's classes
+        $userQuery = \App\Models\User::with('student')
+            ->where(function ($query) {
+                $query->whereHas('roles', function ($q) {
+                    $q->where('name', 'student');
+                })->orWhereHas('student');
+            })
+            ->whereHas('student.classes', function ($query) use ($teacherClassIds) {
+                $query->whereIn('tenant_classes.id', $teacherClassIds);
+            });
+
+        if ($search) {
+            $userQuery->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $users = $userQuery->paginate(15);
+
+        return [$students, $users];
+    }
+
+    /**
+     * Get classmates for student (only from their shared classes).
+     */
+    private function getStudentsForStudent($user, $search = null)
+    {
+        $studentClassIds = $user->student->classes->pluck('id')->toArray();
+
+        if (empty($studentClassIds)) {
+            // Student is not enrolled in any classes, show empty results
+            return [collect(), collect()];
+        }
+
+        // Get students enrolled in the same classes as the logged-in student
+        $query = TenantStudents::with(['classes', 'parents'])
+            ->whereHas('classes', function ($query) use ($studentClassIds) {
+                $query->whereIn('tenant_classes.id', $studentClassIds);
+            });
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        $students = $query->paginate(15);
+
+        // Get users who have student role and are enrolled in the same classes
+        $userQuery = \App\Models\User::with('student')
+            ->where(function ($query) {
+                $query->whereHas('roles', function ($q) {
+                    $q->where('name', 'student');
+                })->orWhereHas('student');
+            })
+            ->whereHas('student.classes', function ($query) use ($studentClassIds) {
+                $query->whereIn('tenant_classes.id', $studentClassIds);
+            });
+
+        if ($search) {
+            $userQuery->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $users = $userQuery->paginate(15);
+
+        return [$students, $users];
     }
 
     /**

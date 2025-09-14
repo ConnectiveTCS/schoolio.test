@@ -14,8 +14,17 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(Request $request): View|\Illuminate\Http\RedirectResponse
     {
+        // If central admin is already authenticated, redirect to dashboard
+        if (Auth::guard('central_admin')->check()) {
+            $currentHost = $request->getHost();
+            $scheme = $request->getScheme();
+            $dashboardUrl = "{$scheme}://{$currentHost}/central/dashboard";
+
+            return redirect($dashboardUrl);
+        }
+
         return view('central.auth.login');
     }
 

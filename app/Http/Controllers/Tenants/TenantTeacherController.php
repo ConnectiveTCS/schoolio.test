@@ -69,7 +69,7 @@ class TenantTeacherController extends Controller
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'hire_date' => 'required|date',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
         $password = \Illuminate\Support\Str::random(8); // Default password if not provided
 
@@ -83,12 +83,12 @@ class TenantTeacherController extends Controller
             'user_id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'subject' => $request->input('subject'),
-            'bio' => $request->input('bio'),
-            'phone' => $request->input('phone'),
-            'address' => $request->input('address'),
-            'hire_date' => $request->input('hire_date'),
-            'is_active' => $request->input('is_active', true),
+            'subject' => $validated['subject'],
+            'bio' => $validated['bio'],
+            'phone' => $validated['phone'],
+            'address' => $validated['address'],
+            'hire_date' => $validated['hire_date'],
+            'is_active' => $request->has('is_active') ? (bool)$request->input('is_active') : true,
         ]);
 
         // Send email to user with their credentials

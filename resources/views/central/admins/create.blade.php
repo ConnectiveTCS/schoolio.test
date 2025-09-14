@@ -427,7 +427,7 @@
                 checkboxes.forEach(checkbox => {
                     const value = checkbox.value.toLowerCase();
                     if (value.includes('view_tenant_data') || value.includes('view tenant data') ||
-                        value.includes('view') && (value.includes('tenant') || value.includes('data'))) {
+                        (value.includes('view') && (value.includes('tenant') || value.includes('data')))) {
                         checkbox.checked = true;
                     }
                 });

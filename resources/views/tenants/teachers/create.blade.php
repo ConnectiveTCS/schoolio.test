@@ -142,11 +142,13 @@
                             <div class="flex items-center">
                                 <input id="is_active" type="checkbox" name="is_active" value="1"
                                     {{ old('is_active', true) ? 'checked' : '' }}
-                                    class="mr-3 h-4 w-4 rounded-sm border-[color:var(--color-light-brunswick-green)] text-[color:var(--color-castleton-green)] transition-colors duration-200 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)]">
-                                <i
-                                    class="fas fa-toggle-on mr-2 text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]"></i>
-                                <x-input-label for="is_active" :value="__('Active Teacher')"
-                                    class="cursor-pointer text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]" />
+                                    class="mr-2 h-4 w-4 rounded-sm border-[color:var(--color-light-brunswick-green)] text-[color:var(--color-castleton-green)] transition-colors duration-200 focus:ring-[color:var(--color-castleton-green)] dark:border-[color:var(--color-castleton-green)] dark:bg-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-castleton-green)] dark:focus:ring-[color:var(--color-light-castleton-green)]">
+                                <x-input-label for="is_active"
+                                    class="flex cursor-pointer items-center text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
+                                    <i
+                                        class="fas fa-toggle-on mr-2 text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]"></i>
+                                    {{ __('Active Teacher') }}
+                                </x-input-label>
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('is_active')" />
                         </div>
@@ -169,4 +171,29 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth fade-in animation to form sections
+            const formSections = document.querySelectorAll('.rounded-lg.border');
+            formSections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(10px)';
+                section.style.transition = 'all 0.3s ease';
+
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // Auto-focus on first input after animations complete
+            setTimeout(() => {
+                const firstInput = document.getElementById('name');
+                if (firstInput) {
+                    firstInput.focus();
+                }
+            }, 500);
+        });
+    </script>
 </x-tenant-dash-component>

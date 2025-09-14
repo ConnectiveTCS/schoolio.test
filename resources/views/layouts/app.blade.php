@@ -43,7 +43,7 @@
     <body
         class="bg-white font-sans text-gray-900 antialiased transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
         <!-- Navigation -->
-        <nav class="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur-xs transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900/95"
+        <nav class="backdrop-blur-xs fixed top-0 z-50 w-full border-b border-gray-200 bg-white/95 transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900/95"
             x-data="{ mobileMenuOpen: false }">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
@@ -67,7 +67,7 @@
                             Works</a>
                         <a href="#pricing"
                             class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Pricing</a>
-                            @auth
+                        @auth('central_admin')
                             <a href="{{ route('central.dashboard') }}"
                                 class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Dashboard</a>
                             <a href="{{ route('central.logout') }}"
@@ -78,11 +78,11 @@
                             <form id="logout-form" action="{{ route('central.logout') }}" method="POST" class="hidden">
                                 @csrf
                             </form>
-                            @endauth
-                            @if (!auth()->check())
-                                <a href="{{ route('central.login') }}"
-                                    class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>
-                            @endif
+                        @endauth
+                        @if (!auth('central_admin')->check())
+                            <a href="{{ route('central.login') }}"
+                                class="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>
+                        @endif
 
                         <!-- Theme Toggle Button -->
                         <button @click="darkMode = !darkMode"
@@ -139,7 +139,7 @@
 
             <!-- Mobile menu -->
             <div x-show="mobileMenuOpen" x-transition
-                class="border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900 md:hidden">
+                class="border-t border-gray-200 bg-white md:hidden dark:border-gray-700 dark:bg-gray-900">
                 <div class="space-y-2 px-4 py-2">
                     <a href="#features"
                         class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Features</a>
@@ -148,8 +148,20 @@
                         it Works</a>
                     <a href="#pricing"
                         class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Pricing</a>
-                    <a href="{{ route('central.login') }}"
-                        class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>
+                    @auth('central_admin')
+                        <a href="{{ route('central.dashboard') }}"
+                            class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Dashboard</a>
+                        <a href="{{ route('central.logout') }}"
+                            class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                            onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">Logout</a>
+                        <form id="logout-form-mobile" action="{{ route('central.logout') }}" method="POST"
+                            class="hidden">
+                            @csrf
+                        </form>
+                    @else
+                        <a href="{{ route('central.login') }}"
+                            class="block py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>
+                    @endauth
                     <a href="#subscribe"
                         class="bg-primary-600 hover:bg-primary-700 mt-2 block w-full rounded-lg px-4 py-2 text-center font-medium text-white">
                         Start Free Trial
@@ -159,7 +171,7 @@
         </nav>
         <x-auth-session-status class="mb-4" :status="session('status')" />
         <main
-            class="from-primary-50 bg-linear-to-br to-white pb-12 pt-20 transition-colors duration-300 dark:from-gray-800 dark:to-gray-900 lg:pb-20 lg:pt-32">
+            class="from-primary-50 bg-linear-to-br to-white pb-12 pt-20 transition-colors duration-300 lg:pb-20 lg:pt-32 dark:from-gray-800 dark:to-gray-900">
             {{ $slot }}
         </main>
         <!-- Footer -->
@@ -211,14 +223,19 @@
                             <li><a href="#" class="transition-colors hover:text-white">Documentation</a></li>
                             <li><a href="#" class="transition-colors hover:text-white">Help Center</a></li>
                             <li><a href="#" class="transition-colors hover:text-white">Contact Us</a></li>
-                            <li><a href="{{ route('central.login') }}"
-                                    class="transition-colors hover:text-white">Admin Login</a></li>
+                            @auth('central_admin')
+                                <li><a href="{{ route('central.dashboard') }}"
+                                        class="transition-colors hover:text-white">Admin Dashboard</a></li>
+                            @else
+                                <li><a href="{{ route('central.login') }}"
+                                        class="transition-colors hover:text-white">Admin Login</a></li>
+                            @endauth
                         </ul>
                     </div>
                 </div>
 
                 <div
-                    class="mt-12 flex flex-col items-center justify-between border-t border-gray-800 pt-8 dark:border-gray-700 md:flex-row">
+                    class="mt-12 flex flex-col items-center justify-between border-t border-gray-800 pt-8 md:flex-row dark:border-gray-700">
                     <p class="text-gray-400 dark:text-gray-500">&copy; {{ date('Y') }} Schoolio. All rights
                         reserved.</p>
                     <div class="mt-4 flex space-x-6 md:mt-0">

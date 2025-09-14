@@ -2,7 +2,9 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2
-                class="text-xl font-semibold leading-tight text-[color:var(--color-dark-green)] dark:text-[color:var(--color-light-dark-green)]">
+                class="flex items-center text-xl font-semibold leading-tight text-[color:var(--color-dark-green)] transition-colors duration-200 dark:text-[color:var(--color-light-dark-green)]">
+                <i
+                    class="fas fa-chalkboard-teacher mr-3 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
                 {{ __('Teachers') }}
             </h2>
         </div>
@@ -11,6 +13,18 @@
     <div class="mx-auto max-w-7xl px-4 py-8 transition-colors duration-200 sm:px-6 lg:px-8">
         <!-- Session Status -->
         <x-auth-session-status class="mb-6" :status="session('status')" />
+
+        <!-- Success Message -->
+        @if (session('success'))
+            <div
+                class="mb-6 rounded-lg border border-[color:var(--color-castleton-green)] bg-[color:var(--color-light-castleton-green)] p-4 text-[color:var(--color-dark-green)] transition-colors duration-200 dark:border-[color:var(--color-light-castleton-green)] dark:bg-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-dark-green)]">
+                <div class="flex items-center">
+                    <i
+                        class="fas fa-check-circle mr-2 text-[color:var(--color-castleton-green)] dark:text-[color:var(--color-light-castleton-green)]"></i>
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
 
         <!-- Header Actions -->
         <div class="mb-8 flex items-center justify-between">
