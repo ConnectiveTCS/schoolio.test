@@ -838,4 +838,10 @@ When making any changes to tenant view files, follow this priority order:
 - Implement proper authentication and authorization.
 - Return consistent and meaningful HTTP status codes.
 
-15. **Organization of Route Code**: Maintain a well-organized route structure. Group related routes together, use route namespacing, and apply middleware appropriately to ensure clarity and maintainability. Ensure appropriate redirect error handling is in place, by looking at the RedirectController for examples.
+15. **Organization of Route Code**: Maintain a well-organized route structure. Group related routes together, use route namespacing, and apply middleware appropriately to ensure clarity and maintainability. Ensure appropriate redirect error handling is in place, by looking at the RedirectController for examples. When I ask "organize route code", follow this guideline.
+**Route Organization Guidelines**:
+- Group related routes together (e.g., all user-related routes in a `UserController`).
+- Use route namespacing to organize routes logically (e.g., `Admin\UsersController` for admin-related user routes).
+- Apply middleware to routes as needed for authentication, authorization, and other concerns.
+- Keep route definitions clean and concise, using route groups and prefixes where appropriate.
+- Document complex route logic or dependencies within the route files.

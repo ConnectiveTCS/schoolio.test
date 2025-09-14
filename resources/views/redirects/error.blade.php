@@ -96,7 +96,7 @@
                         <pre class="overflow-x-auto text-xs text-[color:var(--color-gunmetal)] dark:text-[color:var(--color-light-gunmetal)]">
 Error Code: {{ $error_code }}
 Time: {{ now()->toDateTimeString() }}
-Request ID: {{ request()->getRequest()->getRequestId() ?? 'N/A' }}
+Request ID: {{ request()->header('X-Request-ID') ?? uniqid() }}
 User Agent: {{ request()->userAgent() }}
                         </pre>
                     </div>
