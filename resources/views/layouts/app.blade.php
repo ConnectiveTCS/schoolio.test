@@ -172,7 +172,11 @@
         <x-auth-session-status class="mb-4" :status="session('status')" />
         <main
             class="from-primary-50 bg-linear-to-br to-white pb-12 pt-20 transition-colors duration-300 lg:pb-20 lg:pt-32 dark:from-gray-800 dark:to-gray-900">
-            {{ $slot }}
+            @if (isset($slot))
+                {{ $slot }}
+            @else
+                @yield('content')
+            @endif
         </main>
         <!-- Footer -->
         <footer class="bg-gray-900 py-12 text-white transition-colors duration-300 dark:bg-black">

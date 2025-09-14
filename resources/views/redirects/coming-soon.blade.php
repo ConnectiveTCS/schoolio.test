@@ -1,7 +1,3 @@
-@extends('layouts.guest')
-
-@section('title', 'Coming Soon')
-
 <x-guest-layout>
     <div
         class="flex min-h-screen items-center justify-center bg-[color:var(--color-light-dark-green)] px-4 py-12 transition-colors duration-200 dark:bg-[color:var(--color-dark-green)]">
